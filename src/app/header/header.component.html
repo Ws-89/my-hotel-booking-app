@@ -1,0 +1,39 @@
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" routerLink="home">Hotel booking app</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a routerLink="availability" routerLinkActive="active" class="nav-link"
+            *ngIf="userService.authoritiesMatch(['ROLE_GUEST'])"  
+            >Search for rooms</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="admin" routerLinkActive="active" class="nav-link"
+              *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])"
+            >Admin</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="guest" routerLinkActive="active" class="nav-link"
+             *ngIf="userService.authoritiesMatch(['ROLE_GUEST'])"  
+            >Guest</a>
+            
+        </li>
+        <li class="nav-item">
+            <a routerLink="hotels" routerLinkActive="active" class="nav-link"
+            *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])"
+            >Hotels</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="create-hotel" routerLinkActive="active" class="nav-link"
+            *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])"
+            >Create hotel</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button *ngIf="!isLoggedIn()" class="btn btn-success" type="submit" routerLink="login">Login</button>
+        <button *ngIf="isLoggedIn()" class="btn btn-outline-info" type="submit" (click)="logout()">Logout</button>
+      </form>
+    </div>
+  </nav>

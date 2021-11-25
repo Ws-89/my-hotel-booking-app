@@ -1,0 +1,64 @@
+
+    
+        <h3> Create hotel </h3>
+        <form (ngSubmit) = "onSubmit()">
+        
+            <div class="form-group">
+                <label>Hotel name</label>
+                <input type="text" class="form-control" id="hotelName"
+                    [(ngModel)] = "hotel.name" name="hotelName">
+            </div>
+            <div class="form-group">
+                <label>Hotel street</label>
+                <input type="text" class="form-control" id="hotelStreet"
+                    [(ngModel)] = "hotel.street" name="hotelStreet">
+            </div>
+            <div class="form-group">
+                <label>Hotel city</label>
+                <input type="text" class="form-control" id="hotelCity"
+                    [(ngModel)] = "hotel.city" name="hotelCity">
+            </div>
+            <div class="form-group">
+                <label>Hotel state</label>
+                <input type="text" class="form-control" id="hotelState"
+                    [(ngModel)] = "hotel.state" name="hotelState">
+            </div>
+            <div class="form-group">
+                <label>Hotel country</label>
+                <input type="text" class="form-control" id="hotelCountry"
+                    [(ngModel)] = "hotel.country" name="hotelCountry">
+            </div>
+            <div class="form-group">
+                <label>Hotel zipcode</label>
+                <input type="text" class="form-control" id="hotelZipcode"
+                    [(ngModel)] = "hotel.zipcode" name="hotelZipcode">
+            </div>
+        
+            <div class="form-group">
+                <label>Hotel phone number</label>
+                <input type="text" class="form-control" id="hotelphone"
+                    [(ngModel)] = "hotel.phoneNumber" name="hotelphone">
+            </div>
+            <div class="form-group">
+                <label>Hotel email</label>
+                <input type="text" class="form-control" id="hotelEmail"
+                    [(ngModel)] = "hotel.email" name="hotelEmail">
+            </div> 
+        
+            <div class="type-of-room">
+                <mat-form-field>
+                    <mat-label> Hotel </mat-label>
+                    <mat-select
+                        [(ngModel)]="hotel.grade" [ngModelOptions]="{standalone: true}"
+                        >
+                        <mat-option *ngFor="let item of gradeKeys" [value]="grades[item]" >{{item}}</mat-option>
+                        
+                    </mat-select>
+                </mat-form-field>
+                
+            </div>
+        
+            <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+        
+        

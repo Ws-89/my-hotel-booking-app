@@ -1,0 +1,27 @@
+<div class="col-md-6 offset-md-3">
+    <h3> Update room </h3>
+    <form (ngSubmit) = "onSubmit()"> 
+    
+        <div class="form-group">
+            <label> Number </label>
+            <input type="text" class="form-control" id="number"
+                [(ngModel)] = "room.number" name = "number">
+        </div>
+       
+    
+        <div class="type-of-room">
+            <mat-form-field>
+                <mat-label> Room type </mat-label>
+                <mat-select
+                    [(ngModel)]="room.roomType" [ngModelOptions]="{standalone: true}"
+                    >
+                    <mat-option *ngFor="let type of roomTypeKeys" [value]="roomType[type]" >{{type}}</mat-option>
+                    
+                </mat-select>
+            </mat-form-field>
+        </div>
+    
+        <button class = "btn btn-success" type="submit"> Submit </button>
+    </form>
+    </div>
+    

@@ -1,0 +1,26 @@
+<h2> Room list </h2>
+<table class = "table table-striped">
+    <thead>
+        <tr>
+            <th> Id </th>
+            <th> Number </th>
+            <th> Room type</th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let room of rooms"> <!-- to jest wyrazenie javascript i rooms trzeba zadeklarowac w room-list.component.ts-->
+            <td> {{ room.room_id }} </td>
+            <td> {{ room.number }} </td>
+            <td> {{ room.roomType }} </td>
+            <td>
+                <button (click) = "deleteRoom(room.room_id, hotel_id)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete </button>
+                <button (click) = "roomDetails(room.room_id)" class="btn btn-info float-right" style="margin-left: 10px"> Info </button>
+                <button (click) = "updateRoom(room.room_id)" class="btn btn-warning float-right"> Update </button>
+                
+                
+            </td>
+        </tr>
+        <button (click) = "createRoom(hotel_id)" class="btn btn-primary"> Create room </button>
+    </tbody>
+</table>

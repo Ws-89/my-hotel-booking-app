@@ -1,0 +1,7 @@
+export enum Grade {
+    ONE_STAR = 'ONESTAR',
+    TWO_STARS = 'TWOSTARS',
+    THREE_STARS = 'THREESTARS',
+    FOUR_STARS = 'FOURSTARS',
+    FIVE_STARS = 'FIVESTARS'
+}
