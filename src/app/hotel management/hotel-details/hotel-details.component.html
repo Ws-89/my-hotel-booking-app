@@ -27,3 +27,9 @@
 <div>
     <label><b>grade: </b></label> {{hotel.grade}}
 </div>
+
+<button (click) = "showRoomList(hotel.hotel_id)" class="btn btn-secondary float-right" style="margin-left: 10px">Room list</button><br><br>
+<button (click) = "updateHotel(hotel.hotel_id)" class="btn btn-warning float-right" style="margin-left: 10px">Update</button><br><br>
+<button (click) = "deleteHotel(hotel.hotel_id)" class="btn btn-danger float-right" style="margin-left: 10px">Delete</button>
+<input type="file" (change)="onFileSelected($event)">
+<button type="button" (click)="onUpload()">Upload</button>

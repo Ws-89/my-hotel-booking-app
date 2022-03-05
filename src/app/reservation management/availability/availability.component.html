@@ -1,1 +1,22 @@
 
+<h2> Available rooms </h2>
+<table  class= "table table-striped"> 
+    <thead>
+        <tr>
+            <th> Room size </th>
+            <th> Description </th>
+            <th> Price </th>
+            <th> Check rooms</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let availability of roomsOfSpecificHotel">
+            <td>{{ availability.roomType }}</td>
+            <td> Some description </td>
+            <td> {{ availability.price }} </td>
+            <td>
+                <button (click) = "bookThisRoom(availability)" class="btn btn-info" style="margin-left: 10px">Check rooms</button><br><br><br><br> 
+             </td>
+        </tr> 
+    </tbody>
+</table> 

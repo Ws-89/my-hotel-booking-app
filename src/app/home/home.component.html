@@ -1,5 +1,28 @@
-<div class="container mt-5">
-    <div class="card text-center" style="padding: 20px">
-        <h1>This is home page</h1>
-    </div>
-</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-center">
+    <mat-form-field appearance="outline">
+        <mat-label>Pick reservation range</mat-label>
+        <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+            <input matStartDate placeholder="Start date" formControlName="from_date">
+            <input matEndDate placeholder="End date" formControlName="to_date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker [startAt]="startDate" ></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Where you want to stay?</mat-label>
+        <input matInput placeholder="Enter city" formControlName="city">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>How many rooms?</mat-label>
+        <input matInput placeholder="Enter city" formControlName="roomAmmount">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>How many peoples?</mat-label>
+        <input matInput placeholder="Enter city" formControlName="partySize">
+    </mat-form-field>
+    <br>
+    <button class="btn btn-success" type="submit">Search for available rooms</button>
+</form>
+
+
+

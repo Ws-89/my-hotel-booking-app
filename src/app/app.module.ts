@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { UpdateRoomComponent } from './hotel management/update-room/update-room.component';
 import { RoomDetailsComponent } from './hotel management/room-details/room-details.component';
 import { HotelsListComponent } from './hotel management/hotels-list/hotels-list.component';
@@ -31,6 +34,11 @@ import { AuthGuard } from './_auth/auth.guard';
 import { AuthInterceptor } from './_auth/auth.interceptor';
 import { UserService } from './_services/user.service';
 import { RegisterSuccessComponent } from './login and registration/register-success/register-success.component';
+import { AvailabilityListComponent } from './reservation management/availability-list/availability-list.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { ReservationPageComponent } from './reservation-page/reservation-page.component';
+
 
 
 @NgModule({
@@ -54,7 +62,9 @@ import { RegisterSuccessComponent } from './login and registration/register-succ
     ReservationComponent,
     PaymentComponent,
     RegisterComponent,
-    RegisterSuccessComponent
+    RegisterSuccessComponent,
+    AvailabilityListComponent,
+    ReservationPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +75,12 @@ import { RegisterSuccessComponent } from './login and registration/register-succ
     FormsModule,
     MatSelectModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatRippleModule,
+    MatInputModule
   ],
   providers: [
     AuthGuard,

@@ -10,8 +10,11 @@ import { HotelsService } from '../../_services/hotels.service';
 })
 export class HotelsListComponent implements OnInit {
 
-  hotels: Hotel[];
-
+  hotels = new Array<Hotel>();
+  retrievedImages = new Map<number, any>();
+  base64Data: any;
+  retrieveResonse: any;
+ 
   constructor(private hotelService: HotelsService, private router: Router) { }
 
   ngOnInit(): void {
@@ -20,19 +23,13 @@ export class HotelsListComponent implements OnInit {
 
   private getHotels(){
     this.hotelService.getHotelList().subscribe(data => {
-      this.hotels = data;
-      console.log(this.hotels)
+      for(var x of data){
+        this.hotels.push(x);
+      }
+      for(var x of this.hotels){
+        this.downloadImage(x.hotel_id);
+      }
     });
-  }
-
-  updateHotel(id: number){
-    this.router.navigate(['update-hotel', id]);
-  }
-
-  deleteHotel(id: number){
-    this.hotelService.deleteHotel(id).subscribe(data => {
-      this.getHotels();
-    })
   }
 
   hotelDetails(id: number){
@@ -41,7 +38,12 @@ export class HotelsListComponent implements OnInit {
     })
   }
 
-  showRoomList(id: number){
-    this.router.navigate(['rooms', id]);
+  downloadImage(id: number){
+    this.hotelService.downloadImage(id).subscribe(data => {
+      this.retrieveResonse = data;
+      this.base64Data = this.retrieveResonse.bytePic;
+      this.retrievedImages.set(id, 'data:image/jpeg;base64,' + this.base64Data);
+    })
   }
+
 }

@@ -32,8 +32,9 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <button *ngIf="!isLoggedIn()" class="btn btn-success" type="submit" routerLink="login">Login</button>
-        <button *ngIf="isLoggedIn()" class="btn btn-outline-info" type="submit" (click)="logout()">Logout</button>
+        <button *ngIf="isLoggedIn() && userService.authoritiesMatch(['ROLE_GUEST'])" class="btn btn-outline-light" type="submit" routerLink="reservation-page">Finish your reservations</button>
+        <button *ngIf="!isLoggedIn()" class="btn btn-success" type="submit" routerLink="login" >Login</button>
+        <button *ngIf="isLoggedIn()" class="btn btn-outline-primary" type="submit" (click)="logout()" style="margin-left: 10px">Logout</button>
       </form>
     </div>
   </nav>

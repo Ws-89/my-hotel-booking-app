@@ -18,6 +18,7 @@ export class CreateHotelComponent implements OnInit {
 
   grades = Grade;
   gradeKeys = [];
+  selectedFile: File = null;
 
   constructor(private hotelService: HotelsService, private router: Router) { 
     this.gradeKeys = Object.keys(this.grades);

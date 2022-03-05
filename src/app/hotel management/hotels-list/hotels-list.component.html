@@ -17,17 +17,16 @@
     <tbody>
         <tr *ngFor = "let hotel of hotels">
             <td>{{ hotel.hotel_id }}</td>
-            <td><img src="assets/images/hotels/hotel-1.jpg" alt=""></td>
+            <td><img [src]="retrievedImages.get(hotel.hotel_id)"></td>
             <td>{{ hotel.name }}</td>
             <td>{{ hotel.street }}</td>
             <td>{{ hotel.city }}</td>
             <td>{{ hotel.country }}</td>
             <td>{{ hotel.grade }}</td>
             <td>
-                <!-- <button (click) = "showRoomList(hotel.hotel_id)" class="btn btn-secondary float-right" style="margin-left: 10px">Room list</button><br><br> -->
-                <!-- <button (click) = "updateHotel(hotel.hotel_id)" class="btn btn-warning float-right" style="margin-left: 10px">Update</button><br><br> -->
+                
                 <button (click) = "hotelDetails(hotel.hotel_id)" class="btn btn-info float-right" style="margin-left: 10px">Show details</button><br><br><br><br>
-                <!-- <button (click) = "deleteHotel(hotel.hotel_id)" class="btn btn-danger float-right" style="margin-left: 10px">Delete</button> -->
+                
             </td>
         </tr>
     </tbody>
