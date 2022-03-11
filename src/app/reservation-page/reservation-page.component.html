@@ -1,1 +1,11 @@
-<p>reservation-page works!</p>
+<div>
+    <ul>
+        <li *ngFor="let availability of reservations.items">
+            {{availability.room_id}}
+            <button (click)="removeFromReservations(availability)">Remove</button>
+        </li>
+    </ul>
+</div>
+
+
+<button (click)="saveReservation" class="btn btn-primary">Proceed reservation</button>

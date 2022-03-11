@@ -1,4 +1,4 @@
-export class Contact {
+export interface Contact {
     phoneNumber: string;
     email: string;
 }

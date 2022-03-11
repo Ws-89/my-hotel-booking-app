@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Availability } from 'src/app/models/availability';
 import { AvailabilityService } from 'src/app/_services/availability.service';
 import { HotelsService } from 'src/app/_services/hotels.service';
+import { ReservationsService } from 'src/app/_services/reservations.service';
 
 @Component({
   selector: 'app-availability',
@@ -11,7 +12,10 @@ import { HotelsService } from 'src/app/_services/hotels.service';
 })
 export class AvailabilityComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private availabilityService: AvailabilityService, private router: Router, private hotelService: HotelsService) { }
+  constructor(private route: ActivatedRoute, 
+              private availabilityService: AvailabilityService, 
+              private router: Router, 
+              private reservationService: ReservationsService) { }
 
   id: number;
   searchResult: Availability[];
@@ -26,7 +30,8 @@ export class AvailabilityComponent implements OnInit {
   }
 
   bookThisRoom(availability: Availability){
-    
+    this.reservationService.addReservationItem(availability);
+    this.router.navigateByUrl('/reservation-page')
   }
 
 

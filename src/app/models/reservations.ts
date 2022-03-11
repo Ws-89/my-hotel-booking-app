@@ -1,7 +1,7 @@
-import { ReservationItem } from "./reservationItem";
+import { Availability } from "./availability";
 
 export class Reservations {
-    items:ReservationItem[] = [];
+    items:Availability[] = [];
 
     get totalPrice(): number {
         let totalPrice = 0;

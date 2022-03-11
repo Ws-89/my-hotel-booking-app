@@ -1,4 +1,4 @@
-export class HotelImage {
+export interface HotelImage {
     id: number;
     image: any;
 }

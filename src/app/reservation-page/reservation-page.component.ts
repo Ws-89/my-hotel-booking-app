@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReservationItem } from '../models/reservationItem';
+import { Availability } from '../models/availability';
+import { Reservation } from '../models/reservation';
 import { Reservations } from '../models/reservations';
 import { AvailabilityService } from '../_services/availability.service';
-import { ReservationsService } from '../_services/reservations/reservations.service';
+import { ReservationsService } from '../_services/reservations.service';
 
 @Component({
   selector: 'app-reservation-page',
@@ -11,25 +12,28 @@ import { ReservationsService } from '../_services/reservations/reservations.serv
   styleUrls: ['./reservation-page.component.css']
 })
 export class ReservationPageComponent implements OnInit {
-  reservations!:Reservations;
+  reservations:Reservations;
+  reservationRequest: Reservation;
   constructor(private activatedRoute: ActivatedRoute, 
               private reservationService: ReservationsService) { 
+      this.setReservations();
   }
 
   setReservations(){
     this.reservations = this.reservationService.getReservations();
   }
 
-  removeFromReservations(reservationItem: ReservationItem){
-    this.reservationService.removeReservation(reservationItem.id);
+  removeFromReservations(availability: Availability){
+    this.reservationService.removeReservation(availability.room_id);
     this.setReservations();
   }
 
   ngOnInit(): void {
   }
 
-  // addToReservations(){
-  //   this.reservationService.addReservationItem()
-  // }
+  saveReservation(): void {
+      // this.reservationRequest.room_id = this.reservations.items.map(item => item.room_id);
+
+  }
 
 }
