@@ -26,23 +26,13 @@ export class HotelsListComponent implements OnInit {
       for(var x of data){
         this.hotels.push(x);
       }
-      for(var x of this.hotels){
-        this.downloadImage(x.hotel_id);
-      }
+      
     });
   }
 
   hotelDetails(id: number){
     this.hotelService.getHotelById(id).subscribe(data => {
       this.router.navigate(['hotel-details', id]);
-    })
-  }
-
-  downloadImage(id: number){
-    this.hotelService.downloadImage(id).subscribe(data => {
-      this.retrieveResonse = data;
-      this.base64Data = this.retrieveResonse.bytePic;
-      this.retrievedImages.set(id, 'data:image/jpeg;base64,' + this.base64Data);
     })
   }
 

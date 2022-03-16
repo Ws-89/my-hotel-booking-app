@@ -12,5 +12,6 @@ export class Hotel {
     phoneNumber: string;
     email: string;
     grade: Grade;
+    image: string;
 }
 

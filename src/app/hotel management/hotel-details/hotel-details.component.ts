@@ -19,7 +19,6 @@ export class HotelDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-
     this.hotel = new Hotel();
     this.hotelService.getHotelById(this.id).subscribe(data => {
       this.hotel = data;
@@ -32,7 +31,7 @@ export class HotelDetailsComponent implements OnInit {
 
   deleteHotel(id: number){
     this.hotelService.deleteHotel(id).subscribe(data => {
-      this.hotelService.getHotelList();
+      this.router.navigate(['hotels']);
     })
   }
 

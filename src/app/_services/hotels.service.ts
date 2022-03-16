@@ -18,10 +18,9 @@ export class HotelsService {
   constructor(private httpClient: HttpClient) { }
 
   getHotelList(): Observable<Hotel[]>{
-    return this.httpClient.get<Hotel[]>(`${this.baseUrl}`);
-    
+    return this.httpClient.get<Hotel[]>(`${this.baseUrl}`); 
   }
-
+  
   saveHotel(hotel: Hotel): Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}`, hotel);
   }

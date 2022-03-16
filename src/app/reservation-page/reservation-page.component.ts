@@ -23,7 +23,7 @@ export class ReservationPageComponent implements OnInit {
     this.reservations = this.reservationService.getReservations();
   }
 
-  removeFromReservations(availability: Availability){
+  removeFromReservations(availability: Reservation){
     this.reservationService.removeReservation(availability.room_id);
     this.setReservations();
   }
@@ -32,7 +32,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   saveReservation(): void {
-      // this.reservationRequest.room_id = this.reservations.items.map(item => item.room_id);
+      
 
   }
 
