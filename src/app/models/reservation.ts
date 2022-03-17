@@ -1,4 +1,4 @@
-export interface Reservation {
+export class Reservation {
     party_size: number;
     from_date: Date;
     to_date: Date;

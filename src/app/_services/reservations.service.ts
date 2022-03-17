@@ -17,16 +17,7 @@ export class ReservationsService {
   private baseUrl = "http://localhost:8085/reservations"
   
   addReservationItem(availability: Availability): void {
-    // let reservationItem = this.reservations.items.find(item => item.room_id === availability.room_id && 
-    //   ((item.from_date.getDate < availability.from_date.getDate && item.to_date.getDate > availability.from_date.getDate)
-    //   || (item.from_date.getDate < availability.to_date.getDate && item.from_date.getDate > availability.to_date.getDate)
-    //   || (item.from_date.getDate > availability.from_date.getDate && item.to_date.getDate < availability.from_date.getDate)
-    //   || (item.from_date.getDate < availability.from_date.getDate && item.to_date.getDate > availability.to_date.getDate)
-    // ))
-    // if(reservationItem){
-    //   return;
-    // }
-    // this.reservations.items.push(availability)
+    this.reservations.items.push(availability)
   }
 
   removeReservation(reservationId: number): void{

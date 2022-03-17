@@ -1,7 +1,7 @@
 import { Grade } from "../enum/grade-type.enum";
 import { RoomType } from "../enum/room-type.enum";
 
-export interface Availability {
+export class Availability {
     hotel_id: number;
     hotel_name: string;
     city: string;
