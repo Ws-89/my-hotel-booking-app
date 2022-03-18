@@ -28,8 +28,7 @@ export class AvailabilityListComponent implements OnInit {
     this.getAvailabilities(this.availabilityRequest);
   }
 
-  filterAvailabilitiesAlreadyInReservationCart(availabilities: Availability[], availabilityRequest: AvailabilityRequest){
-    var reservations = this.reservationService.getReservations().items;
+  filterAvailabilitiesAlreadyInReservationCart(availabilities: Availability[], reservations: Availability[], availabilityRequest: AvailabilityRequest){
     return availabilities.filter(x => !reservations.find(y => this.checkIfAvailabilityIsInReservationCart(x, y, availabilityRequest)))
   }
 
@@ -52,7 +51,7 @@ export class AvailabilityListComponent implements OnInit {
 
       var reservations = this.reservationService.getReservations().items;
       if(reservations.length > 0)
-        this.availabilities = this.filterAvailabilitiesAlreadyInReservationCart(this.availabilities, availabilityRequest);
+        this.availabilities = this.filterAvailabilitiesAlreadyInReservationCart(this.availabilities, reservations, availabilityRequest);
       
       this.availableHotels = this.collectHotelToDisplay(this.availabilities);
       

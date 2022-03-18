@@ -28,12 +28,12 @@
                 [class.is-invalid]="password.invalid && password.touched">
       <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required field</small>
     </div>
-    <button (click)="login" class="btn btn-primary">Login</button>
+    <button [disabled]="loginForm.form.invalid" (click)="login" class="btn btn-primary">Login</button>
   </form>
   <small class="text-danger">{{msg}}</small>
 <div>   
     <br>
      Don't have an account? 
      <br>
-     <button [disabled]="loginForm.invalid" (click)="register()" class="btn btn-outline-primary">Register</button>
+     <button (click)="register()" class="btn btn-outline-primary">Register</button>
  </div>
