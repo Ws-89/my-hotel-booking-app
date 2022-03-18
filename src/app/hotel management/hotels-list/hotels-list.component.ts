@@ -23,10 +23,7 @@ export class HotelsListComponent implements OnInit {
 
   private getHotels(){
     this.hotelService.getHotelList().subscribe(data => {
-      for(var x of data){
-        this.hotels.push(x);
-      }
-      
+        this.hotels = data;    
     });
   }
 

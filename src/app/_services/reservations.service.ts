@@ -2,22 +2,28 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Availability } from 'src/app/models/availability';
 import { Reservations } from 'src/app/models/reservations';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Reservation } from '../models/reservation';
-import { catchError, filter } from 'rxjs/operators';
+import { AvailabilityRequest } from '../models/availabilityRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationsService {
   private reservations:Reservations = new Reservations();
-
+  private reservationRequest = new BehaviorSubject<AvailabilityRequest>(null);
+  public reservationRequestWithDate = this.reservationRequest.asObservable();
+  
   constructor(private httpClient: HttpClient) { }
 
   private baseUrl = "http://localhost:8085/reservations"
   
   addReservationItem(availability: Availability): void {
     this.reservations.items.push(availability)
+  }
+
+  addReservaionRequestDate(availabilityRequest: AvailabilityRequest){
+    this.reservationRequest.next(availabilityRequest);
   }
 
   removeReservation(reservationId: number): void{
