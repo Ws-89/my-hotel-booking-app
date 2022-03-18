@@ -32,7 +32,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   saveReservation(): void {
-      // this.reservationRequest.room_id = this.reservations.items.map(item => item.room_id);
+      
 
   }
 

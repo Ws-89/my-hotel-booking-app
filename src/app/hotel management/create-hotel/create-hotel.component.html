@@ -4,45 +4,62 @@
         <form (ngSubmit) = "onSubmit()">
         
             <div class="form-group">
-                <label>Hotel name</label>
+                <label>Name</label>
                 <input type="text" class="form-control" id="hotelName"
-                    [(ngModel)] = "hotel.name" name="hotelName">
+                    [(ngModel)] = "hotel.name" name="hotelName" required #hotelName="ngModel"
+                    [class.is-invalid]="hotelName.invalid && hotelName.touched">
+                <small class="text-danger" [class.d-none]="hotelName.valid || hotelName.untouched">Hotel name is required field</small>
+                
             </div>
             <div class="form-group">
-                <label>Hotel street</label>
+                <label>Street</label>
                 <input type="text" class="form-control" id="hotelStreet"
-                    [(ngModel)] = "hotel.street" name="hotelStreet">
+                    [(ngModel)] = "hotel.street" name="hotelStreet" required #hotelStreet="ngModel"
+                    [class.is-invalid]="hotelStreet.invalid && hotelStreet.touched">
+                    <small class="text-danger" [class.d-none]="hotelStreet.valid || hotelStreet.untouched">Street is required field</small>
             </div>
             <div class="form-group">
-                <label>Hotel city</label>
+                <label>City</label>
                 <input type="text" class="form-control" id="hotelCity"
-                    [(ngModel)] = "hotel.city" name="hotelCity">
+                    [(ngModel)] = "hotel.city" name="hotelCity" required #hotelCity="ngModel"
+                    [class.is-invalid]="hotelCity.invalid && hotelCity.touched">
+                    <small class="text-danger" [class.d-none]="hotelCity.valid || hotelCity.untouched">City is required field</small>
             </div>
             <div class="form-group">
-                <label>Hotel state</label>
+                <label>State</label>
                 <input type="text" class="form-control" id="hotelState"
-                    [(ngModel)] = "hotel.state" name="hotelState">
+                    [(ngModel)] = "hotel.state" name="hotelState" required #hotelState="ngModel"
+                    [class.is-invalid]="hotelState.invalid && hotelState.touched">
+                    <small class="text-danger" [class.d-none]="hotelState.valid || hotelState.untouched">State is required field</small>
             </div>
             <div class="form-group">
-                <label>Hotel country</label>
+                <label>Country</label>
                 <input type="text" class="form-control" id="hotelCountry"
-                    [(ngModel)] = "hotel.country" name="hotelCountry">
+                    [(ngModel)] = "hotel.country" name="hotelCountry" required #hotelCountry="ngModel"
+                    [class.is-invalid]="hotelCountry.invalid && hotelCountry.touched">
+                    <small class="text-danger" [class.d-none]="hotelCountry.valid || hotelCountry.untouched">Country is required field</small>
             </div>
             <div class="form-group">
-                <label>Hotel zipcode</label>
+                <label>Zipcode</label>
                 <input type="text" class="form-control" id="hotelZipcode"
-                    [(ngModel)] = "hotel.zipcode" name="hotelZipcode">
+                    [(ngModel)] = "hotel.zipcode" name="hotelZipcode"required #hotelZipcode="ngModel"
+                    [class.is-invalid]="hotelZipcode.invalid && hotelZipcode.touched">
+                    <small class="text-danger" [class.d-none]="hotelZipcode.valid || hotelZipcode.untouched">Zipcode is required field</small>
             </div>
         
             <div class="form-group">
-                <label>Hotel phone number</label>
-                <input type="text" class="form-control" id="hotelphone"
-                    [(ngModel)] = "hotel.phoneNumber" name="hotelphone">
+                <label>Phone number</label>
+                <input type="text" class="form-control" id="hotelphone" 
+                    [(ngModel)] = "hotel.phoneNumber" name="hotelphone" required #hotelPhone="ngModel"
+                    [class.is-invalid]="hotelPhone.invalid && hotelPhone.touched">
+                    <small class="text-danger" [class.d-none]="hotelPhone.valid || hotelPhone.untouched">Phone is required field</small>
             </div>
             <div class="form-group">
-                <label>Hotel email</label>
+                <label>Email</label>
                 <input type="text" class="form-control" id="hotelEmail"
-                    [(ngModel)] = "hotel.email" name="hotelEmail">
+                    [(ngModel)] = "hotel.email" name="hotelEmail" required #hotelEmail="ngModel"
+                    [class.is-invalid]="hotelEmail.invalid && hotelEmail.touched">
+                    <small class="text-danger" [class.d-none]="hotelEmail.valid || hotelEmail.untouched">Email is required field</small>
             </div> 
         
             <div class="type-of-room">
@@ -50,11 +67,16 @@
                     <mat-label> Hotel </mat-label>
                     <mat-select
                         [(ngModel)]="hotel.grade" [ngModelOptions]="{standalone: true}"
-                        >
+                        required #hotelGrade="ngModel"
+                        [class.is-invalid]="hotelGrade.invalid && hotelGrade.touched">
                         <mat-option *ngFor="let item of gradeKeys" [value]="grades[item]" >{{item}}</mat-option>
                         
                     </mat-select>
                 </mat-form-field>
+                <div>
+                    <small class="text-danger" [class.d-none]="hotelGrade.valid || hotelGrade.untouched">Grade is required field</small>
+                </div>
+                
                 
             </div>
         

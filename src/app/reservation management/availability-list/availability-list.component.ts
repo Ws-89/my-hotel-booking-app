@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Availability } from 'src/app/models/availability';
 import { AvailabilityRequest } from 'src/app/models/availabilityRequest';
 import { AvailabilityService } from 'src/app/_services/availability.service';
-import { HotelsService } from 'src/app/_services/hotels.service';
+import { ReservationsService } from 'src/app/_services/reservations.service';
 
 @Component({
   selector: 'app-availability-list',
@@ -12,54 +12,73 @@ import { HotelsService } from 'src/app/_services/hotels.service';
 })
 export class AvailabilityListComponent implements OnInit {
 
-  availabilities = new Array<Availability>();
+  availabilities: Availability[];
   availableHotels = new Array<Availability>();
-  retrievedImages = new Map<number, any>();
-  base64Data: any;
-  retrieveResonse: any;
   
   availabilityRequest: AvailabilityRequest = new AvailabilityRequest();
 
-  constructor(private activatedRoute: ActivatedRoute, private availabilityService: AvailabilityService, private router: Router, private hotelService: HotelsService) { }
+  constructor(private availabilityService: AvailabilityService, 
+              private router: Router, 
+              private reservationService: ReservationsService) { }
 
 
 
   ngOnInit(): void {
     this.availabilityService.share.subscribe(x => this.availabilityRequest = x);
-    this.getAvailabilitiesRequest(this.availabilityRequest);
+    this.getAvailabilities(this.availabilityRequest);
   }
 
-  getAvailabilitiesRequest(availabilityRequest: AvailabilityRequest){
-    this.availabilityService.getAvailableRooms(availabilityRequest)
+  filterAvailabilitiesAlreadyInReservationCart(availabilities: Availability[], reservations: Availability[], availabilityRequest: AvailabilityRequest){
+    return availabilities.filter(x => !reservations.find(y => this.checkIfAvailabilityIsInReservationCart(x, y, availabilityRequest)))
+  }
+
+  collectHotelToDisplay(availabilities: Availability[]){
+    let result = new Array<Availability>();
+
+    for(let x of availabilities){
+      if(result.find(a => a.hotel_id == x.hotel_id))
+        continue;
+      result.push(x);
+    }
+    return result;
+  }
+
+  getAvailabilities(availabilityRequest: AvailabilityRequest){
+    return this.availabilityService.getAvailableRooms(availabilityRequest)
     .subscribe(data => {
+      
+      this.availabilities = data;
 
-      for(var x of data){
-        this.availabilities.push(x);
-      }
-
-      for(var x of data){
-        if(this.availableHotels.find(a => a.hotel_id == x.hotel_id))
-          continue;
-        this.availableHotels.push(x);
-        this.downloadImage(x.hotel_id);
-        
-        
-      }
+      var reservations = this.reservationService.getReservations().items;
+      if(reservations.length > 0)
+        this.availabilities = this.filterAvailabilitiesAlreadyInReservationCart(this.availabilities, reservations, availabilityRequest);
+      
+      this.availableHotels = this.collectHotelToDisplay(this.availabilities);
+      
     },
     error => console.log(error))
   }
 
   availabilityDetail(id: number){
     this.availabilityService.passAvailabilityResult(this.availabilities);
+    this.reservationService.addReservaionRequestDate(this.availabilityRequest);
     this.router.navigate(['availability-details', id])
   }
 
-  downloadImage(id: number){
-    this.hotelService.downloadImage(id).subscribe(data => {
-      this.retrieveResonse = data;
-      this.base64Data = this.retrieveResonse.bytePic;
-      this.retrievedImages.set(id, 'data:image/jpeg;base64,' + this.base64Data);
-    })
+  checkIfAvailabilityIsInReservationCart = function(availability: Availability, reservation: Availability, availabilityRequest: AvailabilityRequest): boolean{
+    return (reservation.room_id == availability.room_id && 
+    (((reservation.from_date.toISOString() < availabilityRequest.from_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
+    && (reservation.to_date.toISOString() > availabilityRequest.from_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.from_date.toISOString()))
+    || 
+    ((reservation.from_date.toISOString() < availabilityRequest.to_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.to_date.toISOString()) 
+    && (reservation.to_date.toISOString() > availabilityRequest.to_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.to_date.toISOString()))
+    || 
+    ((reservation.from_date.toISOString() > availabilityRequest.from_date.toISOString()|| reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
+    && (reservation.to_date.toISOString() < availabilityRequest.to_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.to_date.toISOString()))
+    || 
+    ((reservation.from_date.toISOString() < availabilityRequest.from_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
+    && (reservation.to_date.toISOString() > availabilityRequest.to_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.to_date.toISOString())))
+    )
   }
 
 }

@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  msg = '';
+
   constructor(
     private userService: UserService, 
     private userAuthService: UserAuthService,
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.msg = "The given login or password is incorrect."
       }
     )
   }
