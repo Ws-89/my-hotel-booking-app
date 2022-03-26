@@ -1,6 +1,6 @@
 <div>
     <ul>
-        <li *ngFor="let availability of reservations.items">
+        <li *ngFor="let availability of reservations">
             {{availability.room_id}}
             <button (click)="removeFromReservations(availability)">Remove</button>
         </li>

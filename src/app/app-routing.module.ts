@@ -20,7 +20,8 @@ import { UpdateHotelComponent } from './hotel management/update-hotel/update-hot
 import { UpdateRoomComponent } from './hotel management/update-room/update-room.component';
 import { AuthGuard } from './_auth/auth.guard';
 import { AvailabilityListComponent } from './reservation management/availability-list/availability-list.component';
-import { ReservationPageComponent } from './reservation-page/reservation-page.component';
+import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

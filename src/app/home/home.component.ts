@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AvailabilityRequest } from '../models/availabilityRequest';
 import { AvailabilityService } from '../_services/availability.service';
+import { MessengerService } from '../_services/messenger.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   availabilityRequest: AvailabilityRequest = new AvailabilityRequest();
 
 
-  constructor(private fb: FormBuilder, private availabilityService: AvailabilityService, private router: Router) { }
+  constructor(private fb: FormBuilder, private availabilityService: AvailabilityService, private router: Router, private messengerService: MessengerService) { }
 
   startDate = new Date();
   minDate = new Date();
@@ -36,8 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(){
-    this.availabilityRequest = new AvailabilityRequest(this.form.value);
-    this.availabilityService.passSearchParameters(this.availabilityRequest);
+    this.messengerService.sendAvailabilitySearchData(new AvailabilityRequest(this.form.value));
     this.router.navigate(['availability-list']);
   }
 

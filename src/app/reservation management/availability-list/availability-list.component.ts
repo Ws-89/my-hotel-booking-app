@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Availability } from 'src/app/models/availability';
 import { AvailabilityRequest } from 'src/app/models/availabilityRequest';
 import { AvailabilityService } from 'src/app/_services/availability.service';
+import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
 
 @Component({
@@ -14,17 +15,19 @@ export class AvailabilityListComponent implements OnInit {
 
   availabilities: Availability[];
   availableHotels = new Array<Availability>();
+  reservations: Availability[];
   
   availabilityRequest: AvailabilityRequest = new AvailabilityRequest();
 
   constructor(private availabilityService: AvailabilityService, 
               private router: Router, 
-              private reservationService: ReservationsService) { }
+              private reservationService: ReservationsService,
+              private messengerService: MessengerService) { }
 
 
 
   ngOnInit(): void {
-    this.availabilityService.share.subscribe(x => this.availabilityRequest = x);
+    this.messengerService.getAvailabilitySearchData().subscribe(x => this.availabilityRequest = x);
     this.getAvailabilities(this.availabilityRequest);
   }
 
@@ -35,6 +38,7 @@ export class AvailabilityListComponent implements OnInit {
   collectHotelToDisplay(availabilities: Availability[]){
     let result = new Array<Availability>();
 
+    
     for(let x of availabilities){
       if(result.find(a => a.hotel_id == x.hotel_id))
         continue;
@@ -49,7 +53,7 @@ export class AvailabilityListComponent implements OnInit {
       
       this.availabilities = data;
 
-      var reservations = this.reservationService.getReservations().items;
+      var reservations = this.reservationService.getReservations();
       if(reservations.length > 0)
         this.availabilities = this.filterAvailabilitiesAlreadyInReservationCart(this.availabilities, reservations, availabilityRequest);
       
@@ -60,7 +64,7 @@ export class AvailabilityListComponent implements OnInit {
   }
 
   availabilityDetail(id: number){
-    this.availabilityService.passAvailabilityResult(this.availabilities);
+    this.messengerService.sendSearchResultData(this.availabilities);
     this.reservationService.addReservaionRequestDate(this.availabilityRequest);
     this.router.navigate(['availability-details', id])
   }

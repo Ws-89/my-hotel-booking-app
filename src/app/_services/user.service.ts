@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAuthService } from './user-auth.service';
 
@@ -19,6 +20,8 @@ export class UserService {
 
   private baseUrl = "http://localhost:8085/authenticate";
   private registrationUrl = "http://localhost:8085/registration";
+
+  
 
   constructor(
     private httpClient: HttpClient,

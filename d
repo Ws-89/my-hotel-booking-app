@@ -1,0 +1,62 @@
+[33mcommit e46e829ae072c2455a2bf99682d0d2b29cb29a63[m[33m ([m[1;36mHEAD -> [m[1;32malpha[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: b3285c0 cd5c6ae
+Author: Ws-89 <33036915+Ws-89@users.noreply.github.com>
+Date:   Fri Mar 18 14:56:14 2022 +0100
+
+    Merge pull request #1 from Ws-89/new_feature
+    
+    New feature
+
+[33mcommit cd5c6ae64512ed4bed4524c75bd400c892973574[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Fri Mar 18 14:54:51 2022 +0100
+
+    form validations
+
+[33mcommit d937ff54ffc3aaeb1710019fe1db27ca6afded0e[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Fri Mar 18 03:25:49 2022 +0100
+
+    booking algorith finished
+
+[33mcommit 03a06050461e990b930c4d3bea4db8302e00b005[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Thu Mar 17 03:27:16 2022 +0100
+
+    reservation script upgrade
+
+[33mcommit 15849072fa05ccdf1e8450675ca705fa4a0e95ce[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Wed Mar 16 14:51:26 2022 +0100
+
+    reservation cart implementation
+
+[33mcommit b3285c0d546c09b74e9b551ff6194257c8f6534d[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Fri Mar 11 20:17:41 2022 +0100
+
+    reservation cart
+
+[33mcommit a50c2744765f170498a3bdaaaef1771df2fa62c2[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Sat Mar 5 15:45:51 2022 +0100
+
+    adding reservations cart
+
+[33mcommit ee10c36baca5a6c0fb0be086e7a5c2b767a6040f[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Sat Nov 27 15:38:05 2021 +0100
+
+    hotel actions update
+
+[33mcommit 5d5ee9930eb1d2f6e1c1d0527a9528cb123c51aa[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Thu Nov 25 18:53:25 2021 +0100
+
+    login using jwt, registration, hotel crud
+
+[33mcommit 59430b9adc174820cb05d3a1e1d5fd9e435f11ab[m
+Author: Wiktor Siuda <wiktorsiuda@gmail.com>
+Date:   Mon Nov 1 20:07:21 2021 +0100
+
+    initial commit
