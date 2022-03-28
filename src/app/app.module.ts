@@ -38,6 +38,8 @@ import { AvailabilityListComponent } from './reservation management/availability
 import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
+
+import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -66,6 +68,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RegisterSuccessComponent,
     AvailabilityListComponent,
     ReservationPageComponent,
+    CompleteTheTransactionComponent,
   ],
   imports: [
     BrowserModule,

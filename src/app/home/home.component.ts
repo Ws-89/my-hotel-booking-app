@@ -13,8 +13,6 @@ import { MessengerService } from '../_services/messenger.service';
 export class HomeComponent implements OnInit {
 
   form: FormGroup;
-  availabilityRequest: AvailabilityRequest = new AvailabilityRequest();
-
 
   constructor(private fb: FormBuilder, private availabilityService: AvailabilityService, private router: Router, private messengerService: MessengerService) { }
 
@@ -30,7 +28,7 @@ export class HomeComponent implements OnInit {
       from_date: new FormControl(),
       to_date: new FormControl(),
       city: new FormControl(),
-      roomAmmount: new FormControl(),
+      numberOfRooms: new FormControl(),
       partySize: new FormControl()
     })
     

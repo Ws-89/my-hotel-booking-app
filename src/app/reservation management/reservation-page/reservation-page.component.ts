@@ -21,11 +21,7 @@ export class ReservationPageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, 
               private reservationService: ReservationsService) { 
-      // this.setReservations();
-  }
-
-  setReservations(){
-    this.reservations = this.reservationService.getReservations();
+      
   }
 
   setReservationsFromCart(){
@@ -37,11 +33,10 @@ export class ReservationPageComponent implements OnInit {
     })
   })}
 
-
   removeFromReservations(availability: Availability){
     var id = availability.availability_id.toString();
     this.reservationService.removeItemFromReservationCart(id).subscribe(data => 
-      this.setReservations()
+      this.setReservationsFromCart()
     )
     
   }
@@ -51,7 +46,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   saveReservation(): void {
-
+    
   }
 
 }

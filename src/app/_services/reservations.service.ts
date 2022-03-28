@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Availability } from 'src/app/models/availability';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { Reservation } from '../models/reservation';
 import { AvailabilityRequest } from '../models/availabilityRequest';
 import { UserAuthService } from './user-auth.service';
 import { ReservationCart } from '../models/reservation-cart';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationsService {
   private reservations = new Array<Availability>();
-  private reservationRequest = new BehaviorSubject<AvailabilityRequest>(null);
+  private reservationRequest = new Subject<AvailabilityRequest>();
   public reservationRequestWithDate = this.reservationRequest.asObservable();
   
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
@@ -41,7 +42,6 @@ export class ReservationsService {
     this.reservationRequest.next(availabilityRequest);
   }
 
-
   removeItemFromReservationCart(id : string): Observable<any>{
     return this.httpClient.delete(this.baseUrl + `/${id}`);
   }
@@ -54,9 +54,14 @@ export class ReservationsService {
     return this.reservations;
   }
 
-  proceedReservations(reservation: Reservation): Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/makeAReservation`, reservation);
+  proceedReservations(reservationCart: ReservationCart): Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/makeAReservation`, reservationCart);
   }
+
+  proceedReservationsForNonLoggedInUser(reservationCart: ReservationCart): Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/makeAReservationForNonLoggedInUser`, reservationCart);
+  }
+
 
   handleError(handleError: any): Observable<never> {
     return throwError ('Method not implemented')

@@ -30,11 +30,12 @@ export class MessengerService {
     return this.searchResultData.asObservable();
   }
 
-  sendReservationItem(reservation){
-    this.reservation.next(reservation);
+  sendReservationForNonLoggedInUser(availability: Availability){
+    this.reservation.next(availability);
   }
 
-  getReservationItem(){
+  getReservationForNonLoggedInUser(){
     return this.reservation.asObservable();
   }
+    
 }
