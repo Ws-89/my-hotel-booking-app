@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Availability } from '../models/availability';
 import { AvailabilityRequest } from '../models/availabilityRequest';
 
@@ -10,24 +10,24 @@ export class MessengerService {
 
   constructor() { }
 
-  private availabilitySearchData = new BehaviorSubject<AvailabilityRequest>(null);
-  private searchResultData = new BehaviorSubject<Availability[]>(null);
-  private reservation = new Subject();
+  private availabilitySearchData$ = new BehaviorSubject<AvailabilityRequest>(null);
+  private searchResultData$ = new BehaviorSubject<Availability[]>(null);
+  private reservation = new Subject<Availability>();
 
   sendAvailabilitySearchData(availabilityRequest: AvailabilityRequest){
-      this.availabilitySearchData.next(availabilityRequest);
+      this.availabilitySearchData$.next(availabilityRequest);
   }
 
   getAvailabilitySearchData(){
-    return this.availabilitySearchData.asObservable();
+    return this.availabilitySearchData$.asObservable();
   }
 
   sendSearchResultData(availabilities: Availability[]){
-    this.searchResultData.next(availabilities);
+    this.searchResultData$.next(availabilities);
   } 
 
   getSearchResultData(){
-    return this.searchResultData.asObservable();
+    return this.searchResultData$.asObservable();
   }
 
   sendReservationForNonLoggedInUser(availability: Availability){

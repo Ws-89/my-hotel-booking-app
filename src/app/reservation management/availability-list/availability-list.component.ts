@@ -33,7 +33,7 @@ export class AvailabilityListComponent implements OnInit{
   ngOnInit(): void {
     this.messengerService.getAvailabilitySearchData().subscribe(x => this.availabilityRequest = x);
     if(this.userAuthService.isLoggedIn()){
-    var getReservations = this.reservationService.getReservationCart().pipe(map(x => {
+    var getReservations$ = this.reservationService.getReservationCart().pipe(map(x => {
       let reservations: Array<Availability> = [];
       if(x) {
         x.cartItems.forEach((arg) => {
@@ -54,7 +54,7 @@ export class AvailabilityListComponent implements OnInit{
       }
       this.reservations = reservations;
     },))
-    var getAvailableRooms = this.availabilityService.getAvailableRooms(this.availabilityRequest)
+    var getAvailableRooms$ = this.availabilityService.getAvailableRooms(this.availabilityRequest)
     .pipe(map((data => {
       
       this.availabilities = data;
@@ -63,8 +63,8 @@ export class AvailabilityListComponent implements OnInit{
       
       this.availableHotels = this.collectHotelToDisplay(this.availabilities);
     })))
-    concat(getReservations, getAvailableRooms).subscribe()
-
+    concat(getReservations$, getAvailableRooms$).subscribe()
+   
 
   } else {
     this.availabilityService.getAvailableRooms(this.availabilityRequest).subscribe(data => {

@@ -7,6 +7,7 @@ import { AvailabilityRequest } from '../models/availabilityRequest';
 import { UserAuthService } from './user-auth.service';
 import { ReservationCart } from '../models/reservation-cart';
 import { map } from 'rxjs/operators';
+import { ReservationArrangement } from '../models/reservationArrangement';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class ReservationsService {
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
 
   private baseUrl = "http://localhost:8085/availabilityCart"
+  private reservationUrl = "http://localhost:8085/reservations"
   
   addReservationItem(availability: Availability): void {
     
@@ -54,12 +56,12 @@ export class ReservationsService {
     return this.reservations;
   }
 
-  proceedReservations(reservationCart: ReservationCart): Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/makeAReservation`, reservationCart);
+  proceedReservations(reservationArrangement: ReservationArrangement): Observable<Object>{
+    return this.httpClient.post(`${this.reservationUrl}/makeAReservation`, reservationArrangement);
   }
 
-  proceedReservationsForNonLoggedInUser(reservationCart: ReservationCart): Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/makeAReservationForNonLoggedInUser`, reservationCart);
+  proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement): Observable<Object>{
+    return this.httpClient.post(`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement);
   }
 
 
