@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { concat } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class AvailabilityListComponent implements OnInit{
     var getReservations$ = this.reservationService.getReservationCart().pipe(map(x => {
       let reservations: Array<Availability> = [];
       if(x) {
-        x.cartItems.forEach((arg) => {
+        x.cartItems.forEach(arg => {
           if(arg)
           reservations.push(
             new Availability(

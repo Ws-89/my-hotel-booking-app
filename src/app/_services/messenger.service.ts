@@ -12,7 +12,7 @@ export class MessengerService {
 
   private availabilitySearchData$ = new BehaviorSubject<AvailabilityRequest>(null);
   private searchResultData$ = new BehaviorSubject<Availability[]>(null);
-  private reservation = new Subject<Availability>();
+  private reservation = new BehaviorSubject<Availability>(null);
 
   sendAvailabilitySearchData(availabilityRequest: AvailabilityRequest){
       this.availabilitySearchData$.next(availabilityRequest);

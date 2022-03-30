@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Availability } from 'src/app/models/availability';
 import { Observable, Subject, throwError } from 'rxjs';
@@ -13,6 +13,11 @@ import { ReservationArrangement } from '../models/reservationArrangement';
   providedIn: 'root'
 })
 export class ReservationsService {
+
+  requestHeader = new HttpHeaders(
+    { "No-Auth": "True" }
+  );
+
   private reservations = new Array<Availability>();
   private reservationRequest = new Subject<AvailabilityRequest>();
   public reservationRequestWithDate = this.reservationRequest.asObservable();
@@ -61,7 +66,7 @@ export class ReservationsService {
   }
 
   proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement): Observable<Object>{
-    return this.httpClient.post(`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement);
+    return this.httpClient.post(`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement, { headers: this.requestHeader });
   }
 
 

@@ -41,8 +41,8 @@ export class AvailabilityComponent implements OnInit {
     })
     }else{
       localStorage.setItem("reservation", JSON.stringify(availability))
-      this.messengerService.sendReservationForNonLoggedInUser(availability);
-      this.router.navigateByUrl('/complete-the-transaction')
+      this.messengerService.sendReservationForNonLoggedInUser(availability)
+      this.router.navigateByUrl('/complete-the-transaction')   
     }
   }
   
