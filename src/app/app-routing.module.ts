@@ -10,7 +10,6 @@ import { HomeComponent } from './home/home.component';
 import { HotelDetailsComponent } from './hotel management/hotel-details/hotel-details.component';
 import { HotelsListComponent } from './hotel management/hotels-list/hotels-list.component';
 import { LoginComponent } from './login and registration/login/login.component';
-import { PaymentComponent } from '../payment/payment.component';
 import { RegisterSuccessComponent } from './login and registration/register-success/register-success.component';
 import { RegisterComponent } from './login and registration/register/register.component';
 import { ReservationComponent } from './reservation management/reservation/reservation.component';
@@ -35,7 +34,6 @@ const routes: Routes = [
   { path: 'forbidden', component: ForbiddenComponent },
   { path: 'availability', component: AvailabilityComponent },
   { path: 'reservation', component: ReservationComponent },
-  { path: 'payment', component: PaymentComponent },
   { path: 'hotels', component: HotelsListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'create-hotel', component: CreateHotelComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'rooms/:id', component: RoomListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },

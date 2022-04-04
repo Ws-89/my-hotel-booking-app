@@ -58,6 +58,7 @@ export class AvailabilityListComponent implements OnInit{
     .pipe(map((data => {
       
       this.availabilities = data;
+      console.log(this.availabilities)
       if(this.reservations.length > 0)
         this.availabilities = this.filterAvailabilitiesAlreadyInReservationCart(this.availabilities, this.reservations, this.availabilityRequest);
       
@@ -98,6 +99,7 @@ export class AvailabilityListComponent implements OnInit{
   }
   
   availabilityDetail(id: number){
+    console.log(this.availabilities)
     this.messengerService.sendSearchResultData(this.availabilities);
     this.reservationService.addReservaionRequestDate(this.availabilityRequest);
     this.router.navigate(['availability-details', id])

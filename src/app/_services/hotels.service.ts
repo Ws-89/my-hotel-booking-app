@@ -40,9 +40,4 @@ export class HotelsService {
   uploadImage(id: Number, file: any): Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}/images/upload/${id}`, file);
   }
-
-  downloadImage(id: Number):Observable<any>{
-    return this.httpClient.get<any>(`${this.imagesUrl}/${id}/images/download`, { headers: this.requestHeader })
-  }
-
 }

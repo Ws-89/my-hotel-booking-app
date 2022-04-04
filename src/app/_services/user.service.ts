@@ -40,6 +40,8 @@ export class UserService {
     let isMatch = false;
     const userAuthorities:any = this.userAuthService.getAuthorities();
     
+    
+
     if(userAuthorities != null && userAuthorities){
       for(let i=0; i < userAuthorities.length; i++){
         for(let j=0; j < allowedAuthorities.length; j++){

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Grade } from '../../enum/grade-type.enum';
 import { Hotel } from '../../models/hotel';
 import { HotelsService } from '../../_services/hotels.service';
-import { Room } from '../../models/room';
 
 
 

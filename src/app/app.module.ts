@@ -27,7 +27,6 @@ import { HeaderComponent } from './header/header.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AvailabilityComponent } from './reservation management/availability/availability.component';
 import { ReservationComponent } from './reservation management/reservation/reservation.component';
-import { PaymentComponent } from '../payment/payment.component';
 import { RegisterComponent } from './login and registration/register/register.component';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './_auth/auth.guard';
@@ -63,7 +62,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ForbiddenComponent,
     AvailabilityComponent,
     ReservationComponent,
-    PaymentComponent,
     RegisterComponent,
     RegisterSuccessComponent,
     AvailabilityListComponent,

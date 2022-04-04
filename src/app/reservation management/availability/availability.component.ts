@@ -33,6 +33,7 @@ export class AvailabilityComponent implements OnInit {
   }
 
   bookThisRoom(availability: Availability){
+    // console.log('hotel do rezerwacji',availability)
     availability.from_date = this.availabilityRequest.from_date;
     availability.to_date = this.availabilityRequest.to_date;
     if(this.userAuthService.isLoggedIn()){

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { plainToClass, plainToInstance } from 'class-transformer';
-import { map } from 'rxjs/operators';
 import { Availability } from 'src/app/models/availability';
-import { Reservation } from 'src/app/models/reservation';
 import { ReservationArrangement } from 'src/app/models/reservationArrangement';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
