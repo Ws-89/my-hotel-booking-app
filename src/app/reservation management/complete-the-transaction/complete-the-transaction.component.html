@@ -1,0 +1,21 @@
+<div>
+    <h3>Finish reservation</h3>
+    <form #saveReservationForm="ngForm" (ngSubmit)="saveReservation(saveReservationForm)">
+        <div class="form-group">
+            <label>Enter email</label>
+            <input type="text" 
+                ngModel 
+                name="email"
+                placeholder="Enter your email address"
+                class="form-control"
+                required pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"
+                #email="ngModel"
+                [class.is-invalid]="email.invalid && email.touched">
+      <div *ngIf="email.invalid && (email.errors && email.touched)">
+        <small class="text-danger"  *ngIf="email.errors.required">Email is required field</small>
+        <small class="text-danger" *ngIf="email.errors.pattern">Enter valid value of email address</small>
+      </div>
+        </div>
+        <button [disabled]="saveReservationForm.form.invalid" (click)="saveReservation" class="btn btn-primary">Proceed reservation</button>
+ </form>
+</div>

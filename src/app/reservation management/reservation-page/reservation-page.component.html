@@ -1,0 +1,17 @@
+<div>
+    <ul>
+        <li *ngFor="let availability of reservations">
+            {{availability.room_id}}
+            <button (click)="removeFromReservations(availability)">Remove</button>
+        </li>
+    </ul>
+</div>
+<div>
+    <h2>Total price</h2>
+    {{totalPrice}}
+</div>
+
+<div>
+    <button (click)="addNewReservation()" class="btn btn-primary">Add new reservation</button>
+    <button (click)="saveReservation()" class="btn btn-primary" style="margin-left: 10px">Proceed reservation</button>
+</div>

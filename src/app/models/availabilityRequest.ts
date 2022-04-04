@@ -1,6 +1,6 @@
 export class AvailabilityRequest {
     city: string;
-    roomAmmount: number;
+    numberOfRooms: number;
     partySize: number;
     from_date: Date;
     to_date: Date;

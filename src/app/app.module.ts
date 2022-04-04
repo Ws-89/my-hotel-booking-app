@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomListComponent } from './hotel management/room-list/room-list.component';
 import { CreateRoomComponent } from './hotel management/create-room/create-room.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -27,7 +27,6 @@ import { HeaderComponent } from './header/header.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AvailabilityComponent } from './reservation management/availability/availability.component';
 import { ReservationComponent } from './reservation management/reservation/reservation.component';
-import { PaymentComponent } from '../payment/payment.component';
 import { RegisterComponent } from './login and registration/register/register.component';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './_auth/auth.guard';
@@ -37,7 +36,10 @@ import { RegisterSuccessComponent } from './login and registration/register-succ
 import { AvailabilityListComponent } from './reservation management/availability-list/availability-list.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { ReservationPageComponent } from './reservation-page/reservation-page.component';
+import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
+
+import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -60,11 +62,11 @@ import { ReservationPageComponent } from './reservation-page/reservation-page.co
     ForbiddenComponent,
     AvailabilityComponent,
     ReservationComponent,
-    PaymentComponent,
     RegisterComponent,
     RegisterSuccessComponent,
     AvailabilityListComponent,
     ReservationPageComponent,
+    CompleteTheTransactionComponent,
   ],
   imports: [
     BrowserModule,
