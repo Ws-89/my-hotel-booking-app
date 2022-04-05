@@ -8,6 +8,7 @@ import { UserAuthService } from './user-auth.service';
 import { ReservationCart } from '../models/reservation-cart';
 import { map } from 'rxjs/operators';
 import { ReservationArrangement } from '../models/reservationArrangement';
+import { AvailabilityInterface } from '../models/interface/availabilityInterface.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,8 @@ export class ReservationsService {
     return this.httpClient.post(this.baseUrl, availability)
   }
 
-  getReservationCart(): Observable<ReservationCart>{
-    return this.httpClient.get<ReservationCart>(this.baseUrl);
+  getReservationCart(): Observable<AvailabilityInterface[]>{
+    return this.httpClient.get<AvailabilityInterface[]>(this.baseUrl);
   }
 
   addReservaionRequestDate(availabilityRequest: AvailabilityRequest){

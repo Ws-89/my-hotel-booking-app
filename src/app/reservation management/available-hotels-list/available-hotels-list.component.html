@@ -11,14 +11,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor = "let availability of availableHotels">
+        <tr *ngFor = "let availability of availabilities">
             <td>{{ availability.hotel_name }}</td>
             <td><img [src]=""></td>
             <td>{{ availability.city }}</td>
             <td>{{ availability.grade }}</td>
             <td>{{ availability.roomType }}</td>
             <td>
-                <button (click) = "availabilityDetail(availability.hotel_id)" class="btn btn-info" style="margin-left: 10px">Check rooms</button><br><br><br><br> 
+                <!-- <button (click) = "availabilityDetail(availability.hotel_id)" class="btn btn-info" style="margin-left: 10px">Check rooms</button><br><br><br><br>  -->
              </td>
         </tr> 
     </tbody>

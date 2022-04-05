@@ -33,13 +33,14 @@ import { AuthGuard } from './_auth/auth.guard';
 import { AuthInterceptor } from './_auth/auth.interceptor';
 import { UserService } from './_services/user.service';
 import { RegisterSuccessComponent } from './login and registration/register-success/register-success.component';
-import { AvailabilityListComponent } from './reservation management/availability-list/availability-list.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
 
 import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AvailableHotelsListComponent } from './reservation management/available-hotels-list/available-hotels-list.component';
+import { AvailableHotelComponent } from './reservation management/available-hotel/available-hotel.component';
 
 
 
@@ -64,9 +65,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReservationComponent,
     RegisterComponent,
     RegisterSuccessComponent,
-    AvailabilityListComponent,
+    AvailableHotelsListComponent,
     ReservationPageComponent,
     CompleteTheTransactionComponent,
+    AvailableHotelComponent,
+    
   ],
   imports: [
     BrowserModule,

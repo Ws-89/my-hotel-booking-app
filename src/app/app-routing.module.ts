@@ -18,15 +18,16 @@ import { RoomListComponent } from './hotel management/room-list/room-list.compon
 import { UpdateHotelComponent } from './hotel management/update-hotel/update-hotel.component';
 import { UpdateRoomComponent } from './hotel management/update-room/update-room.component';
 import { AuthGuard } from './_auth/auth.guard';
-import { AvailabilityListComponent } from './reservation management/availability-list/availability-list.component';
+import { AvailableHotelsListComponent } from './reservation management/available-hotels-list/available-hotels-list.component';
 import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
 import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
+
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'availability-list', component: AvailabilityListComponent },
+  { path: 'available-hotels-list', component: AvailableHotelsListComponent },
   { path: 'availability-details/:id', component: AvailabilityComponent },
   { path: 'admin', component: AdminComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'guest', component: GuestComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_GUEST']}},
