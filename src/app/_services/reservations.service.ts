@@ -2,13 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Availability } from 'src/app/models/availability';
 import { Observable, Subject, throwError } from 'rxjs';
-import { Reservation } from '../models/reservation';
 import { AvailabilityRequest } from '../models/availabilityRequest';
 import { UserAuthService } from './user-auth.service';
-import { ReservationCart } from '../models/reservation-cart';
-import { map } from 'rxjs/operators';
 import { ReservationArrangement } from '../models/reservationArrangement';
-import { AvailabilityInterface } from '../models/interface/availabilityInterface.interface';
+import { AvailabilityInterface } from '../models/interface/availability.interface';
+
 
 @Injectable({
   providedIn: 'root'

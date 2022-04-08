@@ -1,4 +1,5 @@
-import { AvailabilityInterface } from "./interface/availabilityInterface.interface";
+import { AvailabilityInterface } from "./interface/availability.interface";
+
 
 export class ReservationCart {
     id: number;

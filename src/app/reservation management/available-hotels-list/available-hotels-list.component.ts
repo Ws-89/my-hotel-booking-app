@@ -1,12 +1,13 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { concat, Observable } from 'rxjs';
-import { concatAll, filter, map, switchMap } from 'rxjs/operators';
-import { Availability } from 'src/app/models/availability';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
 import { AvailabilityRequest } from 'src/app/models/availabilityRequest';
-import { AvailabilityInterface } from 'src/app/models/interface/availabilityInterface.interface';
-import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequestInterface.interface';
-import { AvailableHotelInterface } from 'src/app/models/interface/availableHotelInterface.interface';
+import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
+import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
+import { AvailableHotelInterface } from 'src/app/models/interface/availableHotel.interface';
+import { AvailableRoomInterface } from 'src/app/models/interface/availableRoom.interface';
+
+
 import { AvailabilityService } from 'src/app/_services/availability.service';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
@@ -20,11 +21,10 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 export class AvailableHotelsListComponent implements OnInit{
 
 
-  availableHotels$: Observable<AvailableHotelInterface>;
+  availableHotels: AvailableHotelInterface[];
   availabilities: AvailabilityInterface[];
   reservations: AvailabilityInterface[];
   availabilityRequest: AvailabilityRequestInterface;
-  // availableHotels = new Array<Availability>();
   
   constructor(private availabilityService: AvailabilityService, 
               private router: Router, 
@@ -37,51 +37,68 @@ export class AvailableHotelsListComponent implements OnInit{
     if(this.userAuthService.isLoggedIn()){
     this.messengerService.getAvailabilitySearchData().pipe(
       switchMap(availabilityRequest => this.reservationService.getReservationCart().pipe(
-        map(reservations => 
-          this.availabilityService.getAvailableRooms(availabilityRequest).pipe(map(availabilities => 
-            this.filterAvailabilitiesAlreadyInReservationCart(availabilities, reservations, availabilityRequest)
-          )
-        
-          ).subscribe(data => this.availabilities = data)
+        switchMap(reservations => this.availabilityService.getAvailableRooms(availabilityRequest).pipe(
+          map(availabilities => this.filterAvailabilitiesAlreadyInReservationCart(availabilities, reservations, availabilityRequest)),
+        )))))
+        .subscribe(
+          data =>  {
+            this.availableHotels = this.groupAvailableRoomsByHotels(data)
+            this.availabilities = data
+          })
+      }
+      else
+      {
+        this.messengerService.getAvailabilitySearchData().pipe(
+          switchMap(availabilityRequest => this.availabilityService.getAvailableRooms(availabilityRequest))
+        ).subscribe(
+          data =>  {
+            this.availableHotels = this.groupAvailableRoomsByHotels(data)
+            this.availabilities = data
+          }       
         )
-      )
-    )).subscribe()
-          }else{}
+      }
+    }
 
+    availabilityDetail(id: number){
+      this.messengerService.sendSearchResultData(this.availabilities);
+      this.reservationService.addReservaionRequestDate(this.availabilityRequest);
+      this.router.navigate(['availability-details', id])
+    }
 
-  // } else {
-  //   this.availabilityService.getAvailableRooms(this.availabilityRequest).subscribe(data => {
-  //     console.log(data)
-  //     this.availabilities = data;  
-  //     this.availableHotels = this.collectHotelToDisplay(this.availabilities);
-  //   })
-  // }
-}
+  private groupAvailableRoomsByHotels(availableRooms: AvailableRoomInterface[]){
+    let result: AvailableHotelInterface[] = [];
 
-  filterAvailabilitiesAlreadyInReservationCart(availabilities: AvailabilityInterface[], reservations: AvailabilityInterface[], availabilityRequest: AvailabilityRequest){
-    return availabilities.filter(x => !reservations.find(y => this.checkIfAvailabilityIsInReservationCart(x, y, availabilityRequest)))
+            for(let item of availableRooms){
+              let hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
+              if(hotel){
+                hotel.rooms.push(item)
+              }else {
+                var newRoom: AvailableRoomInterface[] = [item]
+                var newHotel: AvailableHotelInterface = {
+                  hotel_id : item.hotel_id,
+                  hotel_name : item.hotel_name,
+                  city: item.city,
+                  grade: item.grade,
+                  rooms : newRoom
+                }
+                result.push(newHotel)
+                }
+              }
+      return result;
   }
 
-  // collectHotelToDisplay(availabilities: Availability[]){
-  //   let result = new Array<Availability>();
+  private filterAvailabilitiesAlreadyInReservationCart(availabilities: AvailabilityInterface[], reservations: AvailabilityInterface[], availabilityRequest: AvailabilityRequest){
+    return availabilities.filter(availability => !reservations.find(reservation => this.checkIfAvailabilityIsInReservationCart(availability, reservation, availabilityRequest)))
+  }
 
-    
-  //   for(let x of availabilities){
-  //     if(result.find(a => a.hotel_id == x.hotel_id))
-  //       continue;
-  //     result.push(x);
-  //   }
-  //   return result;
-  // }
-
-  // availabilityDetail(id: number){
-  //   console.log(this.availabilities)
-  //   this.messengerService.sendSearchResultData(this.availabilities);
-  //   this.reservationService.addReservaionRequestDate(this.availabilityRequest);
-  //   this.router.navigate(['availability-details', id])
-  // }
-
-  checkIfAvailabilityIsInReservationCart = function(availability: AvailabilityInterface, reservation: AvailabilityInterface, availabilityRequest: AvailabilityRequestInterface): boolean{
+  private checkIfAvailabilityIsInReservationCart = function(availability: AvailabilityInterface, reservation: AvailabilityInterface, availabilityRequest: AvailabilityRequestInterface): boolean{
+    availability.from_date = new Date(availability.from_date);
+    availability.to_date = new Date(availability.to_date);
+    reservation.from_date = new Date(reservation.from_date);
+    reservation.to_date = new Date(reservation.to_date);
+    availabilityRequest.from_date = new Date(availabilityRequest.from_date);
+    availabilityRequest.to_date = new Date(availabilityRequest.to_date);
+   
     return (reservation.room_id == availability.room_id && 
     (((reservation.from_date.toISOString() < availabilityRequest.from_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
     && (reservation.to_date.toISOString() > availabilityRequest.from_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.from_date.toISOString()))

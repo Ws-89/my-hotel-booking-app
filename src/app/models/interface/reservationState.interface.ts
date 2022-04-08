@@ -1,4 +1,4 @@
-import { AvailableHotelInterface } from "./availableHotelInterface.interface";
+import { AvailableHotelInterface } from "./availableHotel.interface";
 
 export interface ReservationStateInterface {
     partySize: number;

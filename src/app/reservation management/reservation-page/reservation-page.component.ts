@@ -28,18 +28,18 @@ export class ReservationPageComponent implements OnInit {
   }
 
   setReservationsAndPriceFromCart(){
-    // this.reservationService.getReservationCart().subscribe(data => {
-    //   this.reservations = data.cartItems;
+    this.reservationService.getReservationCart().subscribe(data => {
+      this.reservations = data;
 
-    //   this.totalPrice = 0;
-    //   this.reservations.forEach(reservation => {
-    //     this.totalPrice += reservation.price;
+      this.totalPrice = 0;
+      this.reservations.forEach(reservation => {
+        this.totalPrice += reservation.price;
 
-    //   this.reservationArrangement.reservations = this.reservations
-    //   this.reservationArrangement.price = this.totalPrice;
-    // })
-  // })}
-  }
+      this.reservationArrangement.reservations = this.reservations
+      this.reservationArrangement.price = this.totalPrice;
+    })
+  })}
+  
 
   removeFromReservations(availability: Availability){
     var id = availability.availability_id.toString();

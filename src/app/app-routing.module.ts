@@ -21,6 +21,7 @@ import { AuthGuard } from './_auth/auth.guard';
 import { AvailableHotelsListComponent } from './reservation management/available-hotels-list/available-hotels-list.component';
 import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
 import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -57,3 +58,28 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+export const routingComponents = [
+  RoomListComponent,
+    CreateRoomComponent,
+    UpdateRoomComponent,
+    RoomDetailsComponent,
+    HotelsListComponent,
+    CreateHotelComponent,
+    UpdateHotelComponent,
+    HotelDetailsComponent,
+    HomeComponent,
+    AdminComponent,
+    GuestComponent,
+    LoginComponent,
+    HeaderComponent,
+    ForbiddenComponent,
+    AvailabilityComponent,
+    ReservationComponent,
+    RegisterComponent,
+    RegisterSuccessComponent,
+    AvailableHotelsListComponent,
+    ReservationPageComponent,
+    CompleteTheTransactionComponent,
+    
+]

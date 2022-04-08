@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(){
-    this.messengerService.sendAvailabilitySearchData(new AvailabilityRequest(this.form.value));
+    this.messengerService.sendAvailabilitySearchData(this.form.value);
     this.router.navigate(['available-hotels-list']);
   }
 

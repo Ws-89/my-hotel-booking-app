@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Availability } from '../models/availability';
 import { AvailabilityRequest } from '../models/availabilityRequest';
 import { BehaviorSubject } from 'rxjs';
-import { AvailabilityInterface } from '../models/interface/availabilityInterface.interface';
+import { AvailabilityInterface } from '../models/interface/availability.interface';
 
 @Injectable({
   providedIn: 'root'
