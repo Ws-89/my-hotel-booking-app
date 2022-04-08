@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         if(roles_array.find(e => e.authority === 'ROLE_ADMIN')){
           this.router.navigate(['/admin']);
         }else if(roles_array.find(e => e.authority === 'ROLE_GUEST')){
-          this.router.navigate(['/guest'])
+          this.router.navigate(['/home'])
         }else{
           console.log("No role assigned");
           

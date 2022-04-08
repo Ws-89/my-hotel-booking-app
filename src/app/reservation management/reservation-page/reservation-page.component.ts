@@ -29,7 +29,7 @@ export class ReservationPageComponent implements OnInit {
 
   setReservationsAndPriceFromCart(){
     this.reservationService.getReservationCart().subscribe(data => {
-      this.reservations = data.cartItems;
+      this.reservations = data;
 
       this.totalPrice = 0;
       this.reservations.forEach(reservation => {
@@ -39,6 +39,7 @@ export class ReservationPageComponent implements OnInit {
       this.reservationArrangement.price = this.totalPrice;
     })
   })}
+  
 
   removeFromReservations(availability: Availability){
     var id = availability.availability_id.toString();

@@ -1,6 +1,7 @@
-import { Availability } from "./availability";
+import { AvailabilityInterface } from "./interface/availability.interface";
+
 
 export class ReservationCart {
     id: number;
-    cartItems: Availability[] = [];
+    cartItems: AvailabilityInterface[] = [];
 }

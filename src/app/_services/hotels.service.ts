@@ -13,7 +13,7 @@ export class HotelsService {
   );
 
   private baseUrl = "http://localhost:8085/admin/management/hotels";
-  private imagesUrl = "http://localhost:8085/images"
+  
 
   constructor(private httpClient: HttpClient) { }
 

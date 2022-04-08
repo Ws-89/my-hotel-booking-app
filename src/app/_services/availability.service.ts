@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Availability } from '../models/availability';
 import { AvailabilityRequest } from '../models/availabilityRequest';
 import { BehaviorSubject } from 'rxjs';
+import { AvailabilityInterface } from '../models/interface/availability.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class AvailabilityService {
     this.searchResultData.next(searchResult);
   }
 
-  getAvailableRooms(availabilityRequest: AvailabilityRequest): Observable<Availability[]>{
+  getAvailableRooms(availabilityRequest: AvailabilityRequest): Observable<AvailabilityInterface[]>{
       return this.httpClient.post<Availability[]>(`${this.baseUrl}`, availabilityRequest, { headers: this.requestHeader })
   }
 
