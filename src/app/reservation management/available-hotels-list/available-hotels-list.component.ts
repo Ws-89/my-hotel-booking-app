@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { AvailabilityRequest } from 'src/app/models/availabilityRequest';
 import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
 import { AvailableHotelInterface } from 'src/app/models/interface/availableHotel.interface';
@@ -79,7 +78,8 @@ export class AvailableHotelsListComponent implements OnInit{
                   hotel_name : item.hotel_name,
                   city: item.city,
                   grade: item.grade,
-                  rooms : newRoom
+                  rooms : newRoom,
+                  image: item.image
                 }
                 result.push(newHotel)
                 }
@@ -87,7 +87,7 @@ export class AvailableHotelsListComponent implements OnInit{
       return result;
   }
 
-  private filterAvailabilitiesAlreadyInReservationCart(availabilities: AvailabilityInterface[], reservations: AvailabilityInterface[], availabilityRequest: AvailabilityRequest){
+  private filterAvailabilitiesAlreadyInReservationCart(availabilities: AvailabilityInterface[], reservations: AvailabilityInterface[], availabilityRequest: AvailabilityRequestInterface){
     return availabilities.filter(availability => !reservations.find(reservation => this.checkIfAvailabilityIsInReservationCart(availability, reservation, availabilityRequest)))
   }
 

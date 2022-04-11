@@ -1,0 +1,57 @@
+body {
+    box-sizing: border-box;
+    width: 60%;
+    margin: auto;
+}
+
+.title h2 {
+    margin-top: 15px;
+}
+
+.button-search:disabled {
+    color:#717782;
+}
+
+.title {
+    margin-top: 5%;
+    border: 1px solid;
+    border-color: rgba(51, 51, 102, 1);
+    border-radius: 10px 10px 0px 0px;
+    background-color: #4B4E53;
+    color: #EBF2FA;
+    text-align: center;
+    width: 100%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #4B4E53!important;
+}
+
+form {
+    width: 100%;
+}
+
+.container {
+    border: 1px solid;
+    border-color: rgb(4, 104, 129);
+    border-radius: 0px 0px 10px 10px;
+    padding: 10px 10px;
+    width: 100%;
+}
+
+.button-search {
+    background-color: rgba(51, 51, 102, 1);
+    margin: 20px 0px 0px 20px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid rgb(4, 104, 129);
+    padding: 7px 14px;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.button-search:hover{
+    background-color: rgba(51, 51, 102, 0.8);
+}

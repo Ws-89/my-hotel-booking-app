@@ -1,28 +1,49 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-center">
-    <mat-form-field appearance="outline">
-        <mat-label>Pick reservation range</mat-label>
-        <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
-            <input matStartDate placeholder="Start date" formControlName="from_date">
-            <input matEndDate placeholder="End date" formControlName="to_date">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker [startAt]="startDate" ></mat-date-range-picker>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Where you want to stay?</mat-label>
-        <input matInput placeholder="Enter city" formControlName="city">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>How many rooms?</mat-label>
-        <input matInput placeholder="Enter city" formControlName="numberOfRooms">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>How many peoples?</mat-label>
-        <input matInput placeholder="Enter city" formControlName="partySize">
-    </mat-form-field>
-    <br>
-    <button class="btn btn-success" type="submit">Search for available rooms</button>
-</form>
+<body>
+        <div class="title"><h2 >Find your place to stay</h2></div>
+        <div class="container">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Reservation date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+                        <input matStartDate placeholder="Start date" formControlName="from_date">
+                        <input matEndDate placeholder="End date" formControlName="to_date">
+                    </mat-date-range-input>
+                    <mat-hint style="color: red;" *ngIf="form.get('from_date').touched && form.get('from_date').errors?.required 
+                    || form.get('to_date').touched && form.get('to_date').errors?.required">
+                        Reservation date field is required
+                    </mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker [startAt]="startDate" ></mat-date-range-picker>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Destination</mat-label>
+                    <input matInput placeholder="Enter city" formControlName="city">
+                    <mat-hint style="color: red;" *ngIf="form.get('city').touched && form.get('city').errors?.required">
+                        City field is required
+                    </mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>How many rooms?</mat-label>
+                    <input matInput placeholder="Enter city" formControlName="numberOfRooms">
+                    <mat-hint style="color: red;" *ngIf="form.get('numberOfRooms').touched && form.get('numberOfRooms').errors?.required">
+                        Number of rooms field is required
+                    </mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>How many peoples?</mat-label>
+                    <input matInput placeholder="Enter city" formControlName="partySize">
+                    <mat-hint style="color: red;" *ngIf="form.get('partySize').touched && form.get('partySize').errors?.required">
+                        Party size field is required
+                    </mat-hint>
+                </mat-form-field>
+                <br>
+                <button [disabled]="!form.valid" class="button-search" type="submit">Browse available rooms</button>
+            </form>
+        </div>
+</body>
+
+
+
 
 
 

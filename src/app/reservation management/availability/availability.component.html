@@ -1,22 +1,32 @@
+<body>
+    <div class="title"><h2 >Rooms available at the hotel</h2></div>
+    <div class="hotel-header">
+        <div class="image-container">
+            <div class="hotel-image"><img [src]="roomsOfSpecificHotel[0].image"></div>
+        </div>
+        <div class="hotel-details">
+            <div class="hotel-text">
+                <div class="hotel-name"><h2>{{ roomsOfSpecificHotel[0].hotel_name }}</h2></div>
+                <p>city : {{ roomsOfSpecificHotel[0].city }}</p>
+                <p>reservation start: {{ startDate }}</p>
+                <p>reservation end: {{ endDate }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="room-list">
+        <div class="room" *ngFor = "let room of roomsOfSpecificHotel">    
+            <div class="room-details">
+                <div class="room-text">
+                    <p>city: {{ room.city }}</p>
+                    <p>room size: {{ room.roomType }}</p>
+                </div>  
+                    <p id="price">price: {{ room.price }}</p>
+                    <button (click) = "bookThisRoom(room)" class="button-hotel-details" style="margin-left: 10px">Book this room</button>   
+            </div>
+        </div>
+    </div>
+</body>
 
-<h2> Available rooms </h2>
-<table  class= "table table-striped"> 
-    <thead>
-        <tr>
-            <th> Room size </th>
-            <th> Description </th>
-            <th> Price </th>
-            <th> Check rooms</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor = "let availability of roomsOfSpecificHotel">
-            <td>{{ availability.roomType }}</td>
-            <td> Some description </td>
-            <td> {{ availability.price }} </td>
-            <td>
-                <button (click) = "bookThisRoom(availability)" class="btn btn-info" style="margin-left: 10px">Check rooms</button><br><br><br><br> 
-             </td>
-        </tr> 
-    </tbody>
-</table> 
+
+
+

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Availability } from '../models/availability';
-import { AvailabilityRequest } from '../models/availabilityRequest';
+import { BehaviorSubject } from 'rxjs';
+import { AvailabilityInterface } from '../models/interface/availability.interface';
+import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,11 @@ export class MessengerService {
 
   constructor() { }
 
-  private availabilitySearchData$ = new BehaviorSubject<AvailabilityRequest>(null);
-  private searchResultData$ = new BehaviorSubject<Availability[]>(null);
-  private reservation = new BehaviorSubject<Availability>(null);
+  private availabilitySearchData$ = new BehaviorSubject<AvailabilityRequestInterface>(null);
+  private searchResultData$ = new BehaviorSubject<AvailabilityInterface[]>(null);
+  private reservation = new BehaviorSubject<AvailabilityInterface>(null);
 
-  sendAvailabilitySearchData(availabilityRequest: AvailabilityRequest){
+  sendAvailabilitySearchData(availabilityRequest: AvailabilityRequestInterface){
       this.availabilitySearchData$.next(availabilityRequest);
   }
 
@@ -22,7 +22,7 @@ export class MessengerService {
     return this.availabilitySearchData$.asObservable();
   }
 
-  sendSearchResultData(availabilities: Availability[]){
+  sendSearchResultData(availabilities: AvailabilityInterface[]){
     this.searchResultData$.next(availabilities);
   } 
 
@@ -30,7 +30,7 @@ export class MessengerService {
     return this.searchResultData$.asObservable();
   }
 
-  sendReservationForNonLoggedInUser(availability: Availability){
+  sendReservationForNonLoggedInUser(availability: AvailabilityInterface){
     this.reservation.next(availability);
   }
 

@@ -23,14 +23,28 @@ export class AvailabilityComponent implements OnInit {
   searchResult: AvailabilityInterface[];
   roomsOfSpecificHotel: AvailabilityInterface[];
   availabilityRequest: AvailabilityRequestInterface;
+  startDate: string;
+  endDate: string;
   
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.messengerService.getSearchResultData().subscribe(
-        data => this.roomsOfSpecificHotel = data.filter(x => x.hotel_id == this.id)
+        data => 
+        {
+          this.roomsOfSpecificHotel = data.filter(x => x.hotel_id == this.id)
+          let tempStartDate = new Date(this.roomsOfSpecificHotel[0].from_date)
+          this.startDate = tempStartDate.toISOString().split('T')[0]
+      
+          let tempEndDate = new Date(this.roomsOfSpecificHotel[0].to_date)
+          this.endDate = tempEndDate.toISOString().split('T')[0]
+  
+        }
+        
          )
     this.messengerService.getAvailabilitySearchData().subscribe(x => this.availabilityRequest = x)
+
+   
   }
 
   bookThisRoom(availability: AvailabilityInterface){

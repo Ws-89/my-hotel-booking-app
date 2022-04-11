@@ -11,4 +11,5 @@ export interface AvailableRoomInterface {
     from_date: Date;
     to_date: Date;
     price: number;
+    image: string;
 }

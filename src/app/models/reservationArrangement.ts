@@ -1,4 +1,5 @@
 import { Availability } from "./availability";
+import { AvailabilityInterface } from "./interface/availability.interface";
 
 export class ReservationArrangement {
     partySize: number;

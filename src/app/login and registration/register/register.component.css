@@ -1,0 +1,23 @@
+.container {
+    margin-top: 5%;
+    width: 65%;
+    border: 1px solid rgb(4, 104, 129);
+    border-radius: 10px;
+    padding: 20px 20px;
+}
+
+.button-register {
+    background-color: rgba(0, 136, 169, 1);
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid rgb(4, 104, 129);
+    padding: 7px 14px;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.button-register:hover {
+    background-color: rgba(0, 136, 169, 0.8);
+}

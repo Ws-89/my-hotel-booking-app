@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AvailabilityRequest } from '../models/availabilityRequest';
 import { AvailabilityService } from '../_services/availability.service';
 import { MessengerService } from '../_services/messenger.service';
 
@@ -25,11 +24,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      from_date: new FormControl(),
-      to_date: new FormControl(),
-      city: new FormControl(),
-      numberOfRooms: new FormControl(),
-      partySize: new FormControl()
+      from_date: new FormControl('',Validators.required),
+      to_date: new FormControl('',Validators.required),
+      city: new FormControl('',Validators.required),
+      numberOfRooms: new FormControl('',Validators.required),
+      partySize: new FormControl('',Validators.required)
     })
     
   }

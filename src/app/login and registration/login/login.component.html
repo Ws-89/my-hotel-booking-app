@@ -1,6 +1,7 @@
 
-
-<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+<div class="container">
+  <div class="title"><h2>Login</h2></div>
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     <div class="form-group">
       <label for="userName">Email address</label>
       <input type="text" 
@@ -28,12 +29,13 @@
                 [class.is-invalid]="password.invalid && password.touched">
       <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required field</small>
     </div>
-    <button [disabled]="loginForm.form.invalid" (click)="login" class="btn btn-primary">Login</button>
+    <button [disabled]="loginForm.form.invalid" (click)="login" class="login-button">Login</button>
   </form>
   <small class="text-danger">{{msg}}</small>
 <div>   
     <br>
      Don't have an account? 
      <br>
-     <button (click)="register()" class="btn btn-outline-primary">Register</button>
+     <button (click)="register()" class="register-button">Register</button>
  </div>
+</div>
