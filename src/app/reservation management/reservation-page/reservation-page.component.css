@@ -1,0 +1,81 @@
+body {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.reservation-details { 
+    margin-top: 3%;
+    width: 60%;
+    border: 1px solid rgba(51, 51, 102, 1);
+    border-radius: 10px 10px;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-bottom: 1vh;
+}
+
+.room {
+    margin-top: 1vh;
+    position: relative;
+    height: 15vh;
+    padding: 1vh;
+    border: 1px solid rgba(51, 51, 102, 1);
+}
+
+.room-details {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.price {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    align-items: flex-end;
+}
+
+.price-label {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    float: right;
+    align-items: flex-end;
+}
+
+.button-reservation {
+    background-color: rgba(51, 51, 102, 1);
+    margin: 20px 0px 0px 20px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid rgb(4, 104, 129);
+    padding: 7px 14px;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.button-reservation:hover{
+    background-color: rgba(51, 51, 102, 0.8);
+}
+
+.button-hotel-details {
+    background-color: rgba(51, 51, 102, 1);
+    margin: 20px 0px 0px 20px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid rgb(4, 104, 129);
+    padding: 7px 14px;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.button-hotel-details:hover{
+    background-color: rgba(51, 51, 102, 0.8);
+}

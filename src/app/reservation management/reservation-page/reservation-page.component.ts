@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Availability } from 'src/app/models/availability';
-import { Reservation } from 'src/app/models/reservation';
+import { ReservationDate } from 'src/app/models/interface/reservationDate.interface';
 import { ReservationArrangement } from 'src/app/models/reservationArrangement';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
@@ -18,6 +18,7 @@ import { isTemplateExpression } from 'typescript';
 export class ReservationPageComponent implements OnInit {
   reservations:Availability[];
   reservationArrangement = new ReservationArrangement;
+  reservationDates: ReservationDate[];
 
   totalPrice: number;
 
@@ -32,12 +33,24 @@ export class ReservationPageComponent implements OnInit {
       this.reservations = data;
 
       this.totalPrice = 0;
+      this.reservationDates = [];
       this.reservations.forEach(reservation => {
         this.totalPrice += reservation.price;
 
+        let tempStartDate = new Date(reservation.from_date)
+        let tempEndDate = new Date(reservation.to_date)  
+        var newReservationDate: ReservationDate = {
+          reservation_start: tempStartDate.toISOString().split('T')[0],
+          reservation_end: tempEndDate.toISOString().split('T')[0]
+        }
+        this.reservationDates.push(newReservationDate)
+      })
+
       this.reservationArrangement.reservations = this.reservations
       this.reservationArrangement.price = this.totalPrice;
-    })
+        
+      
+    
   })}
   
 

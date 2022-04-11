@@ -13,4 +13,5 @@ export interface AvailabilityInterface {
     from_date: Date;
     to_date: Date;
     price: number;
+    image: string;
 }
