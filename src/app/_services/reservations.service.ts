@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Availability } from 'src/app/models/availability';
 import { Observable, Subject, throwError } from 'rxjs';
-import { AvailabilityRequest } from '../models/availabilityRequest';
 import { UserAuthService } from './user-auth.service';
 import { ReservationArrangement } from '../models/reservationArrangement';
 import { AvailabilityInterface } from '../models/interface/availability.interface';
+import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
 
 
 @Injectable({
@@ -17,8 +17,8 @@ export class ReservationsService {
     { "No-Auth": "True" }
   );
 
-  private reservations = new Array<Availability>();
-  private reservationRequest = new Subject<AvailabilityRequest>();
+  private reservations = new Array<AvailabilityInterface>();
+  private reservationRequest = new Subject<AvailabilityRequestInterface>();
   public reservationRequestWithDate = this.reservationRequest.asObservable();
   
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
@@ -26,7 +26,7 @@ export class ReservationsService {
   private baseUrl = "http://localhost:8085/availabilityCart"
   private reservationUrl = "http://localhost:8085/reservations"
   
-  addReservationItem(availability: Availability): void {
+  addReservationItem(availability: AvailabilityInterface): void {
     
     if(this.userAuthService.isLoggedIn()){
       this.reservations.push(availability)
@@ -36,7 +36,7 @@ export class ReservationsService {
     }
   }
 
-  addReservationItemCart(availability: Availability): Observable<any>{
+  addReservationItemCart(availability: AvailabilityInterface): Observable<any>{
     return this.httpClient.post(this.baseUrl, availability)
   }
 
@@ -44,7 +44,7 @@ export class ReservationsService {
     return this.httpClient.get<AvailabilityInterface[]>(this.baseUrl);
   }
 
-  addReservaionRequestDate(availabilityRequest: AvailabilityRequest){
+  addReservaionRequestDate(availabilityRequest: AvailabilityRequestInterface){
     this.reservationRequest.next(availabilityRequest);
   }
 

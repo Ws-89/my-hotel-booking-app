@@ -7,4 +7,5 @@ export interface AvailableHotelInterface {
     city: string;
     grade: Grade;
     rooms: Array<AvailableRoomInterface>;
+    image: string;
 }
