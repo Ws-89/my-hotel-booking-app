@@ -4,6 +4,8 @@ import { RoomType } from '../../enum/room-type.enum';
 import { Room } from '../../models/room';
 import { RoomService } from '../../_services/room.service';
 import {Location} from '@angular/common';
+import { RoomGroupService } from 'src/app/_services/room-group.service';
+import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
 
 @Component({
   selector: 'app-update-room',
@@ -13,13 +15,12 @@ import {Location} from '@angular/common';
 export class UpdateRoomComponent implements OnInit {
 
   id: number;
-  hotelId: number;
-  room: Room = new Room();
 
+  roomGroup: RoomGroupInterface;
   roomType = RoomType;
   roomTypeKeys = [];
 
-  constructor(private roomService: RoomService,
+  constructor(private roomService: RoomService, private roomGroupService: RoomGroupService,
     private route: ActivatedRoute, private router: Router, private _location: Location) { 
     this.roomTypeKeys = Object.keys(this.roomType);
   }
@@ -29,20 +30,17 @@ export class UpdateRoomComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
-    this.roomService.getRoomById(this.id).subscribe(data => {
-      this.room = data;
-    },
+    this.roomGroupService.getRoomGroupById(this.id).subscribe(data => {
+      this.roomGroup = data;
+    }
+    ,
     error => console.log(error));
   }
 
-  goToRoomList(){
-    this.router.navigate(['/rooms'])
-  }
-
-  
 
   onSubmit(){
-    this.roomService.updateRoom(this.id, this.room).subscribe( data => {
+    this.roomGroupService.updateRoomGroup(this.roomGroup)
+    .subscribe( data => {
     this.backClicked();
     },
     error => console.log(error));

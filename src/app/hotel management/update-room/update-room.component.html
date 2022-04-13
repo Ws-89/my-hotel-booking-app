@@ -3,9 +3,9 @@
     <form (ngSubmit) = "onSubmit()"> 
     
         <div class="form-group">
-            <label> Number </label>
+            <label> Description </label>
             <input type="text" class="form-control" id="number"
-                [(ngModel)] = "room.number" name = "number">
+                [(ngModel)] = "roomGroup.description" name = "number">
         </div>
        
     
@@ -13,7 +13,7 @@
             <mat-form-field>
                 <mat-label> Room type </mat-label>
                 <mat-select
-                    [(ngModel)]="room.roomType" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="roomGroup.roomType" [ngModelOptions]="{standalone: true}"
                     >
                     <mat-option *ngFor="let type of roomTypeKeys" [value]="roomType[type]" >{{type}}</mat-option>
                     

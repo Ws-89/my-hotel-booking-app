@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
+import { RoomGroupService } from 'src/app/_services/room-group.service';
 import { RoomType } from '../../enum/room-type.enum';
 import { Room } from '../../models/room';
 import { RoomService } from '../../_services/room.service';
@@ -13,25 +16,27 @@ import { RoomService } from '../../_services/room.service';
 })
 export class CreateRoomComponent implements OnInit {
 
-  room: Room = new Room();
-
+  form: FormGroup;
   roomType = RoomType;
   roomTypeKeys = [];
-
   id: Number;
 
 
-  constructor(private roomService: RoomService,
-    private router: Router, private route: ActivatedRoute){
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private roomGroupService: RoomGroupService){
     this.roomTypeKeys = Object.keys(this.roomType);
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.form = this.fb.group({
+      description: new FormControl('',Validators.required),
+      roomType: new FormControl('',Validators.required),
+      quantity_of_rooms: new FormControl('', Validators.required)
+    })
   }
 
-  saveRoom(){
-    this.roomService.createRoom(this.id, this.room).subscribe( data => {
+  saveGroup(roomGroup: Partial<RoomGroupInterface>){
+    this.roomGroupService.createRoomGroup(this.id, roomGroup).subscribe(data => {
       this.goToRoomList();
     },
     error => console.log(error));
@@ -42,8 +47,13 @@ export class CreateRoomComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.room)
-    this.saveRoom();
+    let roomGroup = {
+      description : this.form.value.description,
+      quantity_of_rooms : this.form.value.quantity_of_rooms,
+      roomType : this.form.value.roomType,
+    }    
+  
+    this.saveGroup(roomGroup);
   }
 
 }

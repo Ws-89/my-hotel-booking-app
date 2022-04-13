@@ -1,26 +1,30 @@
-<h2> Room list </h2>
-<table class = "table table-striped">
-    <thead>
-        <tr>
-            <th> Id </th>
-            <th> Number </th>
-            <th> Room type</th>
-            <th> Actions </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor = "let room of rooms"> <!-- to jest wyrazenie javascript i rooms trzeba zadeklarowac w room-list.component.ts-->
-            <td> {{ room.room_id }} </td>
-            <td> {{ room.number }} </td>
-            <td> {{ room.roomType }} </td>
-            <td>
-                <button (click) = "deleteRoom(room.room_id, hotel_id)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete </button>
-                <button (click) = "roomDetails(room.room_id)" class="btn btn-info float-right" style="margin-left: 10px"> Info </button>
-                <button (click) = "updateRoom(room.room_id)" class="btn btn-warning float-right"> Update </button>
-                
-                
-            </td>
-        </tr>
-        <button (click) = "createRoom(hotel_id)" class="btn btn-primary"> Create room </button>
-    </tbody>
-</table>
+
+    <h2> Room list </h2>
+    <table class = "table table-striped">
+        <thead>
+            <tr>
+                <th> Description </th>
+                <th> Room type </th>
+                <th> Quantity </th>
+                <th> Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let roomGroup of roomGroups"> <!-- to jest wyrazenie javascript i rooms trzeba zadeklarowac w room-list.component.ts-->
+                <td> {{ roomGroup.description }} </td>
+                <td> {{ roomGroup.roomType }} </td>
+                <td> {{ roomGroup.quantity_of_rooms }} </td>
+                <td>
+                    <button (click) = "addToExistingGroup(roomGroup.room_group_id)" class="btn btn-warning float-right" style="margin-left: 10px"> Add room </button>
+                    <button (click) = "deleteRoom(roomGroup.room_group_id)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete room </button>
+                    <button (click) = "deleteGroup(roomGroup.room_group_id)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete group </button> 
+                    <!--  <button (click) = "roomDetails(room.room_id)" class="btn btn-info float-right" style="margin-left: 10px"> Info </button> -->
+                    <button (click) = "updateGroup(roomGroup.room_group_id)" class="btn btn-warning float-right"> Update </button>                     
+                    
+                </td>
+            </tr>
+            <button (click) = "createRoom(hotel_id)" class="btn btn-primary"> Create group of rooms </button>
+        </tbody>
+    </table>
+    
+
