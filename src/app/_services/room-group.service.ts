@@ -36,7 +36,7 @@ export class RoomGroupService {
     return this.httpClient.delete<void>(`${this.baseUrl}/delete-group/${id}`)
   }
 
-  updateRoomGroup(roomGroup: RoomGroupInterface): Observable<void>{
-    return this.httpClient.put<void>(`${this.baseUrl}`, roomGroup)
+  updateRoomGroup(roomGroup: RoomGroupInterface): Observable<RoomGroupInterface>{
+    return this.httpClient.put<RoomGroupInterface>(`${this.baseUrl}`, roomGroup)
   }
 }

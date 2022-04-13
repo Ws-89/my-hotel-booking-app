@@ -2,16 +2,12 @@
 <h3> Create room </h3>
 <form [formGroup]="form" (ngSubmit) = "onSubmit()"> 
 
-    <div class="form-group">
-        <label> Quantity of rooms </label>
-        <input type="text" class="form-control" formControlName = "quantity_of_rooms">
-    </div>
-   
-    <div class="form-group">
-        <label> Description </label>
-        <input type="text" class="form-control" formControlName ="description"
-             name = "description">
-    </div>
+    <div *ngFor="let data of descriptionList; let i=index">
+        <label>
+          <input type="checkbox" [value]="data.value" (change)="onCheckboxChange($event)" />
+          {{data.name}}
+        </label>
+      </div>
 
     <div class="type-of-room">
         <mat-form-field>
@@ -22,7 +18,12 @@
         </mat-form-field>
     </div>
 
+   
 
+    <div class="form-group">
+        <label> Quantity of rooms </label>
+        <input type="text" class="form-control" formControlName = "quantity_of_rooms">
+    </div>
     <button class = "btn btn-success" type="submit"> Submit </button>
 </form>
 </div>
