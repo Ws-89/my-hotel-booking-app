@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
 import { AvailableHotelInterface } from 'src/app/models/interface/availableHotel.interface';

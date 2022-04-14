@@ -29,22 +29,17 @@ export class AvailabilityComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.messengerService.getAvailabilitySearchData().subscribe(x => this.availabilityRequest = x)
     this.messengerService.getSearchResultData().subscribe(
         data => 
         {
           this.roomsOfSpecificHotel = data.filter(x => x.hotel_id == this.id)
-          let tempStartDate = new Date(this.roomsOfSpecificHotel[0].from_date)
+          let tempStartDate = new Date(this.availabilityRequest.from_date)
           this.startDate = tempStartDate.toISOString().split('T')[0]
       
-          let tempEndDate = new Date(this.roomsOfSpecificHotel[0].to_date)
+          let tempEndDate = new Date(this.availabilityRequest.to_date)
           this.endDate = tempEndDate.toISOString().split('T')[0]
-  
-        }
-        
-         )
-    this.messengerService.getAvailabilitySearchData().subscribe(x => this.availabilityRequest = x)
-
-   
+        })
   }
 
   bookThisRoom(availability: AvailabilityInterface){
@@ -55,7 +50,6 @@ export class AvailabilityComponent implements OnInit {
       this.router.navigateByUrl('/reservation-page')
     })
     }else{
-      localStorage.setItem("reservation", JSON.stringify(availability))
       this.messengerService.sendReservationForNonLoggedInUser(availability)
       this.router.navigateByUrl('/complete-the-transaction')   
     }
