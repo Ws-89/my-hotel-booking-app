@@ -9,7 +9,9 @@ export interface AvailabilityInterface {
     city: string;
     grade: Grade;
     room_id: number;
+    description: string;
     roomType: RoomType;
+    room_group_id: number;
     from_date: Date;
     to_date: Date;
     price: number;

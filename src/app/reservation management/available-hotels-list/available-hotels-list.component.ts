@@ -67,8 +67,8 @@ export class AvailableHotelsListComponent implements OnInit{
   private groupAvailableRoomsByHotels(availableRooms: AvailableRoomInterface[]){
     let result: AvailableHotelInterface[] = [];
 
-            for(let item of availableRooms){
-              let hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
+    availableRooms.forEach(item => {
+      var hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
               if(hotel){
                 hotel.rooms.push(item)
               }else {
@@ -83,7 +83,7 @@ export class AvailableHotelsListComponent implements OnInit{
                 }
                 result.push(newHotel)
                 }
-              }
+    })
       return result;
   }
 

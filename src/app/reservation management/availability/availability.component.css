@@ -58,7 +58,7 @@ body {
 
 .room {
     position: relative;
-    height: 15vh;
+    height: 18vh;
     border: 1px solid rgba(51, 51, 102, 1);
     margin-top: 1vh;
 }
@@ -70,21 +70,18 @@ body {
 }
 
 #price {
-    position: absolute;
-    bottom: 4vh;
-    right: 1vw;
+    
 }
 
+
+
 .button-hotel-details {
-    position: absolute;
-    bottom: 1vh;
-    right: 1vh;
     background-color: rgba(51, 51, 102, 1);
     margin: 20px 0px 0px 20px;
     text-align: center;
     border-radius: 12px;
     border: 2px solid rgb(4, 104, 129);
-    padding: 7px 14px;
+    padding: 5px 14px;
     outline: none;
     color: white;
     cursor: pointer;
@@ -94,3 +91,25 @@ body {
 .button-hotel-details:hover{
     background-color: rgba(51, 51, 102, 0.8);
 }
+
+.placeABooking {
+    align-items: flex-end;
+    position: absolute;
+    display: flex;
+    right: 0vh;
+    bottom: 1vh;
+    width: auto;
+    height: auto;
+    padding: 1vh;
+}
+
+#price {
+    text-align: right;
+}
+
+.priceAndButton{
+    display: flex;
+    flex-direction: column;
+    
+}
+

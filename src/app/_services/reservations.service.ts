@@ -36,7 +36,7 @@ export class ReservationsService {
     }
   }
 
-  addReservationItemCart(availability: AvailabilityInterface): Observable<any>{
+  addReservationItemCart(availability: AvailabilityInterface[]): Observable<any>{
     return this.httpClient.post(this.baseUrl, availability)
   }
 

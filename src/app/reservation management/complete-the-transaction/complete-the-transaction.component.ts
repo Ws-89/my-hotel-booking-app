@@ -16,13 +16,20 @@ export class CompleteTheTransactionComponent implements OnInit {
   reservation: Availability;
   reservationArrangement = new ReservationArrangement;
   
+
+  
   constructor(private reservationService: ReservationsService,
               private messengerService: MessengerService) { }
 
   ngOnInit(): void {
     zip(this.messengerService.getReservationForNonLoggedInUser(), this.messengerService.getAvailabilitySearchData()).subscribe(result => {
-      this.reservationArrangement.price = result[0].price
-      this.reservationArrangement.reservations.push(result[0])
+      let price = 0;
+
+      result[0].forEach(item => {
+        this.reservationArrangement.reservations.push(item);
+        price += item.price
+      })
+      this.reservationArrangement.price = price
       this.reservationArrangement.numberOfRooms = result[1].numberOfRooms;
       this.reservationArrangement.partySize = result[1].partySize;
     });
@@ -30,7 +37,7 @@ export class CompleteTheTransactionComponent implements OnInit {
   
   saveReservation(saveReservationForm: NgForm){
     this.reservationArrangement.email = saveReservationForm.form.value.email;
-    console.log(this.reservationArrangement)
+    console.log('reservation', this.reservationArrangement)
     this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationArrangement).subscribe(
       data => console.log(data)
     )
