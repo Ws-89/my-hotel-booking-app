@@ -12,7 +12,7 @@ export class MessengerService {
 
   private availabilitySearchData$ = new BehaviorSubject<AvailabilityRequestInterface>(null);
   private searchResultData$ = new BehaviorSubject<AvailabilityInterface[]>(null);
-  private reservation = new BehaviorSubject<AvailabilityInterface>(null);
+  private reservation = new BehaviorSubject<AvailabilityInterface[]>(null);
 
   sendAvailabilitySearchData(availabilityRequest: AvailabilityRequestInterface){
       this.availabilitySearchData$.next(availabilityRequest);
@@ -30,7 +30,7 @@ export class MessengerService {
     return this.searchResultData$.asObservable();
   }
 
-  sendReservationForNonLoggedInUser(availability: AvailabilityInterface){
+  sendReservationForNonLoggedInUser(availability: AvailabilityInterface[]){
     this.reservation.next(availability);
   }
 

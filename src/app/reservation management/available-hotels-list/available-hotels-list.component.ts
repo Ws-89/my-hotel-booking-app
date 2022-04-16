@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
 import { AvailableHotelInterface } from 'src/app/models/interface/availableHotel.interface';
@@ -67,8 +67,8 @@ export class AvailableHotelsListComponent implements OnInit{
   private groupAvailableRoomsByHotels(availableRooms: AvailableRoomInterface[]){
     let result: AvailableHotelInterface[] = [];
 
-            for(let item of availableRooms){
-              let hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
+    availableRooms.forEach(item => {
+      var hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
               if(hotel){
                 hotel.rooms.push(item)
               }else {
@@ -83,7 +83,7 @@ export class AvailableHotelsListComponent implements OnInit{
                 }
                 result.push(newHotel)
                 }
-              }
+    })
       return result;
   }
 

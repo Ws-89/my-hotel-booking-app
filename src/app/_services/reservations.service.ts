@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Availability } from 'src/app/models/availability';
 import { Observable, Subject, throwError } from 'rxjs';
 import { UserAuthService } from './user-auth.service';
 import { ReservationArrangement } from '../models/reservationArrangement';
@@ -36,7 +35,7 @@ export class ReservationsService {
     }
   }
 
-  addReservationItemCart(availability: AvailabilityInterface): Observable<any>{
+  addReservationItemCart(availability: AvailabilityInterface[]): Observable<any>{
     return this.httpClient.post(this.baseUrl, availability)
   }
 
@@ -56,7 +55,7 @@ export class ReservationsService {
     this.reservations = this.reservations.filter(item => item.room_id != reservationId);
   }
 
-  getReservations(): Availability[]{
+  getReservations(): AvailabilityInterface[]{
     return this.reservations;
   }
 
@@ -67,7 +66,6 @@ export class ReservationsService {
   proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement): Observable<Object>{
     return this.httpClient.post(`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement, { headers: this.requestHeader });
   }
-
 
   handleError(handleError: any): Observable<never> {
     return throwError ('Method not implemented')

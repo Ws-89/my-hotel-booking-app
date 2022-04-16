@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Availability } from 'src/app/models/availability';
+import {  zip } from 'rxjs';
 import { ReservationArrangement } from 'src/app/models/reservationArrangement';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
@@ -11,36 +11,30 @@ import { ReservationsService } from 'src/app/_services/reservations.service';
   styleUrls: ['./complete-the-transaction.component.css']
 })
 export class CompleteTheTransactionComponent implements OnInit {
-  reservation: Availability;
+
   reservationArrangement = new ReservationArrangement;
   
   constructor(private reservationService: ReservationsService,
               private messengerService: MessengerService) { }
 
   ngOnInit(): void {
-    this.setReservationArrangementDetails();
-    this.setReservaionForNonLoggedInUser();
-  }
+    zip(this.messengerService.getReservationForNonLoggedInUser(), this.messengerService.getAvailabilitySearchData()).subscribe(result => {
+      let price = 0;
 
-  setReservaionForNonLoggedInUser(){
-    this.messengerService.getReservationForNonLoggedInUser().subscribe(arg => {
-      this.reservationArrangement.price = arg.price
-      this.reservationArrangement.reservations.push(arg)
-    })
-  }
-
-  setReservationArrangementDetails(){
-    this.messengerService.getAvailabilitySearchData().subscribe(data => {
-      this.reservationArrangement.numberOfRooms = data.numberOfRooms;
-      this.reservationArrangement.partySize = data.partySize;
-      
-    })
+      result[0].forEach(item => {
+        this.reservationArrangement.reservations.push(item);
+        price += item.price
+      })
+      this.reservationArrangement.price = price
+      this.reservationArrangement.numberOfRooms = result[1].numberOfRooms;
+      this.reservationArrangement.partySize = result[1].partySize;
+    });
   }
   
   saveReservation(saveReservationForm: NgForm){
     this.reservationArrangement.email = saveReservationForm.form.value.email;
     this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationArrangement).subscribe(
-      localStorage.clear
+      data => console.log(data)
     )
   }
 

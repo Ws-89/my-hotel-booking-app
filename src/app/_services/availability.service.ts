@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Availability } from '../models/availability';
+import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { AvailabilityInterface } from '../models/interface/availability.interface';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';

@@ -12,7 +12,6 @@ import { HotelsListComponent } from './hotel management/hotels-list/hotels-list.
 import { LoginComponent } from './login and registration/login/login.component';
 import { RegisterSuccessComponent } from './login and registration/register-success/register-success.component';
 import { RegisterComponent } from './login and registration/register/register.component';
-import { ReservationComponent } from './reservation management/reservation/reservation.component';
 import { RoomDetailsComponent } from './hotel management/room-details/room-details.component';
 import { RoomListComponent } from './hotel management/room-list/room-list.component';
 import { UpdateHotelComponent } from './hotel management/update-hotel/update-hotel.component';
@@ -22,6 +21,9 @@ import { AvailableHotelsListComponent } from './reservation management/available
 import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
 import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
 import { HeaderComponent } from './header/header.component';
+import { CancelComponent } from './payment/cancel/cancel.component';
+import { SucessComponent } from './payment/sucess/sucess.component';
+import { CheckoutComponent } from './payment/checkout/checkout.component';
 
 
 
@@ -35,7 +37,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: 'availability', component: AvailabilityComponent },
-  { path: 'reservation', component: ReservationComponent },
   { path: 'hotels', component: HotelsListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'create-hotel', component: CreateHotelComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'rooms/:id', component: RoomListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
@@ -49,8 +50,10 @@ const routes: Routes = [
   { path: 'rooms', component: RoomListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'register-success', component: RegisterSuccessComponent},
   { path: 'reservation-page', component: ReservationPageComponent },
-  { path: 'complete-the-transaction', component: CompleteTheTransactionComponent}
-  
+  { path: 'complete-the-transaction', component: CompleteTheTransactionComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'payment-success', component: SucessComponent },
+  { path: 'payment-canceled', component: CancelComponent }
 ];
 
 @NgModule({
@@ -75,11 +78,12 @@ export const routingComponents = [
     HeaderComponent,
     ForbiddenComponent,
     AvailabilityComponent,
-    ReservationComponent,
     RegisterComponent,
     RegisterSuccessComponent,
     AvailableHotelsListComponent,
     ReservationPageComponent,
     CompleteTheTransactionComponent,
-    
+    CancelComponent,
+    SucessComponent,
+    CheckoutComponent
 ]
