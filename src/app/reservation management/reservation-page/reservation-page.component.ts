@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Availability } from 'src/app/models/availability';
+import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { ReservationDate } from 'src/app/models/interface/reservationDate.interface';
 import { ReservationArrangement } from 'src/app/models/reservationArrangement';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
-import { isTemplateExpression } from 'typescript';
-
-
 
 
 @Component({
@@ -16,7 +13,7 @@ import { isTemplateExpression } from 'typescript';
   styleUrls: ['./reservation-page.component.css']
 })
 export class ReservationPageComponent implements OnInit {
-  reservations:Availability[];
+  reservations:AvailabilityInterface[];
   reservationArrangement = new ReservationArrangement;
   reservationDates: ReservationDate[];
 
@@ -54,7 +51,7 @@ export class ReservationPageComponent implements OnInit {
   })}
   
 
-  removeFromReservations(availability: Availability){
+  removeFromReservations(availability: AvailabilityInterface){
     var id = availability.availability_id.toString();
     this.reservationService.removeItemFromReservationCart(id).subscribe(data => 
       this.setReservationsAndPriceFromCart()

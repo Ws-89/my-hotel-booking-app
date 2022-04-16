@@ -17,6 +17,9 @@ import { UserService } from './_services/user.service';
 import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 
@@ -25,8 +28,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     routingComponents,
-    
-    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatFormFieldModule,
     MatRippleModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [
     AuthGuard,

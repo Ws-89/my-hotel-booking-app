@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { concat, forkJoin, zip } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-import { Availability } from 'src/app/models/availability';
+import {  zip } from 'rxjs';
 import { ReservationArrangement } from 'src/app/models/reservationArrangement';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
@@ -13,10 +11,8 @@ import { ReservationsService } from 'src/app/_services/reservations.service';
   styleUrls: ['./complete-the-transaction.component.css']
 })
 export class CompleteTheTransactionComponent implements OnInit {
-  reservation: Availability;
-  reservationArrangement = new ReservationArrangement;
-  
 
+  reservationArrangement = new ReservationArrangement;
   
   constructor(private reservationService: ReservationsService,
               private messengerService: MessengerService) { }
@@ -37,7 +33,6 @@ export class CompleteTheTransactionComponent implements OnInit {
   
   saveReservation(saveReservationForm: NgForm){
     this.reservationArrangement.email = saveReservationForm.form.value.email;
-    console.log('reservation', this.reservationArrangement)
     this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationArrangement).subscribe(
       data => console.log(data)
     )

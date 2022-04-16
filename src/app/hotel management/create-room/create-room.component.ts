@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DescriptionPropertiesInterface } from 'src/app/models/interface/descriptionProperties.interface';
 import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
 import { RoomGroupService } from 'src/app/_services/room-group.service';
 import { RoomType } from '../../enum/room-type.enum';
-import { Room } from '../../models/room';
-import { RoomService } from '../../_services/room.service';
+
 
 
 // ng g c create-room

@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { concatMap, map, switchMap } from 'rxjs/operators';
-import { Availability } from 'src/app/models/availability';
+import { map, switchMap } from 'rxjs/operators';
 import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
 import { RoomGroupToDisplayInterface } from 'src/app/models/interface/roomGroupToDisplay.interface';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
-import { RoomService } from 'src/app/_services/room.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 
 @Component({
@@ -56,21 +53,6 @@ export class AvailabilityComponent implements OnInit {
         
       ))
     ).subscribe();
-      
-    
-    // this.messengerService.getAvailabilitySearchData().subscribe(x => this.availabilityRequest = x)
-    // this.messengerService.getSearchResultData().subscribe(
-    //     data => 
-    //     {
-    //       this.roomsOfSpecificHotel = data.filter(x => x.hotel_id == this.id)
-    //       let tempStartDate = new Date(this.availabilityRequest.from_date)
-    //       this.startDate = tempStartDate.toISOString().split('T')[0]
-      
-    //       let tempEndDate = new Date(this.availabilityRequest.to_date)
-    //       this.endDate = tempEndDate.toISOString().split('T')[0]
-    //     })
-    // this.availableGroups = this.groupRoomsToDisplay(this.roomsOfSpecificHotel)
-    // console.log(this.availableGroups)
   }
   
   groupRoomsToDisplay(data: AvailabilityInterface[]){
