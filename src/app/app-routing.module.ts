@@ -12,7 +12,6 @@ import { HotelsListComponent } from './hotel management/hotels-list/hotels-list.
 import { LoginComponent } from './login and registration/login/login.component';
 import { RegisterSuccessComponent } from './login and registration/register-success/register-success.component';
 import { RegisterComponent } from './login and registration/register/register.component';
-import { RoomDetailsComponent } from './hotel management/room-details/room-details.component';
 import { RoomListComponent } from './hotel management/room-list/room-list.component';
 import { UpdateHotelComponent } from './hotel management/update-hotel/update-hotel.component';
 import { UpdateRoomComponent } from './hotel management/update-room/update-room.component';
@@ -44,7 +43,6 @@ const routes: Routes = [
   { path: 'create-room/:id', component: CreateRoomComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'update-room/:id', component: UpdateRoomComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
-  { path: 'room-details/:id', component: RoomDetailsComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'update-hotel/:id', component: UpdateHotelComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'hotel-details/:id', component: HotelDetailsComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'rooms', component: RoomListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
@@ -66,7 +64,6 @@ export const routingComponents = [
   RoomListComponent,
     CreateRoomComponent,
     UpdateRoomComponent,
-    RoomDetailsComponent,
     HotelsListComponent,
     CreateHotelComponent,
     UpdateHotelComponent,

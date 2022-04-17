@@ -28,8 +28,8 @@ export class UpdateHotelComponent implements OnInit {
     this.hotelService.getHotelById(this.id).subscribe(data => {
       console.log(data)
       
-        this.hotel.hotel_id = data.hotel_id
-        this.hotel.name = data.name;
+        this.hotel.hotel_id = data.hotelId
+        this.hotel.name = data.hotelName;
         this.hotel.street = data.street;
         this.hotel.city = data.city;
         this.hotel.state = data.state;

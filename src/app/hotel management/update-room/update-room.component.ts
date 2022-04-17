@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomType } from '../../enum/room-type.enum';
-import { RoomService } from '../../_services/room.service';
 import {Location} from '@angular/common';
 import { RoomGroupService } from 'src/app/_services/room-group.service';
 import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';

@@ -13,7 +13,6 @@ import { HotelsService } from '../../_services/hotels.service';
 })
 export class CreateHotelComponent implements OnInit {
 
-  // hotel: Hotel = new Hotel();
   hotel: Hotel;
 
   grades = Grade;

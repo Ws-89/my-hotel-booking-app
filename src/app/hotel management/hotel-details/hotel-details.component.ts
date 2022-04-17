@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotelInterface } from 'src/app/models/interface/hotelInterface.interface';
 import { Hotel } from '../../models/hotel';
 import { HotelsService } from '../../_services/hotels.service';
 
@@ -13,7 +14,7 @@ export class HotelDetailsComponent implements OnInit {
 
   selectedFile: File = null;
   id: number;
-  hotel: Hotel;
+  hotel: HotelInterface;
 
   constructor(private route: ActivatedRoute, private hotelService: HotelsService, private router: Router) { }
 

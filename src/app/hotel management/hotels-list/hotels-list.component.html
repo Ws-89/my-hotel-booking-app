@@ -16,16 +16,16 @@
     </thead>
     <tbody>
         <tr *ngFor = "let hotel of hotels">
-            <td>{{ hotel.hotel_id }}</td>
+            <td>{{ hotel.hotelId }}</td>
             <td><img [src]="hotel.image"></td>
-            <td>{{ hotel.name }}</td>
+            <td>{{ hotel.hotelName }}</td>
             <td>{{ hotel.street }}</td>
             <td>{{ hotel.city }}</td>
             <td>{{ hotel.country }}</td>
             <td>{{ hotel.grade }}</td>
             <td>
                 
-                <button (click) = "hotelDetails(hotel.hotel_id)" class="btn btn-info float-right" style="margin-left: 10px">Show details</button><br><br><br><br>
+                <button (click) = "hotelDetails(hotel.hotelId)" class="btn btn-info float-right" style="margin-left: 10px">Show details</button><br><br><br><br>
                 
             </td>
         </tr>

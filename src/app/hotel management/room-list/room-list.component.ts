@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { Room } from '../../models/room';
-import { RoomService } from '../../_services/room.service';
 import {Location} from '@angular/common';
 import { RoomGroupService } from 'src/app/_services/room-group.service';
 import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
@@ -52,19 +50,10 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['update-room', id]);
   }
 
-
-  updateRoom(id: Number){
-    this.router.navigate(['update-room', id]);
-  }
-
   deleteRoom(id: Number){
     this.roomGroupService.removeFromGroup(id).subscribe(data => {
       this.getRoomGroupByHotelId()
     })
-  }
-
-  roomDetails(id: Number){
-    this.router.navigate(['room-details', id]);
   }
 
   createRoom(hotel_id: Number){

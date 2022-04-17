@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HotelInterface } from 'src/app/models/interface/hotelInterface.interface';
 import { Hotel } from '../../models/hotel';
 import { HotelsService } from '../../_services/hotels.service';
 
@@ -10,7 +11,7 @@ import { HotelsService } from '../../_services/hotels.service';
 })
 export class HotelsListComponent implements OnInit {
 
-  hotels = new Array<Hotel>();
+  hotels = new Array<HotelInterface>();
   retrievedImages = new Map<number, any>();
   base64Data: any;
   retrieveResonse: any;
@@ -19,11 +20,13 @@ export class HotelsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHotels();
+    
   }
 
   private getHotels(){
     this.hotelService.getHotelList().subscribe(data => {
         this.hotels = data;    
+        console.log(this.hotels)
     });
   }
 

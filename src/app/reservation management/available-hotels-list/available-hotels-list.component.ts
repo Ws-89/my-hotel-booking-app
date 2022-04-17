@@ -20,7 +20,7 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 export class AvailableHotelsListComponent implements OnInit{
 
 
-  availableHotels: AvailableHotelInterface[];
+  availableHotels: Partial<AvailableHotelInterface>[];
   availabilities: AvailabilityInterface[];
   reservations: AvailabilityInterface[];
   availabilityRequest: AvailabilityRequestInterface;
@@ -65,7 +65,7 @@ export class AvailableHotelsListComponent implements OnInit{
     }
 
   private groupAvailableRoomsByHotels(availableRooms: AvailableRoomInterface[]){
-    let result: AvailableHotelInterface[] = [];
+    let result: Partial<AvailableHotelInterface>[] = [];
 
     availableRooms.forEach(item => {
       var hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
@@ -73,7 +73,7 @@ export class AvailableHotelsListComponent implements OnInit{
                 hotel.rooms.push(item)
               }else {
                 var newRoom: AvailableRoomInterface[] = [item]
-                var newHotel: AvailableHotelInterface = {
+                var newHotel: Partial<AvailableHotelInterface> = {
                   hotel_id : item.hotel_id,
                   hotel_name : item.hotel_name,
                   city: item.city,

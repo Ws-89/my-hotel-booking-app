@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
+import { HotelInterface } from '../models/interface/hotelInterface.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,16 @@ export class HotelsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getHotelList(): Observable<Hotel[]>{
-    return this.httpClient.get<Hotel[]>(`${this.baseUrl}`); 
+  getHotelList(): Observable<HotelInterface[]>{
+    return this.httpClient.get<HotelInterface[]>(`${this.baseUrl}`); 
   }
   
   saveHotel(hotel: Hotel): Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}`, hotel);
   }
 
-  getHotelById(id: Number): Observable<Hotel>{
-    return this.httpClient.get<Hotel>(`${this.baseUrl}/${id}`);
+  getHotelById(id: Number): Observable<HotelInterface>{
+    return this.httpClient.get<HotelInterface>(`${this.baseUrl}/${id}`);
   }
 
   updateHotel(id: Number, hotel: Hotel): Observable<Object>{

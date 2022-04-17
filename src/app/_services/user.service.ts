@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CredentialsInterface } from '../models/interface/credentials.interface';
 import { User } from '../models/user';
 import { UserAuthService } from './user-auth.service';
 
@@ -26,7 +27,7 @@ export class UserService {
     private httpClient: HttpClient,
     private userAuthService: UserAuthService) { }
 
-  public login(loginData) {
+  public login(loginData: CredentialsInterface) {
     return this.httpClient.post(`${this.baseUrl}`, loginData, { headers: this.requestHeader })
   }
 
