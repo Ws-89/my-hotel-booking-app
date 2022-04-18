@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
-import { AvailableHotelInterface } from 'src/app/models/interface/availableHotel.interface';
-import { AvailableRoomInterface } from 'src/app/models/interface/availableRoom.interface';
+import { HotelInterface } from 'src/app/models/interface/hotelInterface.interface';
 
 
 import { AvailabilityService } from 'src/app/_services/availability.service';
@@ -20,7 +19,7 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 export class AvailableHotelsListComponent implements OnInit{
 
 
-  availableHotels: Partial<AvailableHotelInterface>[];
+  availableHotels: Partial<AvailabilityInterface>[];
   availabilities: AvailabilityInterface[];
   reservations: AvailabilityInterface[];
   availabilityRequest: AvailabilityRequestInterface;
@@ -64,18 +63,18 @@ export class AvailableHotelsListComponent implements OnInit{
       this.router.navigate(['availability-details', id])
     }
 
-  private groupAvailableRoomsByHotels(availableRooms: AvailableRoomInterface[]){
-    let result: Partial<AvailableHotelInterface>[] = [];
+  private groupAvailableRoomsByHotels(availableRooms: Partial<AvailabilityInterface>[]){
+    let result: Partial<HotelInterface>[] = [];
 
     availableRooms.forEach(item => {
-      var hotel = result.find(hotel => hotel.hotel_id == item.hotel_id)
+      var hotel = result.find(hotel => hotel.hotelId == item.hotelId)
               if(hotel){
                 hotel.rooms.push(item)
               }else {
-                var newRoom: AvailableRoomInterface[] = [item]
-                var newHotel: Partial<AvailableHotelInterface> = {
-                  hotel_id : item.hotel_id,
-                  hotel_name : item.hotel_name,
+                var newRoom: Partial<AvailabilityInterface>[] = [item]
+                var newHotel: Partial<HotelInterface> = {
+                  hotelId : item.hotelId,
+                  hotelName : item.hotelName,
                   city: item.city,
                   grade: item.grade,
                   rooms : newRoom,
@@ -92,25 +91,25 @@ export class AvailableHotelsListComponent implements OnInit{
   }
 
   private checkIfAvailabilityIsInReservationCart = function(availability: AvailabilityInterface, reservation: AvailabilityInterface, availabilityRequest: AvailabilityRequestInterface): boolean{
-    availability.from_date = new Date(availability.from_date);
-    availability.to_date = new Date(availability.to_date);
-    reservation.from_date = new Date(reservation.from_date);
-    reservation.to_date = new Date(reservation.to_date);
-    availabilityRequest.from_date = new Date(availabilityRequest.from_date);
-    availabilityRequest.to_date = new Date(availabilityRequest.to_date);
+    availability.startDate = new Date(availability.startDate);
+    availability.endDate = new Date(availability.endDate);
+    reservation.startDate = new Date(reservation.startDate);
+    reservation.endDate = new Date(reservation.endDate);
+    availabilityRequest.startDate = new Date(availabilityRequest.startDate);
+    availabilityRequest.endDate = new Date(availabilityRequest.endDate);
    
-    return (reservation.room_id == availability.room_id && 
-    (((reservation.from_date.toISOString() < availabilityRequest.from_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
-    && (reservation.to_date.toISOString() > availabilityRequest.from_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.from_date.toISOString()))
+    return (reservation.roomId == availability.roomId && 
+    (((reservation.startDate.toISOString() < availabilityRequest.startDate.toISOString() || reservation.startDate.toISOString() == availabilityRequest.startDate.toISOString()) 
+    && (reservation.endDate.toISOString() > availabilityRequest.startDate.toISOString() || reservation.endDate.toISOString() == availabilityRequest.startDate.toISOString()))
     || 
-    ((reservation.from_date.toISOString() < availabilityRequest.to_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.to_date.toISOString()) 
-    && (reservation.to_date.toISOString() > availabilityRequest.to_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.to_date.toISOString()))
+    ((reservation.startDate.toISOString() < availabilityRequest.endDate.toISOString() || reservation.startDate.toISOString() == availabilityRequest.endDate.toISOString()) 
+    && (reservation.endDate.toISOString() > availabilityRequest.endDate.toISOString() || reservation.endDate.toISOString() == availabilityRequest.endDate.toISOString()))
     || 
-    ((reservation.from_date.toISOString() > availabilityRequest.from_date.toISOString()|| reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
-    && (reservation.to_date.toISOString() < availabilityRequest.to_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.to_date.toISOString()))
+    ((reservation.startDate.toISOString() > availabilityRequest.startDate.toISOString()|| reservation.startDate.toISOString() == availabilityRequest.startDate.toISOString()) 
+    && (reservation.endDate.toISOString() < availabilityRequest.endDate.toISOString() || reservation.endDate.toISOString() == availabilityRequest.endDate.toISOString()))
     || 
-    ((reservation.from_date.toISOString() < availabilityRequest.from_date.toISOString() || reservation.from_date.toISOString() == availabilityRequest.from_date.toISOString()) 
-    && (reservation.to_date.toISOString() > availabilityRequest.to_date.toISOString() || reservation.to_date.toISOString() == availabilityRequest.to_date.toISOString())))
+    ((reservation.startDate.toISOString() < availabilityRequest.startDate.toISOString() || reservation.startDate.toISOString() == availabilityRequest.startDate.toISOString()) 
+    && (reservation.endDate.toISOString() > availabilityRequest.endDate.toISOString() || reservation.endDate.toISOString() == availabilityRequest.endDate.toISOString())))
     )
   }
 

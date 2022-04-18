@@ -14,8 +14,7 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private userService: UserService) {}
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
     if(this.userAuthService.getToken() !== null) {
       const authorities = route.data['authorities'] as Array<string>

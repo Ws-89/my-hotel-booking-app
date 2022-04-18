@@ -1,86 +1,112 @@
-
-    
-        <h3> Create hotel </h3>
-        <form #createHotel = "ngForm" (ngSubmit) = "onSubmit()">
-        
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" 
-                    ngModel = "name" name="hotelName" required #hotelName="ngModel"
-                    [class.is-invalid]="hotelName.invalid && hotelName.touched">
-                <small class="text-danger" [class.d-none]="hotelName.valid || hotelName.untouched">Hotel name is required field</small>
-                
+        <div class="container">
+            <div class="row">
+                <div class="col"><h3> Create hotel </h3></div>
             </div>
-            <div class="form-group">
-                <label>Street</label>
-                <input type="text" class="form-control" id="hotelStreet"
-                    [(ngModel)] = "hotel.street" name="hotelStreet" required #hotelStreet="ngModel"
-                    [class.is-invalid]="hotelStreet.invalid && hotelStreet.touched">
-                    <small class="text-danger" [class.d-none]="hotelStreet.valid || hotelStreet.untouched">Street is required field</small>
-            </div>
-            <div class="form-group">
-                <label>City</label>
-                <input type="text" class="form-control" id="hotelCity"
-                    [(ngModel)] = "hotel.city" name="hotelCity" required #hotelCity="ngModel"
-                    [class.is-invalid]="hotelCity.invalid && hotelCity.touched">
-                    <small class="text-danger" [class.d-none]="hotelCity.valid || hotelCity.untouched">City is required field</small>
-            </div>
-            <div class="form-group">
-                <label>State</label>
-                <input type="text" class="form-control" id="hotelState"
-                    [(ngModel)] = "hotel.state" name="hotelState" required #hotelState="ngModel"
-                    [class.is-invalid]="hotelState.invalid && hotelState.touched">
-                    <small class="text-danger" [class.d-none]="hotelState.valid || hotelState.untouched">State is required field</small>
-            </div>
-            <div class="form-group">
-                <label>Country</label>
-                <input type="text" class="form-control" id="hotelCountry"
-                    [(ngModel)] = "hotel.country" name="hotelCountry" required #hotelCountry="ngModel"
-                    [class.is-invalid]="hotelCountry.invalid && hotelCountry.touched">
-                    <small class="text-danger" [class.d-none]="hotelCountry.valid || hotelCountry.untouched">Country is required field</small>
-            </div>
-            <div class="form-group">
-                <label>Zipcode</label>
-                <input type="text" class="form-control" id="hotelZipcode"
-                    [(ngModel)] = "hotel.zipcode" name="hotelZipcode"required #hotelZipcode="ngModel"
-                    [class.is-invalid]="hotelZipcode.invalid && hotelZipcode.touched">
-                    <small class="text-danger" [class.d-none]="hotelZipcode.valid || hotelZipcode.untouched">Zipcode is required field</small>
-            </div>
-        
-            <div class="form-group">
-                <label>Phone number</label>
-                <input type="text" class="form-control" id="hotelphone" 
-                    [(ngModel)] = "hotel.phoneNumber" name="hotelphone" required #hotelPhone="ngModel"
-                    [class.is-invalid]="hotelPhone.invalid && hotelPhone.touched">
-                    <small class="text-danger" [class.d-none]="hotelPhone.valid || hotelPhone.untouched">Phone is required field</small>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" id="hotelEmail"
-                    [(ngModel)] = "hotel.email" name="hotelEmail" required #hotelEmail="ngModel"
-                    [class.is-invalid]="hotelEmail.invalid && hotelEmail.touched">
-                    <small class="text-danger" [class.d-none]="hotelEmail.valid || hotelEmail.untouched">Email is required field</small>
-            </div> 
-        
-            <div class="type-of-room">
-                <mat-form-field>
-                    <mat-label> Hotel </mat-label>
-                    <mat-select
-                        [(ngModel)]="hotel.grade" [ngModelOptions]="{standalone: true}"
-                        required #hotelGrade="ngModel"
-                        [class.is-invalid]="hotelGrade.invalid && hotelGrade.touched">
-                        <mat-option *ngFor="let item of gradeKeys" [value]="grades[item]" >{{item}}</mat-option>
-                        
-                    </mat-select>
-                </mat-form-field>
-                <div>
-                    <small class="text-danger" [class.d-none]="hotelGrade.valid || hotelGrade.untouched">Grade is required field</small>
+            <form [formGroup]="form" (ngSubmit) = "saveHotel()">
+            <div class="row">
+                <div class="col"><div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" formControlName="hotelName" required>
+                        <div *ngIf="hotelName.invalid && (hotelName.errors  && hotelName.touched)">
+                            <small class="text-danger" *ngIf="hotelName.errors.required">Hotel name field is required</small>
+                            <small class="text-danger" *ngIf="hotelName.errors.minlength">Hotel name should contain at least 2 letters</small>
+                          </div>
                 </div>
-                
-                
+                </div>
             </div>
-        
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" formControlName="hotelEmail">
+                        <div *ngIf="hotelEmail.invalid && (hotelEmail.errors && hotelEmail.touched)">
+                            <small class="text-danger" *ngIf="hotelEmail.errors.required">Email field is required</small>
+                            <small class="text-danger" *ngIf="hotelEmail.errors.pattern">Enter valid value of email address</small>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="type-of-room">
+                        <mat-form-field>
+                            <mat-label> Hotel </mat-label>
+                            <mat-select class="form-control" formControlName ="hotelGrade">
+                                <mat-option *ngFor="let item of gradeKeys" [value]="grades[item]" >{{item}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="hotelGrade.invalid && (hotelGrade.errors && hotelGrade.touched)">
+                            <small class="text-danger">Grade is required field</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Street</label>
+                        <input type="text" class="form-control" formControlName="hotelStreet"> 
+                        <div *ngIf="hotelStreet.invalid && (hotelStreet.errors && hotelStreet.touched)">
+                            <small class="text-danger" *ngIf="hotelStreet.errors.required">Street field is required</small>
+                            <small class="text-danger" *ngIf="hotelStreet.errors.minlength">Street should contain at least 2 letters</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control" formControlName="hotelCity">
+                            <div *ngIf="hotelCity.invalid && (hotelCity.errors && hotelCity.touched)">
+                                <small class="text-danger" *ngIf="hotelCity.errors.required">City field is required</small>
+                                <small class="text-danger" *ngIf="hotelCity.errors.minlength">City should contain at least 2 letters</small>
+                              </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>State</label>
+                        <input type="text" class="form-control" formControlName="hotelState">
+                            <div *ngIf="hotelState.invalid && (hotelState.errors && hotelState.touched)">
+                                <small class="text-danger" *ngIf="hotelState.errors.required">State field is required</small>
+                                <small class="text-danger" *ngIf="hotelState.errors.minlength">State should contain at least 2 letters</small>
+                              </div>
+                    </div>
+                </div> 
+                <div class="col">
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" class="form-control" formControlName="hotelCountry">
+                            <div *ngIf="hotelCountry.invalid && (hotelCountry.errors && hotelCountry.touched)">
+                                <small class="text-danger" *ngIf="hotelCountry.errors.required">Country field is required</small>
+                                <small class="text-danger" *ngIf="hotelCountry.errors.minlength">Country should contain at least 2 letters</small>
+                              </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col">
+                    <div class="form-group">
+                        <label>Zipcode</label>
+                        <input type="text" class="form-control" formControlName="hotelZipCode">
+                            <div *ngIf="hotelZipCode.invalid && (hotelZipCode.errors && hotelZipCode.touched)">
+                                <small class="text-danger" *ngIf="hotelZipCode.errors.required">Zip code field is required</small>
+                                <small class="text-danger" *ngIf="hotelZipCode.errors.minlength">Zip code should contain at least 2 letters</small>
+                              </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>Phone number</label>
+                        <input type="text" class="form-control" formControlName="hotelPhone">
+                            <div *ngIf="hotelPhone.invalid && (hotelPhone.errors && hotelPhone.touched)">
+                                <small class="text-danger" *ngIf="hotelPhone.errors.required">Phone number field is required</small>
+                                <small class="text-danger" *ngIf="hotelPhone.errors.pattern">Phone number should contain 9 numbers </small>
+                            </div>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-success" type="submit">Submit</button>
         </form>
-        
-        
+        </div>

@@ -2,17 +2,15 @@
   <div class="row">
     <div class="col"><div class="title"><h2>Registration</h2></div></div>
   </div>
-  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+  <form [formGroup]="form" (ngSubmit)="register()">
     <div class="row">
       <div class="col">
         <div class="form-group">
           <label for="firstName">First name</label>
           <input type="text" 
-                  ngModel name="firstName"  
+                  formControlName ="firstName"  
                   placeholder="Enter your first name" 
-                  class="form-control" 
-                  required minlength="2" #firstName="ngModel" 
-                  [class.is-invalid]="firstName.invalid && firstName.touched">
+                  class="form-control">
             <div *ngIf="firstName.invalid && (firstName.errors && firstName.touched)">
               <small class="text-danger" *ngIf="firstName.errors.required">First name field is required</small>
               <small class="text-danger" *ngIf="firstName.errors.minlength">First name should contain at least 2 letters</small>
@@ -23,11 +21,9 @@
         <div class="form-group">
           <label for="lastName">Last name</label>
           <input type="text" 
-                  ngModel name="lastName"  
+                  formControlName ="lastName"  
                   placeholder="Enter your last name" 
-                  class="form-control"
-                  required minlength="2" #lastName="ngModel" 
-                  [class.is-invalid]="lastName.invalid && lastName.touched">
+                  class="form-control">
             <div *ngIf="lastName.invalid && (lastName.errors && lastName.touched)">
               <small class="text-danger" *ngIf="lastName.errors.required">Last name field is required</small>
               <small class="text-danger" *ngIf="lastName.errors.minlength">Last name should contain at least 2 letters</small>
@@ -40,11 +36,9 @@
       <div class="form-group">
         <label for="email">Email address</label>
         <input type="text" 
-                ngModel name="email"  
+                formControlName = "email"  
                 placeholder="Enter your email" 
-                class="form-control"
-                required pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"
-                #email="ngModel">
+                class="form-control">
         <div *ngIf="email.invalid && (email.errors && email.touched)">
           <small class="text-danger" *ngIf="email.errors.required">Email field is required</small>
           <small class="text-danger" *ngIf="email.errors.pattern">Enter valid value of email address</small>
@@ -57,11 +51,9 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input type="text" 
-                ngModel name="password"  
+                formControlName ="password"  
                 placeholder="Enter your password" 
-                class="form-control"
-                required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" #password="ngModel" 
-                [class.is-invalid]="password.invalid && password.touched">
+                class="form-control">
             <div *ngIf="password.invalid && (password.errors && password.touched)">
               <small class="text-danger" *ngIf="password.errors.required">Password field is required</small>
               <small class="text-danger" *ngIf="password.errors.pattern">Password should contain at least 8 characters, one letter and one number</small>
@@ -74,11 +66,9 @@
         <div class="form-group">
           <label for="street">Street</label>
           <input type="text" 
-                  ngModel name="street"  
+                  formControlName ="street"  
                   placeholder="What is your home street address?" 
-                  class="form-control"
-                  required minlength="2" #street="ngModel" 
-                  [class.is-invalid]="street.invalid && street.touched">
+                  class="form-control">
             <div *ngIf="street.invalid && (street.errors && street.touched)">
               <small class="text-danger" *ngIf="street.errors.required">Street field is required</small>
               <small class="text-danger" *ngIf="street.errors.minlength">Street should contain at least 2 letters</small>
@@ -89,11 +79,9 @@
         <div class="form-group">
           <label for="city">City</label>
           <input type="text" 
-                  ngModel name="city"  
+                  formControlName ="city"  
                   placeholder="Where do you live?" 
-                  class="form-control"
-                  required minlength="2" #city="ngModel" 
-                  [class.is-invalid]="city.invalid && city.touched">
+                  class="form-control">
             <div *ngIf="city.invalid && (city.errors && city.touched)">
               <small class="text-danger" *ngIf="city.errors.required">City field is required</small>
               <small class="text-danger" *ngIf="city.errors.minlength">City should contain at least 2 letters</small>
@@ -106,11 +94,9 @@
       <div class="form-group">
         <label for="state">State</label>
         <input type="text" 
-                  ngModel name="state"  
+                  formControlName ="state"  
                   placeholder="Which state do you live in?" 
-                  class="form-control"
-                  required minlength="2" #state="ngModel" 
-                  [class.is-invalid]="state.invalid && state.touched">
+                  class="form-control">
             <div *ngIf="state.invalid && (state.errors && state.touched)">
               <small class="text-danger" *ngIf="state.errors.required">State field is required</small>
               <small class="text-danger" *ngIf="state.errors.minlength">State should contain at least 2 letters</small>
@@ -121,11 +107,9 @@
       <div class="form-group">
         <label for="country">Country</label>
         <input type="text" 
-                  ngModel name="country"  
+                  formControlName ="country"  
                   placeholder="Which country do you live in?" 
-                  class="form-control"
-                  required minlength="2" #country="ngModel" 
-                  [class.is-invalid]="country.invalid && country.touched">
+                  class="form-control">
             <div *ngIf="country.invalid && (country.errors && country.touched)">
               <small class="text-danger" *ngIf="country.errors.required">Country field is required</small>
               <small class="text-danger" *ngIf="country.errors.minlength">Country should contain at least 2 letters</small>
@@ -138,14 +122,12 @@
       <div class="form-group">
         <label for="zipcode">Zipcode</label>
         <input type="text" 
-                  ngModel name="zipcode"  
+                  formControlName ="zipCode"  
                   placeholder="Enter your zipcode" 
-                  class="form-control"
-                  required minlength="2" #zipcode="ngModel" 
-                  [class.is-invalid]="zipcode.invalid && zipcode.touched">
-            <div *ngIf="zipcode.invalid && (zipcode.errors && zipcode.touched)">
-              <small class="text-danger" *ngIf="zipcode.errors.required">Zipcode field is required</small>
-              <small class="text-danger" *ngIf="zipcode.errors.minlength">Zipcode should contain at least 2 letters</small>
+                  class="form-control">
+            <div *ngIf="zipCode.invalid && (zipCode.errors && zipCode.touched)">
+              <small class="text-danger" *ngIf="zipCode.errors.required">Zipcode field is required</small>
+              <small class="text-danger" *ngIf="zipCode.errors.minlength">Zipcode should contain at least 2 letters</small>
             </div>
     </div>
     </div>
@@ -153,11 +135,9 @@
       <div class="form-group">
         <label for="phoneNumber">Phone number</label>
         <input type="text" 
-                  ngModel name="phoneNumber"  
+                  formControlName ="phoneNumber"  
                   placeholder="Enter your phone number" 
-                  class="form-control"
-                  required pattern="^\+?\d{2}?[-.\s]?\d{3}[-.\s]?\d{3}[-.\s]?\d{3}?" #phoneNumber="ngModel" 
-                  [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched">
+                  class="form-control">
             <div *ngIf="phoneNumber.invalid && (phoneNumber.errors && phoneNumber.touched)">
               <small class="text-danger" *ngIf="phoneNumber.errors.required">Phone number field is required</small>
               <small class="text-danger" *ngIf="phoneNumber.errors.pattern">Phone number should contain at least 9 numbers in </small>
@@ -165,6 +145,6 @@
       </div>
     </div>
   </div>    
-    <button [disabled]="!registerForm.valid" type="submit" class="button-register">Submit</button>
+    <button [disabled]="!form.valid" class="button-register">Submit</button>
   </form>
 </div>

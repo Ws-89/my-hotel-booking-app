@@ -25,18 +25,8 @@ export class ReservationsService {
   private baseUrl = "http://localhost:8085/availabilityCart"
   private reservationUrl = "http://localhost:8085/reservations"
   
-  addReservationItem(availability: AvailabilityInterface): void {
-    
-    if(this.userAuthService.isLoggedIn()){
-      this.reservations.push(availability)
-    } 
-    else {
-      console.log("niezalogowany")
-    }
-  }
-
-  addReservationItemCart(availability: AvailabilityInterface[]): Observable<any>{
-    return this.httpClient.post(this.baseUrl, availability)
+  addReservationItemCart(availability: AvailabilityInterface[]){
+    return this.httpClient.post(this.baseUrl, availability).toPromise();
   }
 
   getReservationCart(): Observable<AvailabilityInterface[]>{
@@ -47,24 +37,17 @@ export class ReservationsService {
     this.reservationRequest.next(availabilityRequest);
   }
 
-  removeItemFromReservationCart(id : string): Observable<any>{
-    return this.httpClient.delete(this.baseUrl + `/${id}`);
+  removeItemFromReservationCart(id : string){
+    return this.httpClient.delete(this.baseUrl + `/${id}`).toPromise();
   }
 
-  removeReservation(reservationId: number): void{
-    this.reservations = this.reservations.filter(item => item.room_id != reservationId);
+  proceedReservations(reservationArrangement: ReservationArrangement){
+    return this.httpClient.post(`${this.reservationUrl}/makeAReservation`, reservationArrangement).toPromise();
   }
 
-  getReservations(): AvailabilityInterface[]{
-    return this.reservations;
-  }
-
-  proceedReservations(reservationArrangement: ReservationArrangement): Observable<Object>{
-    return this.httpClient.post(`${this.reservationUrl}/makeAReservation`, reservationArrangement);
-  }
-
-  proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement): Observable<Object>{
-    return this.httpClient.post(`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement, { headers: this.requestHeader });
+  proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement) {
+    return this.httpClient.post
+    (`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement, { headers: this.requestHeader }).toPromise();
   }
 
   handleError(handleError: any): Observable<never> {

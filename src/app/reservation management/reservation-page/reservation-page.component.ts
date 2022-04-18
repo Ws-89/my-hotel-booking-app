@@ -34,8 +34,8 @@ export class ReservationPageComponent implements OnInit {
       this.reservations.forEach(reservation => {
         this.totalPrice += reservation.price;
 
-        let tempStartDate = new Date(reservation.from_date)
-        let tempEndDate = new Date(reservation.to_date)  
+        let tempStartDate = new Date(reservation.startDate)
+        let tempEndDate = new Date(reservation.endDate)  
         var newReservationDate: ReservationDate = {
           reservation_start: tempStartDate.toISOString().split('T')[0],
           reservation_end: tempEndDate.toISOString().split('T')[0]
@@ -52,8 +52,8 @@ export class ReservationPageComponent implements OnInit {
   
 
   removeFromReservations(availability: AvailabilityInterface){
-    var id = availability.availability_id.toString();
-    this.reservationService.removeItemFromReservationCart(id).subscribe(data => 
+    var id = availability.availabilityId.toString();
+    this.reservationService.removeItemFromReservationCart(id).then(data => 
       this.setReservationsAndPriceFromCart()
     )
   }
@@ -71,7 +71,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   saveReservation(): void {
-    this.reservationService.proceedReservations(this.reservationArrangement).subscribe(data => 
+    this.reservationService.proceedReservations(this.reservationArrangement).then(data => 
       this.reservations.forEach(x => {
         this.removeFromReservations(x);
       })

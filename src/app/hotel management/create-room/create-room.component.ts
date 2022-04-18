@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
+import { RoomPropertiesInterface } from 'src/app/models/interface/roomProperties.interface';
 import { RoomGroupService } from 'src/app/_services/room-group.service';
 import { RoomType } from '../../enum/room-type.enum';
 
@@ -19,7 +20,7 @@ export class CreateRoomComponent implements OnInit {
   roomType = RoomType;
   roomTypeKeys = [];
   id: Number;
-  descriptionList: Array<any> = [
+  descriptionList: Array<RoomPropertiesInterface> = [
     {name: "private bathroom", value: "private bathroom"},
     {name: "tv", value: "tv"},
     {name: "kitchen", value: "kitchen"},
@@ -38,10 +39,9 @@ export class CreateRoomComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
   
     this.form = this.fb.group({
-      // description: new FormControl('',Validators.required),
       description: this.fb.array([]),
       roomType: new FormControl('',Validators.required),
-      quantity_of_rooms: new FormControl('', Validators.required)
+      quantityOfRooms: new FormControl('', Validators.required)
     })
   }
 
@@ -62,7 +62,7 @@ export class CreateRoomComponent implements OnInit {
   }
 
   saveGroup(roomGroup: Partial<RoomGroupInterface>){
-    this.roomGroupService.createRoomGroup(this.id, roomGroup).subscribe(data => {
+    this.roomGroupService.createRoomGroup(this.id, roomGroup).then(data => {
       this.goToRoomList();
     },
     error => console.log(error));
@@ -76,7 +76,7 @@ export class CreateRoomComponent implements OnInit {
     
     let roomGroup = {
       description : this.form.value.description.join(", "),
-      quantity_of_rooms : this.form.value.quantity_of_rooms,
+      quantityOfRooms : this.form.value.quantityOfRooms,
       roomType : this.form.value.roomType,
     }    
     this.saveGroup(roomGroup);

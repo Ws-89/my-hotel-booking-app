@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RoomGroupInterface } from '../models/interface/roomGroup.interface';
 
 @Injectable({
@@ -20,23 +20,23 @@ export class RoomGroupService {
     return this.httpClient.get<RoomGroupInterface[]>(`${this.baseUrl}/by-hotel/${id}`)
   }
 
-  createRoomGroup(id: Number, roomGroup: Partial<RoomGroupInterface>): Observable<Object> {
-    return this.httpClient.post(`${this.baseUrl}/${id}`, roomGroup)
+  createRoomGroup(id: Number, roomGroup: Partial<RoomGroupInterface>) {
+    return this.httpClient.post(`${this.baseUrl}/${id}`, roomGroup).toPromise();
   }
 
-  addToExistingGroup(id: Number): Observable<RoomGroupInterface>{
-    return this.httpClient.get<RoomGroupInterface>(`${this.baseUrl}/existing-groups/${id}`)
+  addToExistingGroup(id: Number) {
+    return this.httpClient.get<RoomGroupInterface>(`${this.baseUrl}/existing-groups/${id}`).toPromise();
   }
 
-  removeFromGroup(id: Number): Observable<Object>{
-    return this.httpClient.delete(`${this.baseUrl}/${id}`)
+  removeFromGroup(id: Number) {
+    return this.httpClient.delete(`${this.baseUrl}/${id}`).toPromise();
   }
 
-  deleteGroup(id: Number): Observable<void>{
-    return this.httpClient.delete<void>(`${this.baseUrl}/delete-group/${id}`)
+  deleteGroup(id: Number){
+    return this.httpClient.delete<void>(`${this.baseUrl}/delete-group/${id}`).toPromise();
   }
 
-  updateRoomGroup(roomGroup: RoomGroupInterface): Observable<RoomGroupInterface>{
-    return this.httpClient.put<RoomGroupInterface>(`${this.baseUrl}`, roomGroup)
+  updateRoomGroup(roomGroup: RoomGroupInterface){
+    return this.httpClient.put<RoomGroupInterface>(`${this.baseUrl}`, roomGroup).toPromise();
   }
 }

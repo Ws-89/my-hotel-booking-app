@@ -33,8 +33,8 @@ export class CompleteTheTransactionComponent implements OnInit {
   
   saveReservation(saveReservationForm: NgForm){
     this.reservationArrangement.email = saveReservationForm.form.value.email;
-    this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationArrangement).subscribe(
-      data => console.log(data)
+    this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationArrangement).then(
+      data => console.log('working')
     )
   }
 

@@ -32,22 +32,21 @@ export class AvailabilityComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    
 
     this.messengerService.getAvailabilitySearchData().pipe(
       switchMap(searchData => this.messengerService.getSearchResultData().pipe(map(
         data => {
           this.hotelDetail = {
             image: data[0].image,
-            hotel_name: data[0].hotel_name,
+            hotelName: data[0].hotelName,
             city: data[0].city
           }
           this.availabilityRequest = searchData;
-          let tempStartDate = new Date(searchData.from_date)
+          let tempStartDate = new Date(searchData.startDate)
           this.startDate = tempStartDate.toISOString().split('T')[0]
-          let tempEndDate = new Date(searchData.to_date)
+          let tempEndDate = new Date(searchData.endDate)
           this.endDate = tempEndDate.toISOString().split('T')[0]
-          this.availableGroups = this.groupRoomsToDisplay(data.filter(x => x.hotel_id == this.id));
+          this.availableGroups = this.groupRoomsToDisplay(data.filter(x => x.hotelId == this.id));
         }
       )
         
@@ -58,13 +57,13 @@ export class AvailabilityComponent implements OnInit {
   groupRoomsToDisplay(data: AvailabilityInterface[]){
     var result: RoomGroupToDisplayInterface[] = [];
     data.forEach(availableRoom => {
-      let roomGroup = result.find(group => group.group_id == availableRoom.room_group_id)
+      let roomGroup = result.find(group => group.groupId == availableRoom.roomGroupId)
       if(roomGroup){
         roomGroup.rooms.push(availableRoom)
       }else {
         var newRoom: AvailabilityInterface[] = [availableRoom]
         var newRoomGroup: RoomGroupToDisplayInterface = {
-          group_id: availableRoom.room_group_id,
+          groupId: availableRoom.roomGroupId,
           rooms: newRoom,
           quantity: 1
         }
@@ -80,13 +79,13 @@ export class AvailabilityComponent implements OnInit {
   group: RoomGroupToDisplayInterface): void {
   let availabilities: AvailabilityInterface[] = [];
     for(let i = 0; i < group.quantity; i++){
-      group.rooms[i].from_date = this.availabilityRequest.from_date;
-      group.rooms[i].to_date = this.availabilityRequest.to_date;
+      group.rooms[i].startDate = this.availabilityRequest.startDate;
+      group.rooms[i].endDate = this.availabilityRequest.endDate;
       availabilities.push(group.rooms[i])
     }
 
     if(this.userAuthService.isLoggedIn()){
-    this.reservationService.addReservationItemCart(availabilities).subscribe(data => {
+    this.reservationService.addReservationItemCart(availabilities).then(data => {
       this.router.navigateByUrl('/reservation-page')
     })
     }else{

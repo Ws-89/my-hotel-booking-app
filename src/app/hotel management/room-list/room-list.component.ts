@@ -5,15 +5,13 @@ import { RoomGroupService } from 'src/app/_services/room-group.service';
 import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
 import { Observable } from 'rxjs';
 
-// ng g c room-list
 @Component({
-  selector: 'app-room-list', // to skopiowalem do app.component.html
+  selector: 'app-room-list',
   templateUrl: './room-list.component.html',
   styleUrls: ['./room-list.component.css']
 })
 export class RoomListComponent implements OnInit {
 
-  // zmienna zawierajaca tablice
   hotel_id: Number;
   roomGroups: RoomGroupInterface[];
   
@@ -29,7 +27,7 @@ export class RoomListComponent implements OnInit {
   }
 
   addToExistingGroup(id: Number){
-    this.roomGroupService.addToExistingGroup(id).subscribe(data => {
+    this.roomGroupService.addToExistingGroup(id).then(data => {
       this.getRoomGroupByHotelId()
     })
   }
@@ -41,7 +39,7 @@ export class RoomListComponent implements OnInit {
   }
 
   deleteGroup(id: Number){
-    this.roomGroupService.deleteGroup(id).subscribe(data => {
+    this.roomGroupService.deleteGroup(id).then(data => {
       this.getRoomGroupByHotelId()
     }) 
   }
@@ -51,7 +49,7 @@ export class RoomListComponent implements OnInit {
   }
 
   deleteRoom(id: Number){
-    this.roomGroupService.removeFromGroup(id).subscribe(data => {
+    this.roomGroupService.removeFromGroup(id).then(data => {
       this.getRoomGroupByHotelId()
     })
   }

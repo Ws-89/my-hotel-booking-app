@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AvailabilityService } from '../_services/availability.service';
 import { MessengerService } from '../_services/messenger.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private availabilityService: AvailabilityService, private router: Router, private messengerService: MessengerService) { }
+  constructor(private fb: FormBuilder, private router: Router, private messengerService: MessengerService) { }
 
   startDate = new Date();
   minDate = new Date();
@@ -24,13 +23,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      from_date: new FormControl('',Validators.required),
-      to_date: new FormControl('',Validators.required),
+      startDate: new FormControl('',Validators.required),
+      endDate: new FormControl('',Validators.required),
       city: new FormControl('',Validators.required),
       numberOfRooms: new FormControl('',Validators.required),
       partySize: new FormControl('',Validators.required)
     })
-    
   }
 
   onSubmit(){

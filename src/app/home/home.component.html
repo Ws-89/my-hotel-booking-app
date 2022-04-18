@@ -5,11 +5,11 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Reservation date</mat-label>
                     <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
-                        <input matStartDate placeholder="Start date" formControlName="from_date">
-                        <input matEndDate placeholder="End date" formControlName="to_date">
+                        <input matStartDate placeholder="Start date" formControlName="startDate">
+                        <input matEndDate placeholder="End date" formControlName="endDate">
                     </mat-date-range-input>
-                    <mat-hint style="color: red;" *ngIf="form.get('from_date').touched && form.get('from_date').errors?.required 
-                    || form.get('to_date').touched && form.get('to_date').errors?.required">
+                    <mat-hint style="color: red;" *ngIf="form.get('startDate').touched && form.get('startDate').errors?.required 
+                    || form.get('endDate').touched && form.get('endDate').errors?.required">
                         Reservation date field is required
                     </mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

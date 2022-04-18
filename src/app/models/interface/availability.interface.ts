@@ -3,17 +3,17 @@ import { RoomType } from "src/app/enum/room-type.enum";
 
 
 export interface AvailabilityInterface {
-    availability_id: number;
-    hotel_id: number;
-    hotel_name: string;
+    availabilityId: number;
+    hotelId: number;
+    hotelName: string;
     city: string;
     grade: Grade;
-    room_id: number;
+    roomId: number;
     description: string;
     roomType: RoomType;
-    room_group_id: number;
-    from_date: Date;
-    to_date: Date;
+    roomGroupId: number;
+    startDate: Date;
+    endDate: Date;
     price: number;
     image: string;
 }

@@ -1,32 +1,36 @@
 <h3>View hotel details</h3>
 
-<div>
-    <label><b>name: </b></label> {{hotel.hotelName}}
-</div>
-<div>
-    <label><b>street:</b></label> {{hotel.street}}
-</div>
-<div>
-    <label><b>city:</b></label> {{hotel.city}}
-</div>
-<div>
-    <label><b>state:</b></label> {{hotel.state}}
-</div>
-<div>
-    <label><b>country:</b></label> {{hotel.country}}
-</div>
-<div>
-    <label><b>zip code:</b></label> {{hotel.zipcode}}
-</div>
-<div>
-    <label><b>phone number:</b></label> {{hotel.phoneNumber}}
-</div>
-<div>
-    <label><b>email: </b></label> {{hotel.email}}
-</div>
-<div>
-    <label><b>grade: </b></label> {{hotel.grade}}
-</div>
+<div class="loading" *ngIf="loading === true"><div class="h3">Loading...</div></div>
+<ng-container *ngIf="hotel">
+    <div>
+        <label><b>name: </b></label>{{hotel.hotelName}}
+    </div>
+    <div>
+        <label><b>street:</b></label> {{hotel.street}}
+    </div>
+    <div>
+        <label><b>city:</b></label> {{hotel.city}}
+    </div>
+    <div>
+        <label><b>state:</b></label> {{hotel.state}}
+    </div>
+    <div>
+        <label><b>country:</b></label> {{hotel.country}}
+    </div>
+    <div>
+        <label><b>zip code:</b></label> {{hotel.zipCode}}
+    </div>
+    <div>
+        <label><b>phone number:</b></label> {{hotel.phoneNumber}}
+    </div>
+    <div>
+        <label><b>email: </b></label> {{hotel.email}}
+    </div>
+    <div>
+        <label><b>grade: </b></label> {{hotel.grade}}
+    </div>
+</ng-container >
+
 
 <button (click) = "showRoomList(hotel.hotelId)" class="btn btn-secondary float-right" style="margin-left: 10px">Room list</button><br><br>
 <button (click) = "updateHotel(hotel.hotelId)" class="btn btn-warning float-right" style="margin-left: 10px">Update</button><br><br>

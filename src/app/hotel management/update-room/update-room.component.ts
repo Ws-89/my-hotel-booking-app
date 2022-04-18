@@ -42,7 +42,7 @@ export class UpdateRoomComponent implements OnInit {
 
     this.form = this.fb.group({
       description: this.fb.array([]),
-      roomType: new FormControl('',Validators.required),
+      roomType: new FormControl(''),
     })
 
     this.roomGroupService.getRoomGroupById(this.id).subscribe(data => {
@@ -82,11 +82,9 @@ export class UpdateRoomComponent implements OnInit {
   onSubmit(){
     this.roomGroup.roomType = this.form.value.roomType;
     this.roomGroup.description = this.form.value.description.join(", ");
-
-    console.log(this.roomGroup)
    
     this.roomGroupService.updateRoomGroup(this.roomGroup)
-    .subscribe(data => {
+    .then(data => {
     this.backClicked();
     },
     error => console.log(error));

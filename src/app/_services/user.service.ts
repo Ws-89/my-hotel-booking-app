@@ -28,11 +28,11 @@ export class UserService {
     private userAuthService: UserAuthService) { }
 
   public login(loginData: CredentialsInterface) {
-    return this.httpClient.post(`${this.baseUrl}`, loginData, { headers: this.requestHeader })
+    return this.httpClient.post(`${this.baseUrl}`, loginData, { headers: this.requestHeader }).toPromise();
   }
 
-  register(user: User): Observable<Object>{
-    return this.httpClient.post(`${this.registrationUrl}`, user, { headers: this.registerHeader})
+  register(user: User) {
+    return this.httpClient.post(`${this.registrationUrl}`, user, { headers: this.registerHeader}).toPromise();
   }
 
 

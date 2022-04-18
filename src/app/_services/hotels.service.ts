@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Hotel } from '../models/hotel';
+import { BehaviorSubject } from 'rxjs';
 import { HotelInterface } from '../models/interface/hotelInterface.interface';
 
 @Injectable({
@@ -14,31 +13,42 @@ export class HotelsService {
   );
 
   private baseUrl = "http://localhost:8085/admin/management/hotels";
-  
 
-  constructor(private httpClient: HttpClient) { }
+  private hotelsObs = new BehaviorSubject<HotelInterface[]>([]);
+  hotels$ = this.hotelsObs.asObservable();
 
-  getHotelList(): Observable<HotelInterface[]>{
-    return this.httpClient.get<HotelInterface[]>(`${this.baseUrl}`); 
+  constructor(private httpClient: HttpClient) {
+    this.getHotelList();
+   }
+
+   getHotelList() {
+    return this.httpClient.get<HotelInterface[]>(`${this.baseUrl}`).subscribe(
+      hotels => {
+        this.hotelsObs.next(hotels);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+   }
+
+  saveHotel(hotel: HotelInterface){
+    return this.httpClient.post(`${this.baseUrl}`, hotel).toPromise();
   }
   
-  saveHotel(hotel: Hotel): Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}`, hotel);
+  getHotelById(id: Number){
+    return this.httpClient.get<HotelInterface>(`${this.baseUrl}/${id}`).toPromise();
   }
 
-  getHotelById(id: Number): Observable<HotelInterface>{
-    return this.httpClient.get<HotelInterface>(`${this.baseUrl}/${id}`);
+  updateHotel(id: Number, hotel: HotelInterface){
+    return this.httpClient.put<HotelInterface>(`${this.baseUrl}/${id}`, hotel).toPromise();
   }
 
-  updateHotel(id: Number, hotel: Hotel): Observable<Object>{
-    return this.httpClient.put(`${this.baseUrl}/${id}`, hotel);
+  deleteHotel(id: Number){
+    return this.httpClient.delete(`${this.baseUrl}/${id}`).toPromise();
   }
 
-  deleteHotel(id: Number): Observable<Object>{
-    return this.httpClient.delete(`${this.baseUrl}/${id}`);
-  }
-
-  uploadImage(id: Number, file: any): Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/images/upload/${id}`, file);
+  uploadImage(id: Number, file: any){
+    return this.httpClient.post(`${this.baseUrl}/images/upload/${id}`, file).toPromise();
   }
 }
