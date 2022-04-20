@@ -83,7 +83,7 @@ export class UpdateRoomComponent implements OnInit {
     this.roomGroup.roomType = this.form.value.roomType;
     this.roomGroup.description = this.form.value.description.join(", ");
    
-    this.roomGroupService.updateRoomGroup(this.roomGroup)
+    this.roomGroupService.updateRoomGroup(this.roomGroup.roomGroupId, this.roomGroup)
     .then(data => {
     this.backClicked();
     },

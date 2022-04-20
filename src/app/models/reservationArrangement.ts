@@ -8,4 +8,5 @@ export class ReservationArrangement {
     email: string;
     confirmed: boolean;
     price: number;
+    currency: string;
 }

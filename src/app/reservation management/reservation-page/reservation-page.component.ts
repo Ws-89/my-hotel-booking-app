@@ -4,6 +4,7 @@ import { AvailabilityInterface } from 'src/app/models/interface/availability.int
 import { ReservationDate } from 'src/app/models/interface/reservationDate.interface';
 import { ReservationArrangement } from 'src/app/models/reservationArrangement';
 import { MessengerService } from 'src/app/_services/messenger.service';
+import { PaymentService } from 'src/app/_services/payment.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
 
 
@@ -21,8 +22,14 @@ export class ReservationPageComponent implements OnInit {
 
   constructor(private router: Router,
               private reservationService: ReservationsService,
-              private messengerService: MessengerService) { 
+              private messengerService: MessengerService,
+              private paymentService: PaymentService) { 
       
+  }
+
+  ngOnInit(): void {
+    this.setReservationsAndPriceFromCart()
+    this.setReservationArrangementToSend()
   }
 
   setReservationsAndPriceFromCart(){
@@ -45,11 +52,14 @@ export class ReservationPageComponent implements OnInit {
 
       this.reservationArrangement.reservations = this.reservations
       this.reservationArrangement.price = this.totalPrice;
-        
-      
-    
   })}
   
+  setReservationArrangementToSend(){
+    this.messengerService.getAvailabilitySearchData().subscribe(data => {
+      this.reservationArrangement.numberOfRooms = data.numberOfRooms;
+      this.reservationArrangement.partySize = data.partySize;
+    })
+  }
 
   removeFromReservations(availability: AvailabilityInterface){
     var id = availability.availabilityId.toString();
@@ -58,24 +68,13 @@ export class ReservationPageComponent implements OnInit {
     )
   }
 
-  setReservationArrangementToSend(){
-    this.messengerService.getAvailabilitySearchData().subscribe(data => {
-      this.reservationArrangement.numberOfRooms = data.numberOfRooms;
-      this.reservationArrangement.partySize = data.partySize;
-    })
-  }
-
-  ngOnInit(): void {
-    this.setReservationsAndPriceFromCart()
-    this.setReservationArrangementToSend()
-  }
-
   saveReservation(): void {
-    this.reservationService.proceedReservations(this.reservationArrangement).then(data => 
-      this.reservations.forEach(x => {
-        this.removeFromReservations(x);
-      })
-    )
+    this.paymentService.pay()
+    // this.reservationService.proceedReservations(this.reservationArrangement).then(data => 
+    //   this.reservations.forEach(x => {
+    //     this.removeFromReservations(x);
+    //   })
+    // )
   }
 
   addNewReservation(): void {

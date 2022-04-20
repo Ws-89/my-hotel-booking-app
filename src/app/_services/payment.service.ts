@@ -1,15 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
 import { environment } from 'src/environments/environment';
 
-@Component({
-  selector: 'app-checkout',
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class CheckoutComponent implements OnInit {
-  
+export class PaymentService {
+
   stripePromise = loadStripe(environment.stripe);
   constructor(private httpClient: HttpClient) { }
 
@@ -24,7 +22,7 @@ export class CheckoutComponent implements OnInit {
       quantity: 1,
     }
     
-    // const stripe = await this.stripePromise;
+    const stripe = await this.stripePromise;
 
     this.httpClient
       .post(`${environment.serverUrl}/payment`, payment)
@@ -39,8 +37,6 @@ export class CheckoutComponent implements OnInit {
       sessionId: sessionId.id,
     });
   }
-  
-
   
 
 }

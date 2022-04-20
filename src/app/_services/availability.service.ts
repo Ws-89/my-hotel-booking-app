@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AvailabilityInterface } from '../models/interface/availability.interface';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
 
@@ -18,7 +19,7 @@ export class AvailabilityService {
     { "No-Auth": "True" }
   );
 
-  baseUrl = "http://localhost:8085/reservations"
+  baseUrl = environment.baseUrl
 
   constructor(private httpClient: HttpClient) { }
 
@@ -31,7 +32,7 @@ export class AvailabilityService {
   }
 
   getAvailableRooms(availabilityRequest: AvailabilityRequestInterface): Observable<AvailabilityInterface[]>{
-      return this.httpClient.post<AvailabilityInterface[]>(`${this.baseUrl}`, availabilityRequest, { headers: this.requestHeader })
+      return this.httpClient.post<AvailabilityInterface[]>(`${this.baseUrl}/reservations/available-rooms`, availabilityRequest, { headers: this.requestHeader })
   }
 
   

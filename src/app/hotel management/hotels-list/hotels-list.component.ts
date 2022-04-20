@@ -11,7 +11,6 @@ import { HotelsService } from '../../_services/hotels.service';
 })
 export class HotelsListComponent implements OnInit {
 
-  hotels$: Observable<HotelInterface[]>;
   hotels = new Array<HotelInterface>();
   retrievedImages = new Map<number, any>();
   base64Data: any;
@@ -24,7 +23,9 @@ export class HotelsListComponent implements OnInit {
   }
 
   private getHotels(){
-    this.hotels$ = this.hotelService.hotels$
+    this.hotelService.getHotelList().subscribe(data => {
+      this.hotels = data;
+    })
   }
 
   hotelDetails(id: number){

@@ -2,9 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { UserAuthService } from './user-auth.service';
-import { ReservationArrangement } from '../models/reservationArrangement';
 import { AvailabilityInterface } from '../models/interface/availability.interface';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
+import { environment } from 'src/environments/environment';
+import { ReservationArrangement } from '../models/reservationArrangement';
+
 
 
 @Injectable({
@@ -15,22 +17,23 @@ export class ReservationsService {
   requestHeader = new HttpHeaders(
     { "No-Auth": "True" }
   );
+  private baseUrl = environment.baseUrl
+  private reservationUrl = "reservations"
+  private userReservationUrl = "reservations/user/bookmarks"
 
-  private reservations = new Array<AvailabilityInterface>();
   private reservationRequest = new Subject<AvailabilityRequestInterface>();
   public reservationRequestWithDate = this.reservationRequest.asObservable();
   
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
 
-  private baseUrl = "http://localhost:8085/availabilityCart"
-  private reservationUrl = "http://localhost:8085/reservations"
+  
   
   addReservationItemCart(availability: AvailabilityInterface[]){
-    return this.httpClient.post(this.baseUrl, availability).toPromise();
+    return this.httpClient.post(`${this.baseUrl}/${this.userReservationUrl}`, availability).toPromise();
   }
 
   getReservationCart(): Observable<AvailabilityInterface[]>{
-    return this.httpClient.get<AvailabilityInterface[]>(this.baseUrl);
+    return this.httpClient.get<AvailabilityInterface[]>(`${this.baseUrl}/${this.userReservationUrl}`);
   }
 
   addReservaionRequestDate(availabilityRequest: AvailabilityRequestInterface){
@@ -38,16 +41,16 @@ export class ReservationsService {
   }
 
   removeItemFromReservationCart(id : string){
-    return this.httpClient.delete(this.baseUrl + `/${id}`).toPromise();
+    return this.httpClient.delete(`${this.baseUrl}/${this.userReservationUrl}/${id}`).toPromise();
   }
 
   proceedReservations(reservationArrangement: ReservationArrangement){
-    return this.httpClient.post(`${this.reservationUrl}/makeAReservation`, reservationArrangement).toPromise();
+    return this.httpClient.post(`${this.baseUrl}/reservations/user/place-a-booking`, reservationArrangement).toPromise();
   }
 
   proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement) {
     return this.httpClient.post
-    (`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement, { headers: this.requestHeader }).toPromise();
+    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationArrangement, { headers: this.requestHeader }).toPromise();
   }
 
   handleError(handleError: any): Observable<never> {
