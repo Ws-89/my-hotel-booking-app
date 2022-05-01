@@ -58,6 +58,7 @@ export class ReservationPageComponent implements OnInit {
     this.messengerService.getAvailabilitySearchData().subscribe(data => {
       this.reservationArrangement.numberOfRooms = data.numberOfRooms;
       this.reservationArrangement.partySize = data.partySize;
+      this.reservationArrangement.currency = 'usd';
     })
   }
 
@@ -69,7 +70,7 @@ export class ReservationPageComponent implements OnInit {
   }
 
   saveReservation(): void {
-    this.paymentService.pay()
+    this.paymentService.pay(this.reservationArrangement)
     // this.reservationService.proceedReservations(this.reservationArrangement).then(data => 
     //   this.reservations.forEach(x => {
     //     this.removeFromReservations(x);

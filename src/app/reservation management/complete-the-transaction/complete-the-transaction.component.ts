@@ -28,6 +28,7 @@ export class CompleteTheTransactionComponent implements OnInit {
       this.reservationArrangement.price = price
       this.reservationArrangement.numberOfRooms = result[1].numberOfRooms;
       this.reservationArrangement.partySize = result[1].partySize;
+      this.reservationArrangement.currency = 'usd';
     });
   }
   
