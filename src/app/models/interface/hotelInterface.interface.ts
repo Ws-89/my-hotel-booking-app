@@ -1,18 +1,14 @@
 import { Grade } from "src/app/enum/grade-type.enum";
-import { AvailabilityInterface } from "./availability.interface";
+import { AddressInterface } from "./address.interface";
+import { ContactInterface } from "./contact.interface";
+import { RoomInterface } from "./room.interface";
 
 export interface HotelInterface {
     hotelId: number;
-    hotelName: string;
-    city: string;
+    name: string;
+    address: AddressInterface
     grade: Grade;
-    rooms: Array<Partial<AvailabilityInterface>>;
+    rooms: Array<RoomInterface>;
     image: string;
-    street: string;
-    state: string;
-    country: string;
-    zipCode: string;
-    phoneNumber: string;
-    email: string;
-    
+    contact: ContactInterface
 }

@@ -24,6 +24,7 @@ export class HotelsListComponent implements OnInit {
 
   private getHotels(){
     this.hotelService.getHotelList().subscribe(data => {
+      console.log(data)
       this.hotels = data;
     })
   }

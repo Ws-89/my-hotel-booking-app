@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {  zip } from 'rxjs';
-import { ReservationArrangement } from 'src/app/models/reservationArrangement';
+import { Router } from '@angular/router';
+import { ReservationRequest } from 'src/app/models/reservation';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
 
@@ -12,30 +12,22 @@ import { ReservationsService } from 'src/app/_services/reservations.service';
 })
 export class CompleteTheTransactionComponent implements OnInit {
 
-  reservationArrangement = new ReservationArrangement;
+  reservationRequest: ReservationRequest
   
   constructor(private reservationService: ReservationsService,
-              private messengerService: MessengerService) { }
+              private messengerService: MessengerService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    zip(this.messengerService.getReservationForNonLoggedInUser(), this.messengerService.getAvailabilitySearchData()).subscribe(result => {
-      let price = 0;
-
-      result[0].forEach(item => {
-        this.reservationArrangement.reservations.push(item);
-        price += item.bookingDetails.price
-      })
-      this.reservationArrangement.price = price
-      this.reservationArrangement.numberOfRooms = result[1].numberOfRooms;
-      this.reservationArrangement.partySize = result[1].partySize;
-      this.reservationArrangement.currency = 'usd';
-    });
+    this.reservationRequest = this.messengerService.getReservationRequest();
+    console.log('rr : ',this.reservationRequest)
   }
   
   saveReservation(saveReservationForm: NgForm){
-    this.reservationArrangement.email = saveReservationForm.form.value.email;
-    this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationArrangement).then(
-      // data => console.log('working')
+    this.reservationRequest.email = saveReservationForm.form.value.email;
+    
+    this.reservationService.proceedReservationsForNonLoggedInUser(this.reservationRequest).then(result => 
+      this.router.navigate([''])
     )
   }
 

@@ -10,19 +10,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let roomGroup of roomGroups"> <!-- to jest wyrazenie javascript i rooms trzeba zadeklarowac w room-list.component.ts-->
+            <tr *ngFor = "let roomGroup of rooms">
                 <td> {{ roomGroup.description }} </td>
                 <td> {{ roomGroup.roomType }} </td>
-                <td> {{ roomGroup.quantityOfRooms }} </td>
                 <td>
-                    <button (click) = "addToExistingGroup(roomGroup.roomGroupId)" class="btn btn-warning float-right" style="margin-left: 10px"> Add room </button>
-                    <button (click) = "deleteRoom(roomGroup.roomGroupId)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete room </button>
-                    <button (click) = "deleteGroup(roomGroup.roomGroupId)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete group </button> 
-                    <button (click) = "updateGroup(roomGroup.roomGroupId)" class="btn btn-warning float-right"> Update </button>                     
+                    <button (click) = "deleteRoom(roomGroup.roomId)" class="btn btn-danger float-right" style="margin-left: 10px"> Delete</button>
+             
+                    <button (click) = "updateRoom(roomGroup.roomId)" class="btn btn-warning float-right"> Update </button>                     
                     
                 </td>
             </tr>
-            <button (click) = "createRoom(hotel_id)" class="btn btn-primary"> Create group of rooms </button>
+            <button (click) = "createRoom(hotel_id)" class="btn btn-primary"> Create a rooms </button>
         </tbody>
     </table>
     

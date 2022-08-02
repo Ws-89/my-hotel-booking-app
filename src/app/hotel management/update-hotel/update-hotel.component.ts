@@ -27,28 +27,36 @@ export class UpdateHotelComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
 
     this.form = this.fb.group({
-      hotelName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      hotelEmail: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$')])),
-      hotelGrade: new FormControl('', Validators.required),
-      hotelStreet: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      hotelCity: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      hotelState: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      hotelCountry: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      hotelZipCode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
-      hotelPhone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]))
+      name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+      grade: new FormControl('', Validators.required),
+      address: this.fb.group({
+        street: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        city: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        state: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        country: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        zipCode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+      }),
+      contact: this.fb.group({
+        email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$')])),
+        phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]))
+      })
     })
 
     this.hotelService.getHotelById(this.id).then(data => {
         this.form.patchValue({
-          hotelName: data.hotelName, 
-          hotelEmail: data.email, 
-          hotelGrade: data.grade,
-          hotelStreet: data.street,
-          hotelCity: data.city,
-          hotelState: data.state,
-          hotelCountry: data.country,
-          hotelZipCode: data.zipCode,
-          hotelPhone: data.phoneNumber
+          name: data.name, 
+          contact: {
+            email: data.contact.email,
+            phone: data.contact.phoneNumber
+          },
+          grade: data.grade,
+          address: {
+            street: data.address.street,
+            city: data.address.city,
+            state: data.address.state,
+            country: data.address.country,
+            zipCode: data.address.zipCode,
+          }
         })
     },
     error => console.log(error));
@@ -65,15 +73,17 @@ export class UpdateHotelComponent implements OnInit {
     this.router.navigate(['/hotels'])
   }
 
-  get hotelName() { return this.form.get('hotelName'); }
-  get hotelEmail() { return this.form.get('hotelEmail'); }
-  get hotelGrade() { return this.form.get('hotelGrade'); }
-  get hotelStreet() { return this.form.get('hotelStreet'); }
-  get hotelCity() { return this.form.get('hotelCity'); }
-  get hotelState() { return this.form.get('hotelState'); }
-  get hotelCountry() { return this.form.get('hotelCountry'); }
-  get hotelZipCode() { return this.form.get('hotelZipCode'); }
-  get hotelPhone() { return this.form.get('hotelPhone'); }
+  get name() { return this.form.get('name'); }
+  get grade() { return this.form.get('grade'); }
+  get addressControls() { return ((this.form.get('address') as FormGroup).controls) }
+  get street() { return this.form.get('street'); }
+  get city() { return this.form.get('city'); }
+  get state() { return this.form.get('state'); }
+  get country() { return this.form.get('country'); }
+  get zipCode() { return this.form.get('hzipCode'); }
+  get contactControls() { return ((this.form.get('contact') as FormGroup).controls) }
+  get phone() { return this.form.get('phone'); }
+  get email() { return this.form.get('email'); }
   
 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
-import { AvailabilityComponent } from './reservation management/availability/availability.component';
+
 import { CreateHotelComponent } from './hotel management/create-hotel/create-hotel.component';
 import { CreateRoomComponent } from './hotel management/create-room/create-room.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
@@ -16,13 +16,14 @@ import { RoomListComponent } from './hotel management/room-list/room-list.compon
 import { UpdateHotelComponent } from './hotel management/update-hotel/update-hotel.component';
 import { UpdateRoomComponent } from './hotel management/update-room/update-room.component';
 import { AuthGuard } from './_auth/auth.guard';
-import { AvailableHotelsListComponent } from './reservation management/available-hotels-list/available-hotels-list.component';
-import { ReservationPageComponent } from './reservation management/reservation-page/reservation-page.component';
 import { CompleteTheTransactionComponent } from './reservation management/complete-the-transaction/complete-the-transaction.component';
 import { HeaderComponent } from './header/header.component';
 import { CancelComponent } from './payment/cancel/cancel.component';
 import { SucessComponent } from './payment/sucess/sucess.component';
 import { CheckoutComponent } from './payment/checkout/checkout.component';
+import { AvailableHotelsListComponent } from './reservation management/available-hotels-list/available-hotels-list.component';
+import { CommonModule } from '@angular/common';
+import { AvailabilityComponent } from './reservation management/availability/availability.component';
 
 
 
@@ -30,12 +31,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'available-hotels-list', component: AvailableHotelsListComponent },
-  { path: 'availability-details/:id', component: AvailabilityComponent },
+  { path: 'availability-details', component: AvailabilityComponent },
   { path: 'admin', component: AdminComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'guest', component: GuestComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_GUEST']}},
   { path: 'login', component: LoginComponent },
   { path: 'forbidden', component: ForbiddenComponent },
-  { path: 'availability', component: AvailabilityComponent },
   { path: 'hotels', component: HotelsListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'create-hotel', component: CreateHotelComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'rooms/:id', component: RoomListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
@@ -47,7 +47,6 @@ const routes: Routes = [
   { path: 'hotel-details/:id', component: HotelDetailsComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'rooms', component: RoomListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
   { path: 'register-success', component: RegisterSuccessComponent},
-  { path: 'reservation-page', component: ReservationPageComponent },
   { path: 'complete-the-transaction', component: CompleteTheTransactionComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'payment-success', component: SucessComponent },
@@ -74,11 +73,10 @@ export const routingComponents = [
     LoginComponent,
     HeaderComponent,
     ForbiddenComponent,
-    AvailabilityComponent,
+    AvailableHotelsListComponent,
     RegisterComponent,
     RegisterSuccessComponent,
-    AvailableHotelsListComponent,
-    ReservationPageComponent,
+    AvailabilityComponent,
     CompleteTheTransactionComponent,
     CancelComponent,
     SucessComponent,

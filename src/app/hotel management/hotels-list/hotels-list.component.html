@@ -18,10 +18,10 @@
         <tr *ngFor = "let hotel of hotels">
             <td>{{ hotel.hotelId }}</td>
             <td><img [src]="hotel.image"></td>
-            <td>{{ hotel.hotelName }}</td>
-            <td>{{ hotel.street }}</td>
-            <td>{{ hotel.city }}</td>
-            <td>{{ hotel.country }}</td>
+            <td>{{ hotel.name }}</td>
+            <td>{{ hotel.address.street }}</td>
+            <td>{{ hotel.address.city }}</td>
+            <td>{{ hotel.address.country }}</td>
             <td>{{ hotel.grade }}</td>
             <td>
                 

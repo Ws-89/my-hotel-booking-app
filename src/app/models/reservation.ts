@@ -1,8 +1,6 @@
 import { RoomInterface } from "./interface/room.interface";
 
-
-
-export class ReservationArrangement {
+export class ReservationRequest {
     partySize: number;
     numberOfRooms: number;
     room: RoomInterface;

@@ -5,7 +5,7 @@ body {
 }
 
 .title h2 {
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 .button-search:disabled {
@@ -16,7 +16,7 @@ body {
     margin-top: 5%;
     border: 1px solid;
     border-color: rgba(51, 51, 102, 1);
-    border-radius: 10px 10px 0px 0px;
+    /* border-radius: 10px 10px 0px 0px; */
     background-color: #4B4E53;
     color: #EBF2FA;
     text-align: center;
@@ -34,7 +34,7 @@ form {
 .container {
     border: 1px solid;
     border-color: rgb(4, 104, 129);
-    border-radius: 0px 0px 10px 10px;
+    /* border-radius: 0px 0px 10px 10px; */
     padding: 10px 10px;
     width: 100%;
 }

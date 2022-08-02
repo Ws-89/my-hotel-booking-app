@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import {Location} from '@angular/common';
-import { RoomGroupService } from 'src/app/_services/room-group.service';
-import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
+import {  RoomService } from 'src/app/_services/room.service';
+import { RoomInterface } from 'src/app/models/interface/room.interface';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,51 +13,42 @@ import { Observable } from 'rxjs';
 export class RoomListComponent implements OnInit {
 
   hotel_id: Number;
-  roomGroups: RoomGroupInterface[];
-  
+  rooms: RoomInterface[];
 
-  constructor(private route: ActivatedRoute, 
-    private roomGroupService: RoomGroupService,
+
+  constructor(private route: ActivatedRoute,
+    private roomService: RoomService,
     private router: Router, private _location: Location) { }
 
   ngOnInit(): void {
     this.hotel_id = this.route.snapshot.params['id'];
-    this.getRoomGroupByHotelId();
-    
+    this.getRoomsByHotelId();
+
   }
 
-  addToExistingGroup(id: Number){
-    this.roomGroupService.addToExistingGroup(id).then(data => {
-      this.getRoomGroupByHotelId()
-    })
-  }
-  
-  getRoomGroupByHotelId(){
-    this.roomGroupService.getRoomGroupsByHotelId(this.hotel_id).subscribe(data => {
-      this.roomGroups = data;
+ 
+
+  getRoomsByHotelId(){
+    this.roomService.getRoomsByHotelId(this.hotel_id).subscribe(data => {
+      this.rooms = data;
   })
   }
 
-  deleteGroup(id: Number){
-    this.roomGroupService.deleteGroup(id).then(data => {
-      this.getRoomGroupByHotelId()
-    }) 
+  deleteRoom(id: Number){
+    this.roomService.deleteRoom(id).then(data => {
+      this.getRoomsByHotelId()
+    })
   }
 
-  updateGroup(id: Number){
+  updateRoom(id: Number){
     this.router.navigate(['update-room', id]);
   }
 
-  deleteRoom(id: Number){
-    this.roomGroupService.removeFromGroup(id).then(data => {
-      this.getRoomGroupByHotelId()
-    })
-  }
 
   createRoom(hotel_id: Number){
     this.router.navigate(['create-room', hotel_id]);
   }
-  
+
   backClicked() {
     this._location.back();
   }

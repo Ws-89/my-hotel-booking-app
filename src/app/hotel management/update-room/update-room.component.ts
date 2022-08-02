@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomType } from '../../enum/room-type.enum';
 import {Location} from '@angular/common';
-import { RoomGroupService } from 'src/app/_services/room-group.service';
-import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
+import { RoomService } from 'src/app/_services/room.service';
+import { RoomInterface } from 'src/app/models/interface/room.interface';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,7 @@ export class UpdateRoomComponent implements OnInit {
   form: FormGroup;
 
   id: number;
-  roomGroup: RoomGroupInterface;
+  room: RoomInterface;
   roomType = RoomType;
   roomTypeKeys = [];
 
@@ -30,10 +30,10 @@ export class UpdateRoomComponent implements OnInit {
     {name: "balcony", value: "balcony", isChecked: false},
     {name: "sea view", value: "sea view", isChecked: false},
     {name: "mountain view", value: "mountain view", isChecked: false}
-  ] 
+  ]
 
-  constructor(private roomGroupService: RoomGroupService, private fb: FormBuilder,
-    private route: ActivatedRoute, private _location: Location) { 
+  constructor(private roomService: RoomService, private fb: FormBuilder,
+    private route: ActivatedRoute, private _location: Location) {
     this.roomTypeKeys = Object.keys(this.roomType);
   }
 
@@ -45,8 +45,8 @@ export class UpdateRoomComponent implements OnInit {
       roomType: new FormControl(''),
     })
 
-    this.roomGroupService.getRoomGroupById(this.id).subscribe(data => {
-      this.roomGroup = data;
+    this.roomService.getRoomById(this.id).subscribe(data => {
+      this.room = data;
       this.form.patchValue({roomType: data.roomType})
       this.isChecked(data.description)
     }, error => console.log(error));
@@ -62,7 +62,7 @@ export class UpdateRoomComponent implements OnInit {
       }
     })
   }
-  
+
   onCheckboxChange(e){
     const description: FormArray = this.form.get('description') as FormArray;
     if(e.target.checked) {
@@ -80,16 +80,16 @@ export class UpdateRoomComponent implements OnInit {
   }
 
   onSubmit(){
-    this.roomGroup.roomType = this.form.value.roomType;
-    this.roomGroup.description = this.form.value.description.join(", ");
-   
-    this.roomGroupService.updateRoomGroup(this.roomGroup.roomGroupId, this.roomGroup)
+    this.room.roomType = this.form.value.roomType;
+    this.room.description = this.form.value.description.join(", ");
+
+    this.roomService.updateRoom(this.room.roomId, this.room)
     .then(data => {
     this.backClicked();
     },
     error => console.log(error));
   }
-  
+
 
   backClicked() {
     this._location.back();

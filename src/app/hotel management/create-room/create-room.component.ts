@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoomGroupInterface } from 'src/app/models/interface/roomGroup.interface';
+import { RoomInterface } from 'src/app/models/interface/room.interface';
 import { RoomPropertiesInterface } from 'src/app/models/interface/roomProperties.interface';
-import { RoomGroupService } from 'src/app/_services/room-group.service';
+import { RoomService } from 'src/app/_services/room.service';
 import { RoomType } from '../../enum/room-type.enum';
 
 
@@ -29,19 +29,18 @@ export class CreateRoomComponent implements OnInit {
     {name: "balcony", value: "balcony"},
     {name: "sea view", value: "sea view"},
     {name: "mountain view", value: "mountain view"}
-  ] 
+  ]
 
-  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private roomGroupService: RoomGroupService){
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private roomService: RoomService){
     this.roomTypeKeys = Object.keys(this.roomType);
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-  
+
     this.form = this.fb.group({
       description: this.fb.array([]),
       roomType: new FormControl('',Validators.required),
-      quantityOfRooms: new FormControl('', Validators.required)
     })
   }
 
@@ -61,8 +60,8 @@ export class CreateRoomComponent implements OnInit {
     }
   }
 
-  saveGroup(roomGroup: Partial<RoomGroupInterface>){
-    this.roomGroupService.createRoomGroup(this.id, roomGroup).then(data => {
+  saveRoom(roomGroup: Partial<RoomInterface>){
+    this.roomService.createRoom(this.id, roomGroup).then(data => {
       this.goToRoomList();
     },
     error => console.log(error));
@@ -73,13 +72,11 @@ export class CreateRoomComponent implements OnInit {
   }
 
   onSubmit(){
-    
-    let roomGroup = {
+    let roomRoom = {
       description : this.form.value.description.join(", "),
-      quantityOfRooms : this.form.value.quantityOfRooms,
       roomType : this.form.value.roomType,
-    }    
-    this.saveGroup(roomGroup);
+    }
+    this.saveRoom(roomRoom);
   }
 
 }

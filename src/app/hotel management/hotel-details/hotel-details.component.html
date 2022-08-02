@@ -3,28 +3,28 @@
 <div class="loading" *ngIf="loading === true"><div class="h3">Loading...</div></div>
 <ng-container *ngIf="hotel">
     <div>
-        <label><b>name: </b></label>{{hotel.hotelName}}
+        <label><b>name: </b></label>{{hotel.name}}
     </div>
     <div>
-        <label><b>street:</b></label> {{hotel.street}}
+        <label><b>street:</b></label> {{hotel.address.street}}
     </div>
     <div>
-        <label><b>city:</b></label> {{hotel.city}}
+        <label><b>city:</b></label> {{hotel.address.city}}
     </div>
     <div>
-        <label><b>state:</b></label> {{hotel.state}}
+        <label><b>state:</b></label> {{hotel.address.state}}
     </div>
     <div>
-        <label><b>country:</b></label> {{hotel.country}}
+        <label><b>country:</b></label> {{hotel.address.country}}
     </div>
     <div>
-        <label><b>zip code:</b></label> {{hotel.zipCode}}
+        <label><b>zip code:</b></label> {{hotel.address.zipCode}}
     </div>
     <div>
-        <label><b>phone number:</b></label> {{hotel.phoneNumber}}
+        <label><b>phone number:</b></label> {{hotel.contact.phoneNumber}}
     </div>
     <div>
-        <label><b>email: </b></label> {{hotel.email}}
+        <label><b>email: </b></label> {{hotel.contact.email}}
     </div>
     <div>
         <label><b>grade: </b></label> {{hotel.grade}}

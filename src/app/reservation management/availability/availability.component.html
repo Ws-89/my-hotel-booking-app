@@ -2,38 +2,41 @@
     <div class="title"><h2 >Rooms available at the hotel</h2></div>
     <div class="hotel-header">
         <div class="image-container">
-            <div class="hotel-image"><img [src]="hotelDetail.bookingDetails.image"></div>
+            <div class="hotel-image"><img [src]="availabilityResponse.data.availableHotel.image"></div>
         </div>
         <div class="hotel-details">
             <div class="hotel-text">
-                <div class="hotel-name"><h2>{{ hotelDetail.bookingDetails.hotelName }}</h2></div>
-                <p>city : {{ hotelDetail.bookingDetails.city }}</p>
-                <p>reservation start: {{ startDate }}</p>
-                <p>reservation end: {{ endDate }}</p>
+                <div class="hotel-name"><h2>{{ availabilityResponse.data.availableHotel.name }}</h2></div>
+                <p>city : {{ availabilityResponse.data.availableHotel.address.city }}</p>
+                <p>reservation start: {{ availabilityResponse.startDate }}</p>
+                <p>reservation end: {{ availabilityResponse.endDate }}</p>
             </div>
         </div>
     </div>
     <div class="room-list">
-        <div class="room" *ngFor = "let group of availableGroups; let i=index">    
+        <div class="room" *ngFor = "let room of availabilityResponse.data.availableHotel.rooms let i=index">    
             <div class="room-details">
                 <div class="room-text">
-                    <p>city: {{ group.rooms[0].bookingDetails.city }}</p>
-                    <p>room size: {{ group.rooms[0].bookingDetails.roomType }}</p>
-                    <p>{{ group.rooms[0].bookingDetails.description }}</p>
+                    <p>description: {{ room.description }}</p>
+                    <p>room size: {{ room.roomType }}</p>
                 </div>  
-                    
-                <div class="placeABooking">
+                     
+
+                <div class="priceAndButton">
+                    <button (click)="bookThisRoom(room)" class="button-hotel-details" style="margin-left: 10px">Book this room</button>   
+                </div> 
+                <!-- <div class="placeABooking">
                     <div class="quantitySelect">
                         <select  class="form-control" name="quantitySelect" id="quantitySelect" [(ngModel)]="group.quantity">
                             <option *ngFor="let room of group.rooms; let i = index" [value]="i+1">{{i+1}}</option>  
                         </select>
-                    </div>
+                    </div> 
                     <div class="priceAndButton">
                         <p id="price">price: {{ group.rooms[0].bookingDetails.price }}</p>
                         <button (click)="bookThisRoom(group)" class="button-hotel-details" style="margin-left: 10px">Book this room</button>   
-                    </div>
+                    </div> 
                     
-                </div>
+                </div> -->
                    
             </div>
         </div>

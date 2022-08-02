@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       firstName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
       lastName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$')])),
-      password: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(?=.*[a-zA-Z0-9\d])(?=.*\d)[a-zA-Z0-9\d]{8,}$')])),
+      password: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,16}$')])),
       street: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
       city: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
       state: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),

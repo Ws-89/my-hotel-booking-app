@@ -1,25 +1,18 @@
-
-
 <body>
-        <div class="title"><h2 >Available hotels</h2></div>
-        <div class="hotel-list">
-            <div class="hotel" *ngFor = "let hotel of availableHotels">
+  <div class="title"><h2>Available hotels</h2></div>
+  <div class="hotel-list">
+            <div class="hotel" *ngFor = "let hotel of availabilityResponse.data.availableHotels">
                 <div class="image-container">
-                    <div class="hotel-image"><img [src]="hotel.bookingDetails.image"></div>
+                    <div class="hotel-image"><img [src]="hotel.image"></div>
                 </div>
                 
                 <div class="hotel-details">
                     <div class="hotel-text">
-                        <div class="hotel-name"><h2>{{ hotel.bookingDetails.hotelName }}</h2></div>
-                        <p>city: {{ hotel.bookingDetails.city }}</p>
+                        <div class="hotel-name"><h2>{{ hotel.name }}</h2></div>
+                        <p>city: {{ hotel.address.city }}</p>
                     </div>  
-                    <button (click) = "availabilityDetail(hotel.bookingDetails.hotelId)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>    
+                     <button (click) = "availabilityDetail(hotel.hotelId, hotel)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>    
                 </div>
             </div>
         </div>
-   
-    
-</body>
-
-
 

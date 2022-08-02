@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { UserAuthService } from './user-auth.service';
-import { AvailabilityInterface } from '../models/interface/availability.interface';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
 import { environment } from 'src/environments/environment';
 import { ReservationArrangement } from '../models/reservationArrangement';
+import { ReservationRequest } from '../models/reservation';
 
 
 
@@ -28,13 +28,13 @@ export class ReservationsService {
 
   
   
-  addReservationItemCart(availability: AvailabilityInterface[]){
-    return this.httpClient.post(`${this.baseUrl}/${this.userReservationUrl}`, availability).toPromise();
-  }
+  // addReservationItemCart(availability: AvailabilityInterface[]){
+  //   return this.httpClient.post(`${this.baseUrl}/${this.userReservationUrl}`, availability).toPromise();
+  // }
 
-  getReservationCart(): Observable<AvailabilityInterface[]>{
-    return this.httpClient.get<AvailabilityInterface[]>(`${this.baseUrl}/${this.userReservationUrl}`);
-  }
+  // getReservationCart(): Observable<AvailabilityInterface[]>{
+  //   return this.httpClient.get<AvailabilityInterface[]>(`${this.baseUrl}/${this.userReservationUrl}`);
+  // }
 
   addReservaionRequestDate(availabilityRequest: AvailabilityRequestInterface){
     this.reservationRequest.next(availabilityRequest);
@@ -48,9 +48,9 @@ export class ReservationsService {
     return this.httpClient.post(`${this.baseUrl}/reservations/user/place-a-booking`, reservationArrangement).toPromise();
   }
 
-  proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement) {
+  proceedReservationsForNonLoggedInUser(reservationRequest: ReservationRequest) {
     return this.httpClient.post
-    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationArrangement, { headers: this.requestHeader }).toPromise();
+    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationRequest, { headers: this.requestHeader }).toPromise();
   }
 
   handleError(handleError: any): Observable<never> {
