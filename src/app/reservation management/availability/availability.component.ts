@@ -37,16 +37,18 @@ export class AvailabilityComponent implements OnInit {
       switchMap(searchData => this.messengerService.getSearchResultData().pipe(map(
         data => {
           this.hotelDetail = {
-            image: data[0].image,
-            hotelName: data[0].hotelName,
-            city: data[0].city
+            bookingDetails : {
+              image: data[0].bookingDetails.image,
+              hotelName: data[0].bookingDetails.hotelName,
+              city: data[0].bookingDetails.city
+            }
           }
           this.availabilityRequest = searchData;
           let tempStartDate = new Date(searchData.startDate)
           this.startDate = tempStartDate.toISOString().split('T')[0]
           let tempEndDate = new Date(searchData.endDate)
           this.endDate = tempEndDate.toISOString().split('T')[0]
-          this.availableGroups = this.groupRoomsToDisplay(data.filter(x => x.hotelId == this.id));
+          this.availableGroups = this.groupRoomsToDisplay(data.filter(x => x.bookingDetails.hotelId == this.id));
         }
       )
         
@@ -57,13 +59,13 @@ export class AvailabilityComponent implements OnInit {
   groupRoomsToDisplay(data: AvailabilityInterface[]){
     var result: RoomGroupToDisplayInterface[] = [];
     data.forEach(availableRoom => {
-      let roomGroup = result.find(group => group.groupId == availableRoom.roomGroupId)
+      let roomGroup = result.find(group => group.groupId == availableRoom.bookingDetails.roomGroupId)
       if(roomGroup){
         roomGroup.rooms.push(availableRoom)
       }else {
         var newRoom: AvailabilityInterface[] = [availableRoom]
         var newRoomGroup: RoomGroupToDisplayInterface = {
-          groupId: availableRoom.roomGroupId,
+          groupId: availableRoom.bookingDetails.roomGroupId,
           rooms: newRoom,
           quantity: 1
         }
@@ -79,8 +81,8 @@ export class AvailabilityComponent implements OnInit {
   group: RoomGroupToDisplayInterface): void {
   let availabilities: AvailabilityInterface[] = [];
     for(let i = 0; i < group.quantity; i++){
-      group.rooms[i].startDate = this.availabilityRequest.startDate;
-      group.rooms[i].endDate = this.availabilityRequest.endDate;
+      group.rooms[i].bookingDetails.startDate = this.availabilityRequest.startDate;
+      group.rooms[i].bookingDetails.endDate = this.availabilityRequest.endDate;
       availabilities.push(group.rooms[i])
     }
 

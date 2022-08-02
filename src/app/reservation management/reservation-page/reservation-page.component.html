@@ -3,13 +3,13 @@
             <div class="room" *ngFor = "let availability of reservations; index as i">    
                 <div class="room-details">
                     <div class="room-text">
-                        <p>city: {{ availability.city }}</p>
-                        <p>room size: {{ availability.roomType }}</p>
+                        <p>city: {{ availability.bookingDetails.city }}</p>
+                        <p>room size: {{ availability.bookingDetails.roomType }}</p>
                         <p>reservation start: {{ reservationDates[i].reservation_start }}</p>
                         <p>reservation end: {{ reservationDates[i].reservation_end }}</p>
                     </div> 
                     <div class="price-label">
-                        <p id="price">price: {{ availability.price }}</p>
+                        <p id="price">price: {{ availability.bookingDetails.price }}</p>
                         <button (click) = "removeFromReservations(availability)" class="button-hotel-details" style="margin-left: 10px">Remove</button>   
                     </div>
                         

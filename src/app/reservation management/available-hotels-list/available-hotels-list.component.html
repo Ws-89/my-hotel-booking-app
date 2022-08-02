@@ -5,15 +5,15 @@
         <div class="hotel-list">
             <div class="hotel" *ngFor = "let hotel of availableHotels">
                 <div class="image-container">
-                    <div class="hotel-image"><img [src]="hotel.image"></div>
+                    <div class="hotel-image"><img [src]="hotel.bookingDetails.image"></div>
                 </div>
                 
                 <div class="hotel-details">
                     <div class="hotel-text">
-                        <div class="hotel-name"><h2>{{ hotel.hotelName }}</h2></div>
-                        <p>city: {{ hotel.city }}</p>
+                        <div class="hotel-name"><h2>{{ hotel.bookingDetails.hotelName }}</h2></div>
+                        <p>city: {{ hotel.bookingDetails.city }}</p>
                     </div>  
-                    <button (click) = "availabilityDetail(hotel.hotelId)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>    
+                    <button (click) = "availabilityDetail(hotel.bookingDetails.hotelId)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>    
                 </div>
             </div>
         </div>

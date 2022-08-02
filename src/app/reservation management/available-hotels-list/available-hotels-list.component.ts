@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AvailabilityInterface } from 'src/app/models/interface/availability.interface';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
+import { BookingDetails } from 'src/app/models/interface/bookingDetails.interface';
 import { HotelInterface } from 'src/app/models/interface/hotelInterface.interface';
 
 
@@ -10,6 +11,7 @@ import { AvailabilityService } from 'src/app/_services/availability.service';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { forEachChild } from 'typescript';
 
 @Component({
   selector: 'app-available-hotels-list',
@@ -23,6 +25,7 @@ export class AvailableHotelsListComponent implements OnInit{
   availabilities: AvailabilityInterface[];
   reservations: AvailabilityInterface[];
   availabilityRequest: AvailabilityRequestInterface;
+  bookingDetails: Partial<BookingDetails>[];
   
   constructor(private availabilityService: AvailabilityService, 
               private router: Router, 
@@ -40,7 +43,8 @@ export class AvailableHotelsListComponent implements OnInit{
         )))))
         .subscribe(
           data =>  {
-            this.availableHotels = this.groupAvailableRoomsByHotels(data)
+            this.bookingDetails = this.groupAvailableRoomsByHotels(data)
+            this.availableHotels = this.addAvailableHotels(this.bookingDetails);
             this.availabilities = data
           })
       }
@@ -50,7 +54,9 @@ export class AvailableHotelsListComponent implements OnInit{
           switchMap(availabilityRequest => this.availabilityService.getAvailableRooms(availabilityRequest))
         ).subscribe(
           data =>  {
-            this.availableHotels = this.groupAvailableRoomsByHotels(data)
+            this.bookingDetails = this.groupAvailableRoomsByHotels(data)
+            this.availableHotels = this.addAvailableHotels(this.bookingDetails);
+            
             this.availabilities = data
           }       
         )
@@ -63,22 +69,42 @@ export class AvailableHotelsListComponent implements OnInit{
       this.router.navigate(['availability-details', id])
     }
 
-  private groupAvailableRoomsByHotels(availableRooms: Partial<AvailabilityInterface>[]){
+  private addAvailableHotels(hotels: Partial<HotelInterface>[]){
+    console.log(hotels)
+    var result: Partial<AvailabilityInterface>[] = [];
+    hotels.forEach(item => {
+      var bookingDetails: Partial<BookingDetails> = {
+        hotelId : item.hotelId,
+        city : item.city,
+        hotelName : item.hotelName,
+        image : item.image
+      }
+      
+      var newHotel: Partial<AvailabilityInterface> = {
+        bookingDetails : bookingDetails
+      }
+      
+      result.push(newHotel);
+    })
+    return result;
+  }
+
+  private groupAvailableRoomsByHotels(availableRooms: Partial<AvailabilityInterface>[]): Partial<HotelInterface>[]{
     let result: Partial<HotelInterface>[] = [];
 
     availableRooms.forEach(item => {
-      var hotel = result.find(hotel => hotel.hotelId == item.hotelId)
+      var hotel = result.find(hotel => hotel.hotelId == item.bookingDetails.hotelId)
               if(hotel){
                 hotel.rooms.push(item)
               }else {
                 var newRoom: Partial<AvailabilityInterface>[] = [item]
                 var newHotel: Partial<HotelInterface> = {
-                  hotelId : item.hotelId,
-                  hotelName : item.hotelName,
-                  city: item.city,
-                  grade: item.grade,
+                  hotelId : item.bookingDetails.hotelId,
+                  hotelName : item.bookingDetails.hotelName,
+                  city: item.bookingDetails.city,
+                  grade: item.bookingDetails.grade,
                   rooms : newRoom,
-                  image: item.image
+                  image: item.bookingDetails.image
                 }
                 result.push(newHotel)
                 }
@@ -87,10 +113,10 @@ export class AvailableHotelsListComponent implements OnInit{
   }
 
   private filterAvailabilitiesAlreadyInReservationCart(availabilities: AvailabilityInterface[], reservations: AvailabilityInterface[], availabilityRequest: AvailabilityRequestInterface){
-    return availabilities.filter(availability => !reservations.find(reservation => this.checkIfAvailabilityIsInReservationCart(availability, reservation, availabilityRequest)))
+    return availabilities.filter(availability => !reservations.find(reservation => this.checkIfAvailabilityIsInReservationCart(availability.bookingDetails, reservation.bookingDetails, availabilityRequest)))
   }
 
-  private checkIfAvailabilityIsInReservationCart = function(availability: AvailabilityInterface, reservation: AvailabilityInterface, availabilityRequest: AvailabilityRequestInterface): boolean{
+  private checkIfAvailabilityIsInReservationCart = function(availability: Partial<BookingDetails>, reservation: Partial<BookingDetails>, availabilityRequest: AvailabilityRequestInterface): boolean{
     availability.startDate = new Date(availability.startDate);
     availability.endDate = new Date(availability.endDate);
     reservation.startDate = new Date(reservation.startDate);

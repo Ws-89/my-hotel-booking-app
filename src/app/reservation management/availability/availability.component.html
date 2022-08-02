@@ -2,12 +2,12 @@
     <div class="title"><h2 >Rooms available at the hotel</h2></div>
     <div class="hotel-header">
         <div class="image-container">
-            <div class="hotel-image"><img [src]="hotelDetail.image"></div>
+            <div class="hotel-image"><img [src]="hotelDetail.bookingDetails.image"></div>
         </div>
         <div class="hotel-details">
             <div class="hotel-text">
-                <div class="hotel-name"><h2>{{ hotelDetail.hotelName }}</h2></div>
-                <p>city : {{ hotelDetail.city }}</p>
+                <div class="hotel-name"><h2>{{ hotelDetail.bookingDetails.hotelName }}</h2></div>
+                <p>city : {{ hotelDetail.bookingDetails.city }}</p>
                 <p>reservation start: {{ startDate }}</p>
                 <p>reservation end: {{ endDate }}</p>
             </div>
@@ -17,9 +17,9 @@
         <div class="room" *ngFor = "let group of availableGroups; let i=index">    
             <div class="room-details">
                 <div class="room-text">
-                    <p>city: {{ group.rooms[0].city }}</p>
-                    <p>room size: {{ group.rooms[0].roomType }}</p>
-                    <p>{{ group.rooms[0].description }}</p>
+                    <p>city: {{ group.rooms[0].bookingDetails.city }}</p>
+                    <p>room size: {{ group.rooms[0].bookingDetails.roomType }}</p>
+                    <p>{{ group.rooms[0].bookingDetails.description }}</p>
                 </div>  
                     
                 <div class="placeABooking">
@@ -29,7 +29,7 @@
                         </select>
                     </div>
                     <div class="priceAndButton">
-                        <p id="price">price: {{ group.rooms[0].price }}</p>
+                        <p id="price">price: {{ group.rooms[0].bookingDetails.price }}</p>
                         <button (click)="bookThisRoom(group)" class="button-hotel-details" style="margin-left: 10px">Book this room</button>   
                     </div>
                     

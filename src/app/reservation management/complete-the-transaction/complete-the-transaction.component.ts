@@ -23,7 +23,7 @@ export class CompleteTheTransactionComponent implements OnInit {
 
       result[0].forEach(item => {
         this.reservationArrangement.reservations.push(item);
-        price += item.price
+        price += item.bookingDetails.price
       })
       this.reservationArrangement.price = price
       this.reservationArrangement.numberOfRooms = result[1].numberOfRooms;

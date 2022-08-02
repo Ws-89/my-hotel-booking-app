@@ -39,10 +39,10 @@ export class ReservationPageComponent implements OnInit {
       this.totalPrice = 0;
       this.reservationDates = [];
       this.reservations.forEach(reservation => {
-        this.totalPrice += reservation.price;
+        this.totalPrice += reservation.bookingDetails.price;
 
-        let tempStartDate = new Date(reservation.startDate)
-        let tempEndDate = new Date(reservation.endDate)  
+        let tempStartDate = new Date(reservation.bookingDetails.startDate)
+        let tempEndDate = new Date(reservation.bookingDetails.endDate)  
         var newReservationDate: ReservationDate = {
           reservation_start: tempStartDate.toISOString().split('T')[0],
           reservation_end: tempEndDate.toISOString().split('T')[0]
