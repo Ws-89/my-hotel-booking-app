@@ -43,12 +43,13 @@ export class UpdateRoomComponent implements OnInit {
     this.form = this.fb.group({
       description: this.fb.array([]),
       roomType: new FormControl(''),
+      price: new FormControl('')
     })
 
-    this.roomService.getRoomById(this.id).subscribe(data => {
-      this.room = data;
-      this.form.patchValue({roomType: data.roomType})
-      this.isChecked(data.description)
+    this.roomService.getRoomById$(this.id).subscribe(data => {
+      this.room = data.data.object;
+      this.form.patchValue({roomType: data.data.object.roomType})
+      this.isChecked(data.data.object.description)
     }, error => console.log(error));
   }
 
@@ -82,6 +83,7 @@ export class UpdateRoomComponent implements OnInit {
   onSubmit(){
     this.room.roomType = this.form.value.roomType;
     this.room.description = this.form.value.description.join(", ");
+    this.room.price = this.form.value.price;
 
     this.roomService.updateRoom(this.room.roomId, this.room)
     .then(data => {

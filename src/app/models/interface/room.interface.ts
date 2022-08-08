@@ -4,4 +4,6 @@ export interface RoomInterface {
     roomId: number;
     description: string;
     roomType: RoomType;
+    price: number;
+    enabled: boolean;
 }

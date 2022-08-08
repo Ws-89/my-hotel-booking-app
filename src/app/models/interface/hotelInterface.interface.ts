@@ -10,5 +10,6 @@ export interface HotelInterface {
     grade: Grade;
     rooms: Array<RoomInterface>;
     image: string;
-    contact: ContactInterface
+    contact: ContactInterface;
+    enabled: boolean;
 }

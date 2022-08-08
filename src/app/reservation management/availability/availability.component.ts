@@ -5,7 +5,7 @@ import { Hotel } from 'src/app/models/hotel';
 import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
 import { AvailabilityResponse } from 'src/app/models/interface/availabilityResponse.interface';
 import { HotelInterface } from 'src/app/models/interface/hotelInterface.interface';
-import { ReservationRequest } from 'src/app/models/reservation';
+import { Reservation } from 'src/app/models/reservation';
 import { RoomInterface } from 'src/app/models/interface/room.interface';
 import { MessengerService } from 'src/app/_services/messenger.service';
 import { ReservationsService } from 'src/app/_services/reservations.service';
@@ -23,7 +23,7 @@ export class AvailabilityComponent implements OnInit {
   
   hotelDetail: HotelInterface;;
   availabilityResponse: AvailabilityResponse;
-  reservationRequest = new ReservationRequest;
+  reservationRequest = new Reservation;
 
   ngOnInit(): void {
     this.availabilityResponse = this.messengerService.getHotelDetails$()

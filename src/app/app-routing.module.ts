@@ -5,7 +5,7 @@ import { AdminComponent } from './admin/admin.component';
 import { CreateHotelComponent } from './hotel management/create-hotel/create-hotel.component';
 import { CreateRoomComponent } from './hotel management/create-room/create-room.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { GuestComponent } from './guest/guest.component';
+import { GuestComponent } from './guest-management/guest/guest.component';
 import { HomeComponent } from './home/home.component';
 import { HotelDetailsComponent } from './hotel management/hotel-details/hotel-details.component';
 import { HotelsListComponent } from './hotel management/hotels-list/hotels-list.component';
@@ -24,6 +24,11 @@ import { CheckoutComponent } from './payment/checkout/checkout.component';
 import { AvailableHotelsListComponent } from './reservation management/available-hotels-list/available-hotels-list.component';
 import { CommonModule } from '@angular/common';
 import { AvailabilityComponent } from './reservation management/availability/availability.component';
+import { ReservationListComponent } from './hotel management/reservation-list/reservation-list.component';
+import { UpdateReservationComponent } from './reservation management/update-reservation/update-reservation.component';
+import { GuestUpdateComponent } from './guest-management/guest-update/guest-update.component';
+import { GuestReservationListComponent } from './guest-management/guest-reservation-list/guest-reservation-list.component';
+import { HotelReservationListComponent } from './hotel management/hotel-reservation-list/hotel-reservation-list.component';
 
 
 
@@ -50,7 +55,12 @@ const routes: Routes = [
   { path: 'complete-the-transaction', component: CompleteTheTransactionComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'payment-success', component: SucessComponent },
-  { path: 'payment-canceled', component: CancelComponent }
+  { path: 'payment-canceled', component: CancelComponent },
+  { path: 'reservation-list/:id', component: ReservationListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} },
+  { path: 'reservation-update/:id', component: UpdateReservationComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']}},
+  { path: 'update-guest/:id', component: GuestUpdateComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_GUEST']} },
+  { path: 'guest-reservation-list/:id', component: GuestReservationListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_GUEST']}},
+  { path: 'hotel-reservation-list/:id', component: HotelReservationListComponent, canActivate:[AuthGuard], data:{authorities:['ROLE_ADMIN']} }
 ];
 
 @NgModule({

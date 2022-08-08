@@ -5,7 +5,7 @@ import { UserAuthService } from './user-auth.service';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
 import { environment } from 'src/environments/environment';
 import { ReservationArrangement } from '../models/reservationArrangement';
-import { ReservationRequest } from '../models/reservation';
+import { Reservation } from '../models/reservation';
 
 
 
@@ -19,38 +19,21 @@ export class ReservationsService {
   );
   private baseUrl = environment.baseUrl
   private reservationUrl = "reservations"
-  private userReservationUrl = "reservations/user/bookmarks"
 
   private reservationRequest = new Subject<AvailabilityRequestInterface>();
   public reservationRequestWithDate = this.reservationRequest.asObservable();
   
-  constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
   
-  
-  // addReservationItemCart(availability: AvailabilityInterface[]){
-  //   return this.httpClient.post(`${this.baseUrl}/${this.userReservationUrl}`, availability).toPromise();
-  // }
-
-  // getReservationCart(): Observable<AvailabilityInterface[]>{
-  //   return this.httpClient.get<AvailabilityInterface[]>(`${this.baseUrl}/${this.userReservationUrl}`);
-  // }
-
-  addReservaionRequestDate(availabilityRequest: AvailabilityRequestInterface){
-    this.reservationRequest.next(availabilityRequest);
-  }
-
-  removeItemFromReservationCart(id : string){
-    return this.httpClient.delete(`${this.baseUrl}/${this.userReservationUrl}/${id}`).toPromise();
-  }
-
-  proceedReservations(reservationArrangement: ReservationArrangement){
-    return this.httpClient.post(`${this.baseUrl}/reservations/user/place-a-booking`, reservationArrangement).toPromise();
-  }
-
-  proceedReservationsForNonLoggedInUser(reservationRequest: ReservationRequest) {
+  proceedReservation(reservationRequest: Reservation) {
     return this.httpClient.post
     (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationRequest, { headers: this.requestHeader }).toPromise();
+  }
+
+  proceedReservationForLoggedInUser(reservationRequest: Reservation) {
+    return this.httpClient.post
+    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking-logged-in`, reservationRequest).toPromise();
   }
 
   handleError(handleError: any): Observable<never> {

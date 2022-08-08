@@ -55,3 +55,14 @@ form {
 .button-search:hover{
     background-color: rgba(51, 51, 102, 0.8);
 }
+
+@media (max-width: 600px){
+    body {
+        width: 100%;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+}

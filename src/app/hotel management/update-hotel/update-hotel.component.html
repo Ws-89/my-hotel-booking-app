@@ -205,17 +205,17 @@
             <input
               type="text"
               class="form-control"
-              formControlName="phone"
+              formControlName="phoneNumber"
             />
             <div
               *ngIf="
-              contactControls.phone.invalid && contactControls.phone.errors && contactControls.phone.touched
+              contactControls.phoneNumber.invalid && contactControls.phoneNumber.errors && contactControls.phoneNumber.touched
               "
             >
-              <small class="text-danger" *ngIf="contactControls.phone.errors.required"
+              <small class="text-danger" *ngIf="contactControls.phoneNumber.errors.required"
                 >Phone number field is required</small
               >
-              <small class="text-danger" *ngIf="contactControls.phone.errors.pattern"
+              <small class="text-danger" *ngIf="contactControls.phoneNumber.errors.pattern"
                 >Phone number should contain 9 numbers
               </small>
             </div>

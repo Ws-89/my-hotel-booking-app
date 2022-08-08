@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Hotel } from 'src/app/models/hotel';
-import { AvailabilityRequestInterface } from 'src/app/models/interface/availabilityRequest.interface';
 import { AvailabilityResponse } from 'src/app/models/interface/availabilityResponse.interface';
 import { HotelInterface } from 'src/app/models/interface/hotelInterface.interface';
 import { AvailabilityService } from 'src/app/_services/availability.service';
 import { MessengerService } from 'src/app/_services/messenger.service';
-import { ReservationsService } from 'src/app/_services/reservations.service';
-import { UserAuthService } from 'src/app/_services/user-auth.service';
-import { forEachChild } from 'typescript';
 
 @Component({
   selector: 'app-available-hotels-list',

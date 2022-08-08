@@ -19,6 +19,7 @@ export class CreateHotelComponent implements OnInit {
   gradeKeys = [];
   form: FormGroup;
   hotel = new Hotel();
+  errorMessage: string = '';
 
   constructor(private hotelService: HotelsService, private router: Router, private fb: FormBuilder) { 
     this.gradeKeys = Object.keys(this.grades);
@@ -46,7 +47,7 @@ export class CreateHotelComponent implements OnInit {
     this.hotelService.saveHotel(this.form.value).then(res => {
       this.goToHotelList();
     },
-    error => console.log(error));
+    error => this.errorMessage = error);
   }
 
   goToHotelList(){

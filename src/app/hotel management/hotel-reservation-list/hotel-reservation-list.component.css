@@ -1,0 +1,22 @@
+.bottom-menu-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.container {
+    padding: 3rem 0;
+}
+
+.filterMenu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchMenu {
+    display: flex;
+    justify-content: space-between;
+}

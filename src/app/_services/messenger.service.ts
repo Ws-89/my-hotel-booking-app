@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
 import { AvailabilityResponse } from '../models/interface/availabilityResponse.interface';
 import { HotelInterface } from '../models/interface/hotelInterface.interface';
-import { ReservationRequest } from '../models/reservation';
+import { Reservation } from '../models/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class MessengerService {
   private availabilitySearchRequest$ = new BehaviorSubject<AvailabilityRequestInterface>(null);
   private availabilitySearchResult$ = new BehaviorSubject<HotelInterface[]>(null);
   private hotelDetails$ = new BehaviorSubject<AvailabilityResponse>(null);
-  private reservationRequest$ = new BehaviorSubject<ReservationRequest>(null);
+  private reservationRequest$ = new BehaviorSubject<Reservation>(null);
   
   sendAvailabilitySearchData(availabilityRequest: AvailabilityRequestInterface){
       this.availabilitySearchRequest$.next(availabilityRequest);
@@ -41,7 +41,7 @@ export class MessengerService {
     return this.hotelDetails$.getValue();
   }
 
-  sendReservationRequest(request: ReservationRequest){
+  sendReservationRequest(request: Reservation){
     this.reservationRequest$.next(request)
   }
 

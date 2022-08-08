@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
+import { Reservation } from '../models/reservation';
 import { MessengerService } from '../_services/messenger.service';
 
 @Component({
@@ -11,6 +13,7 @@ import { MessengerService } from '../_services/messenger.service';
 export class HomeComponent implements OnInit {
 
   form: FormGroup;
+  reservationRequest: AvailabilityRequestInterface;
 
   constructor(private fb: FormBuilder, private router: Router, private messengerService: MessengerService) { }
 
@@ -32,7 +35,14 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(){
-    this.messengerService.sendAvailabilitySearchData(this.form.value);
+    this.reservationRequest = this.form.value;
+    const startDate = this.form.value.startDate + 'Z';
+    const startDateIso = new Date(startDate).toISOString()
+    const endDate = this.form.value.endDate + 'Z';
+    const endDateIso = new Date(endDate).toISOString()
+    this.reservationRequest.startDate = startDateIso;
+    this.reservationRequest.endDate = endDateIso;
+    this.messengerService.sendAvailabilitySearchData(this.reservationRequest);
     this.router.navigate(['available-hotels-list']);
   }
 }

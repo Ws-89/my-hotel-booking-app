@@ -10,6 +10,8 @@ import { UserService } from '../_services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
+  activeMenu: boolean = false;
+
   constructor(
     private userAuthService: UserAuthService,
     private router: Router,
@@ -25,6 +27,10 @@ export class HeaderComponent implements OnInit {
   public logout(){
     this.userAuthService.clear();
     this.router.navigate(['/home'])
+  }
+
+  public toggleMenu = () => {
+    this.activeMenu = !this.activeMenu
   }
 
   public test(){

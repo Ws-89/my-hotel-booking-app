@@ -11,7 +11,8 @@ export class Hotel {
     grade: Grade;
     rooms: Array<RoomInterface>;
     image: string;
-    contact: ContactInterface
+    contact: ContactInterface;
+    enabled: boolean;
 
     constructor(
         hotelId?: number,
@@ -20,7 +21,8 @@ export class Hotel {
         grade?: Grade,
         rooms?: Array<RoomInterface>,
         image?: string,
-        contact?: ContactInterface
+        contact?: ContactInterface,
+        enabled?: boolean
     ){
         this.hotelId = hotelId,
         this.name = name,
@@ -29,5 +31,6 @@ export class Hotel {
         this.rooms = rooms,
         this.image = image;
         this.contact = contact;
+        this.enabled = enabled;
     }
 }

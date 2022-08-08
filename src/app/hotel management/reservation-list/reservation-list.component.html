@@ -1,0 +1,102 @@
+
+<ng-container *ngIf="reservationList$ | async as state" [ngSwitch]="state.appState">
+    <div class="container">
+      <div class="col-md-12 mt3">
+        <ng-container *ngSwitchCase="'APP_ERROR'">{{
+          state.error | json
+        }}</ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADING'">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADED'">
+          <h1>Reservation list:</h1>
+          <table
+            class="table table-bordered table-striped table-condensed table-fixed"
+          >
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Price</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reservation of state.appData.data.page.content">
+                <td>{{ reservation.email }}</td>
+                <td>{{ reservation.price }}</td>
+                <td>{{ reservation.startDate }}</td>
+                <td>{{ reservation.endDate }}</td>
+                <td>
+                  <button
+                    (click)="deleteReservation(reservation.reservationId)"
+                    class="btn btn-danger float-right"
+                    style="margin-left: 10px"
+                  >
+                    Delete
+                  </button>
+  
+                  <button
+                    (click)="updateReservation(reservation.reservationId)"
+                    class="btn btn-warning float-right"
+                    style="margin-left: 10px"
+                  >
+                    Update
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            *ngIf="state.appData.data.page.content.length < 1"
+            class="alert alert-secondary"
+            role="alert"
+          >
+            No reservation found
+          </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li
+                class="page-item pointer"
+                [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''"
+              >
+                <a (click)="goToNextOrPrevious('backward')" class="page-link"
+                  >&laquo; Previous</a
+                >
+              </li>
+              <li
+                *ngFor="
+                  let page of [].constructor(state.appData.data.page.totalPages);
+                  let i = index
+                "
+                class="page-item pointer"
+              >
+                <a
+                  (click)="goToPage(i)"
+                  class="page-link"
+                  [ngClass]="i == (currentPage$ | async) ? ' active' : ''"
+                  >{{ i + 1 }}</a
+                >
+              </li>
+              <li
+                class="page-item pointer"
+                [ngClass]="
+                  state.appData.data.page.last == true ? ' disabled' : ''
+                "
+              >
+                <a (click)="goToNextOrPrevious('forward')" class="page-link"
+                  >Next &raquo;</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  
