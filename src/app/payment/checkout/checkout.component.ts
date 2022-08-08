@@ -22,16 +22,7 @@ export class CheckoutComponent implements OnInit {
       cancelUrl: 'http://localhost:4200/payment-canceled',
       successUrl: 'http://localhost:4200/payment-success',
     }
-
-    // const payment = {
-    //   cancelUrl: 'http://localhost:4200/payment-canceled',
-    //   successUrl: 'http://localhost:4200/payment-success',
-    //   line_items: [
-    //     {amount: 1, quantity: 1},
-    //     {amount: 2, quantity: 2}
-    //   ]
-    // }
-
+    
     const stripe = await this.stripePromise;
 
     this.httpClient
@@ -42,6 +33,8 @@ export class CheckoutComponent implements OnInit {
         });
       });
   }
+
+  
 
   ngOnInit(): void {
   }

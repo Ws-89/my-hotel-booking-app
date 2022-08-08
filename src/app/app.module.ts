@@ -19,6 +19,12 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { ReservationListComponent } from './hotel management/reservation-list/reservation-list.component';
+import { UpdateReservationComponent } from './reservation management/update-reservation/update-reservation.component';
+import { GuestUpdateComponent } from './guest-management/guest-update/guest-update.component';
+import { GuestReservationListComponent } from './guest-management/guest-reservation-list/guest-reservation-list.component';
+import { HotelReservationListComponent } from './hotel management/hotel-reservation-list/hotel-reservation-list.component';
+
 
 
 
@@ -28,6 +34,11 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [
     AppComponent,
     routingComponents,
+    ReservationListComponent,
+    UpdateReservationComponent,
+    GuestUpdateComponent,
+    GuestReservationListComponent,
+    HotelReservationListComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +56,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatRippleModule,
     MatInputModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+  
   ],
   providers: [
     AuthGuard,

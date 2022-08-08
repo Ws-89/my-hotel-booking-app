@@ -1,0 +1,67 @@
+<ng-container
+    *ngIf="guestDetails$ | async as state"
+    [ngSwitch]="state.appState"
+  >
+    <div class="container">
+      <div class="col-md-12 mt3">
+        <ng-container *ngSwitchCase="'APP_ERROR'">{{
+          state.error | json
+        }}</ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADING'">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'APP_LOADED'">
+          <div class="guest-info">
+            <div class="personal-details">
+              <h1>Your profile</h1>
+              <div>
+                  <label><b>name: </b></label>{{state.appData.data.object.firstName }}
+              </div>
+              <div>
+                <label><b>last name: </b></label>{{state.appData.data.object.lastName }}
+            </div>
+            <div>
+                <label><b>email: </b></label> {{state.appData.data.object.email}}
+            </div>
+              <div>
+                  <label><b>street:</b></label> {{state.appData.data.object.address.street}}
+              </div>
+              <div>
+                  <label><b>city:</b></label> {{state.appData.data.object.address.city}}
+              </div>
+              <div>
+                  <label><b>state:</b></label> {{state.appData.data.object.address.state}}
+              </div>
+              <div>
+                  <label><b>country:</b></label> {{state.appData.data.object.address.country}}
+              </div>
+              <div>
+                  <label><b>zip code:</b></label> {{state.appData.data.object.address.zipCode}}
+              </div>
+              <div>
+                  <label><b>phone number:</b></label> {{state.appData.data.object.phoneNumber}}
+              </div>
+            </div>
+            <div class="menu">
+              <button (click) = "showCompletedReservationList(state.appData.data.object.guestId)" class="btn btn-secondary float-right" style="margin-left: 10px">Completed reservations</button>
+              <button (click) = "updateGuest(state.appData.data.object.guestId)" class="btn btn-warning float-right" style="margin-left: 10px">Update profile</button>
+              <button (click) = "deleteGuest(state.appData.data.object.guestId)" class="btn btn-danger float-right" style="margin-left: 10px">Delete profile</button>
+              
+            </div>
+          </div>
+ 
+      
+     
+  </ng-container >
+  
+  
+ 
+
+  </div>
+  </div>
+  </ng-container>
+

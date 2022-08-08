@@ -1,35 +1,23 @@
 
 <div class="container">
   <div class="title"><h2>Login</h2></div>
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <form [formGroup]="form" (ngSubmit)="login()">
     <div class="form-group">
       <label for="userName">Email address</label>
-      <input type="text" 
-                ngModel 
-                name="userName"
-                placeholder="Enter your email address"
-                class="form-control"
-                required pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$"
-                #email="ngModel"
-                [class.is-invalid]="email.invalid && email.touched">
-      <div *ngIf="email.invalid && (email.errors && email.touched)">
-        <small class="text-danger"  *ngIf="email.errors.required">Email is required field</small>
-        <small class="text-danger" *ngIf="email.errors.pattern">Enter valid value of email address</small>
+      <input type="text" formControlName="userName" placeholder="Enter your email address" class="form-control">
+      <div *ngIf="userName.invalid && (userName.errors && userName.touched)">
+        <small class="text-danger"  *ngIf="userName.errors.required">Email is required field</small>
+        <small class="text-danger" *ngIf="userName.errors.pattern">Enter valid value of email address</small>
       </div>
     </div>
-    
     <div class="form-group">
       <label for="userPassword">Password</label>
-      <input type="text" 
-                ngModel 
-                name="userPassword"
-                placeholder="Enter your password" 
-                class="form-control"
-                required #password="ngModel"
-                [class.is-invalid]="password.invalid && password.touched">
-      <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required field</small>
+      <input type="password" formControlName="userPassword" placeholder="Enter your password" class="form-control">
+      <div *ngIf="userPassword.invalid && (userPassword.errors && userPassword.touched)">
+        <small class="text-danger"  *ngIf="userPassword.errors.required">Password is required field</small>
+      </div>
     </div>
-    <button [disabled]="loginForm.form.invalid" (click)="login" class="login-button">Login</button>
+    <button  (click)="login" class="login-button">Login</button>
   </form>
   <small class="text-danger">{{msg}}</small>
 <div>   

@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { CredentialsInterface } from '../models/interface/credentials.interface';
 import { User } from '../models/user';
 import { UserAuthService } from './user-auth.service';
 
@@ -17,8 +19,9 @@ export class UserService {
     { "Register": "True"}
   );
 
-  private baseUrl = "http://localhost:8085/authenticate";
-  private registrationUrl = "http://localhost:8085/registration";
+  private baseUrl = environment.baseUrl;
+  private authenticate = 'authenticate'
+  private registrationUrl = "registration";
 
   
 
@@ -26,12 +29,12 @@ export class UserService {
     private httpClient: HttpClient,
     private userAuthService: UserAuthService) { }
 
-  public login(loginData) {
-    return this.httpClient.post(`${this.baseUrl}`, loginData, { headers: this.requestHeader })
+  public login(loginData: CredentialsInterface) {
+    return this.httpClient.post(`${this.baseUrl}/${this.authenticate}`, loginData, { headers: this.requestHeader }).toPromise();
   }
 
-  register(user: User): Observable<Object>{
-    return this.httpClient.post(`${this.registrationUrl}`, user, { headers: this.registerHeader})
+  register(user: User) {
+    return this.httpClient.post(`${this.baseUrl}/${this.registrationUrl}`, user, { headers: this.registerHeader}).toPromise();
   }
 
 

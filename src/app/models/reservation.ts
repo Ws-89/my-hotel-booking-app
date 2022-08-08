@@ -1,15 +1,18 @@
-import { Grade } from "../enum/grade-type.enum";
-import { RoomType } from "../enum/room-type.enum";
 
-export interface Reservation {
-    hotel_id: number;
-    hotel_name: string;
-    city: string;
-    grade: Grade;
-    image: string;
-    room_id : number;
-    roomType: RoomType;
-    from_date: Date;
-    to_date: Date;
+import { AddressInterface } from "./interface/address.interface";
+import { RoomInterface } from "./interface/room.interface";
+
+export class Reservation {
+    reservationId: number;
+    partySize: number;
+    numberOfRooms: number;
+    room: RoomInterface;
+    email: string;
+    endDate: Date;
+    startDate: Date;
     price: number;
+    guestName: string;
+    guestLastName: string;
+    requestMessage: string;
+    guestAddress: AddressInterface;
 }

@@ -1,25 +1,58 @@
-
-
-<body>
-        <div class="title"><h2 >Available hotels</h2></div>
-        <div class="hotel-list">
-            <div class="hotel" *ngFor = "let hotel of availableHotels">
+<!-- <body>
+  <div class="title"><h2>Available hotels</h2></div>
+  <div class="hotel-list">
+            <div class="hotel" *ngFor = "let hotel of availabilityResponse.data.availableHotels">
                 <div class="image-container">
                     <div class="hotel-image"><img [src]="hotel.image"></div>
                 </div>
                 
                 <div class="hotel-details">
                     <div class="hotel-text">
-                        <div class="hotel-name"><h2>{{ hotel.hotel_name }}</h2></div>
-                        <p>city: {{ hotel.city }}</p>
+                        <div class="hotel-name"><h2>{{ hotel.name }}</h2></div>
+                        <p>city: {{ hotel.address.city }}</p>
                     </div>  
-                    <button (click) = "availabilityDetail(hotel.hotel_id)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>    
+                        <button (click) = "availabilityDetail(hotel.hotelId, hotel)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>    
                 </div>
             </div>
         </div>
-   
-    
 </body>
 
 
-
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Available hotels list</title>
+  </head>
+  <body>
+    <ng-container *ngIf="availabilityResponse != null">
+      <header class="text-center bg-light">
+        <h2>Available hotels for city: {{ availabilityResponse.city }}</h2>
+        <h3>
+          on days: {{ availabilityResponse.startDate | date: "longDate" }} to:
+          {{ availabilityResponse.endDate | date: "longDate" }}
+        </h3>
+      </header>
+      <section>
+        <div class="container">
+          <div
+            class="hotel-card bg-light"
+            *ngFor="let hotel of availabilityResponse.data.availableHotels"
+          >
+            <div>
+              <img [src]="hotel.image" alt="hotel.name" />
+            </div>
+            <div class="wrapper">
+              <h2>Hotel name: {{ hotel.name }}</h2>
+              <p>city: {{ hotel.address.city }}</p>
+              <button (click) = "availabilityDetail(hotel.hotelId, hotel)" class="button-hotel-details" style="margin-left: 10px">Check rooms</button>  
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+  </body>
+</html>

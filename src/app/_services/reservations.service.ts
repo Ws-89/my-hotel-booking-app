@@ -2,9 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { UserAuthService } from './user-auth.service';
-import { ReservationArrangement } from '../models/reservationArrangement';
-import { AvailabilityInterface } from '../models/interface/availability.interface';
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
+import { environment } from 'src/environments/environment';
+import { ReservationArrangement } from '../models/reservationArrangement';
+import { Reservation } from '../models/reservation';
+
 
 
 @Injectable({
@@ -15,56 +17,23 @@ export class ReservationsService {
   requestHeader = new HttpHeaders(
     { "No-Auth": "True" }
   );
+  private baseUrl = environment.baseUrl
+  private reservationUrl = "reservations"
 
-  private reservations = new Array<AvailabilityInterface>();
   private reservationRequest = new Subject<AvailabilityRequestInterface>();
   public reservationRequestWithDate = this.reservationRequest.asObservable();
   
-  constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
-  private baseUrl = "http://localhost:8085/availabilityCart"
-  private reservationUrl = "http://localhost:8085/reservations"
   
-  addReservationItem(availability: AvailabilityInterface): void {
-    
-    if(this.userAuthService.isLoggedIn()){
-      this.reservations.push(availability)
-    } 
-    else {
-      console.log("niezalogowany")
-    }
+  proceedReservation(reservationRequest: Reservation) {
+    return this.httpClient.post
+    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationRequest, { headers: this.requestHeader }).toPromise();
   }
 
-  addReservationItemCart(availability: AvailabilityInterface[]): Observable<any>{
-    return this.httpClient.post(this.baseUrl, availability)
-  }
-
-  getReservationCart(): Observable<AvailabilityInterface[]>{
-    return this.httpClient.get<AvailabilityInterface[]>(this.baseUrl);
-  }
-
-  addReservaionRequestDate(availabilityRequest: AvailabilityRequestInterface){
-    this.reservationRequest.next(availabilityRequest);
-  }
-
-  removeItemFromReservationCart(id : string): Observable<any>{
-    return this.httpClient.delete(this.baseUrl + `/${id}`);
-  }
-
-  removeReservation(reservationId: number): void{
-    this.reservations = this.reservations.filter(item => item.room_id != reservationId);
-  }
-
-  getReservations(): AvailabilityInterface[]{
-    return this.reservations;
-  }
-
-  proceedReservations(reservationArrangement: ReservationArrangement): Observable<Object>{
-    return this.httpClient.post(`${this.reservationUrl}/makeAReservation`, reservationArrangement);
-  }
-
-  proceedReservationsForNonLoggedInUser(reservationArrangement: ReservationArrangement): Observable<Object>{
-    return this.httpClient.post(`${this.reservationUrl}/makeAReservationForNonLoggedInUser`, reservationArrangement, { headers: this.requestHeader });
+  proceedReservationForLoggedInUser(reservationRequest: Reservation) {
+    return this.httpClient.post
+    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking-logged-in`, reservationRequest).toPromise();
   }
 
   handleError(handleError: any): Observable<never> {

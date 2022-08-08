@@ -1,63 +1,228 @@
-<div class="col-md-6 offset-md-3">
-    <h3> Update hotel </h3>
-    <form (ngSubmit) = "onSubmit()">
-    
+<div class="container">
+  <div class="row">
+    <div class="col"><h3>Create hotel</h3></div>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
         <div class="form-group">
-            <label>Hotel name</label>
-            <input type="text" class="form-control" id="hotelName"
-                [(ngModel)] = "hotel.name" name="hotelName">
+          <label>Name</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            required
+          />
+          <div
+            *ngIf="name.invalid && name.errors && name.touched"
+          >
+            <small class="text-danger" *ngIf="name.errors.required"
+              >Hotel name field is required</small
+            >
+            <small class="text-danger" *ngIf="name.errors.minlength"
+              >Hotel name should contain at least 2 letters</small
+            >
+          </div>
         </div>
-        <div class="form-group">
-            <label>Hotel street</label>
-            <input type="text" class="form-control" id="hotelStreet"
-                [(ngModel)] = "hotel.street" name="hotelStreet">
-        </div>
-        <div class="form-group">
-            <label>Hotel city</label>
-            <input type="text" class="form-control" id="hotelCity"
-                [(ngModel)] = "hotel.city" name="hotelCity">
-        </div>
-        <div class="form-group">
-            <label>Hotel state</label>
-            <input type="text" class="form-control" id="hotelState"
-                [(ngModel)] = "hotel.state" name="hotelState">
-        </div>
-        <div class="form-group">
-            <label>Hotel country</label>
-            <input type="text" class="form-control" id="hotelCountry"
-                [(ngModel)] = "hotel.country" name="hotelCountry">
-        </div>
-        <div class="form-group">
-            <label>Hotel zipcode</label>
-            <input type="text" class="form-control" id="hotelZipcode"
-                [(ngModel)] = "hotel.zipcode" name="hotelZipcode">
-        </div>
-    
-        <div class="form-group">
-            <label>Hotel phone number</label>
-            <input type="text" class="form-control" id="hotelphone"
-                [(ngModel)] = "hotel.phoneNumber" name="hotelphone">
-        </div>
-        <div class="form-group">
-            <label>Hotel email</label>
-            <input type="text" class="form-control" id="hotelEmail"
-                [(ngModel)] = "hotel.email" name="hotelEmail">
-        </div> 
-    
-        <div class="type-of-room">
-            <mat-form-field>
-                <mat-label> Hotel </mat-label>
-                <mat-select
-                    [(ngModel)]="hotel.grade" [ngModelOptions]="{standalone: true}"
-                    >
-                    <mat-option *ngFor="let item of gradeKeys" [value]="grades[item]" >{{item}}</mat-option>
-                    
-                </mat-select>
-            </mat-form-field>
-            
-        </div>
-    
-        <button class="btn btn-success" type="submit">Submit</button>
-    </form>
+      </div>
     </div>
-    
+    <div class="row">
+      <div class="col">
+          <div formGroupName="contact">
+            <label>Email</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="email"
+            />
+            <div
+              *ngIf="
+                contactControls.email.invalid && contactControls.email.errors && contactControls.email.touched
+              "
+            >
+              <small class="text-danger" *ngIf="contactControls.email.errors.required"
+                >Email field is required</small
+              >
+              <small class="text-danger" *ngIf="contactControls.email.errors.pattern"
+                >Enter valid value of email address</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col">
+        <div class="type-of-room">
+          <mat-form-field>
+            <mat-label> Hotel </mat-label>
+            <mat-select class="form-control" formControlName="grade">
+              <mat-option
+                *ngFor="let item of gradeKeys"
+                [value]="grades[item]"
+                >{{ item }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <div
+            *ngIf="
+              grade.invalid && grade.errors && grade.touched
+            "
+          >
+            <small class="text-danger">Grade is required field</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+       <div class="col">
+        <div class="form-group">
+          <div formGroupName="address">
+            <label>Street</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="street"
+            />
+            <div
+              *ngIf="
+              addressControls.street.invalid && addressControls.street.errors && addressControls.street.touched
+              "
+            >
+              <small class="text-danger" *ngIf="addressControls.street.errors.required"
+                >Street field is required</small
+              >
+              <small class="text-danger" *ngIf="addressControls.street.errors.minlength"
+                >Street should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div>
+      </div> 
+       <div class="col">
+        <div class="form-group">
+          <div formGroupName="address">
+            <label>City</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="city"
+            />
+            <div
+              *ngIf="addressControls.city.invalid && addressControls.city.errors && addressControls.city.touched"
+            >
+              <small class="text-danger" *ngIf="addressControls.city.errors.required"
+                >City field is required</small
+              >
+              <small class="text-danger" *ngIf="addressControls.city.errors.minlength"
+                >City should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="row">
+       <div class="col">
+        <div class="form-group">
+          <div formGroupName="address">
+            <label>State</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="state"
+            />
+            <div
+              *ngIf="
+              addressControls.state.invalid && addressControls.state.errors && addressControls.state.touched
+              "
+            >
+              <small class="text-danger" *ngIf="addressControls.state.errors.required"
+                >State field is required</small
+              >
+              <small class="text-danger" *ngIf="addressControls.state.errors.minlength"
+                >State should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <div formGroupName="address">
+            <label>Country</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="country"
+            />
+            <div
+              *ngIf="
+              addressControls.country.invalid &&
+              addressControls.country.errors && addressControls.country.touched
+              "
+            >
+              <small class="text-danger" *ngIf="addressControls.country.errors.required"
+                >Country field is required</small
+              >
+              <small class="text-danger" *ngIf="addressControls.country.errors.minlength"
+                >Country should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <div formGroupName="address">
+            <label>Zipcode</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="zipCode"
+            />
+            <div
+              *ngIf="
+                addressControls.zipCode.invalid &&
+                addressControls.zipCode.errors && addressControls.zipCode.touched
+              "
+            >
+              <small class="text-danger" *ngIf="addressControls.zipCode.errors.required"
+                >Zip code field is required</small
+              >
+              <small class="text-danger" *ngIf="addressControls.zipCode.errors.minlength"
+                >Zip code should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div> 
+      </div> 
+       <div class="col">
+        <div class="form-group">
+          <div formGroupName="contact">
+            <label>Phone number</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="phoneNumber"
+            />
+            <div
+              *ngIf="
+              contactControls.phoneNumber.invalid && contactControls.phoneNumber.errors && contactControls.phoneNumber.touched
+              "
+            >
+              <small class="text-danger" *ngIf="contactControls.phoneNumber.errors.required"
+                >Phone number field is required</small
+              >
+              <small class="text-danger" *ngIf="contactControls.phoneNumber.errors.pattern"
+                >Phone number should contain 9 numbers
+              </small>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <button class="btn btn-success" type="submit">Submit</button>
+  </form>
+</div>

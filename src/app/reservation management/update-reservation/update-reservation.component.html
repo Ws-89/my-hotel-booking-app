@@ -1,0 +1,224 @@
+<div class="container">
+    <div class="row">
+      <div class="col"><h3>Finish reservation</h3></div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Reservation date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+                        <input matStartDate placeholder="Start date" formControlName="startDate">
+                        <input matEndDate placeholder="End date" formControlName="endDate">
+                    </mat-date-range-input>
+                    <mat-hint style="color: red;" *ngIf="form.get('startDate').touched && form.get('startDate').errors?.required 
+                    || form.get('endDate').touched && form.get('endDate').errors?.required">
+                        Reservation date field is required
+                    </mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker [startAt]="currentDate" ></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+        </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="guestName"
+              required
+            />
+            <div
+              *ngIf="guestName.invalid && guestName.errors && guestName.touched"
+            >
+              <small class="text-danger" *ngIf="guestName.errors.required"
+                >Name field is required</small
+              >
+              <small class="text-danger" *ngIf="guestName.errors.minlength"
+                >Name should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Last name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="guestLastName"
+              required
+            />
+            <div
+              *ngIf="guestLastName.invalid && guestLastName.errors && guestLastName.touched"
+            >
+              <small class="text-danger" *ngIf="guestLastName.errors.required"
+                >Last name field is required</small
+              >
+              <small class="text-danger" *ngIf="guestLastName.errors.minlength"
+                >Last name should contain at least 2 letters</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+              <label>Email</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+              />
+              <div
+                *ngIf="
+                  email.invalid && email.errors && email.touched
+                "
+              >
+                <small class="text-danger" *ngIf="email.errors.required"
+                  >Email field is required</small
+                >
+                <small class="text-danger" *ngIf="email.errors.pattern"
+                  >Enter valid value of email address</small
+                >
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col">
+              <label>Message for hotel service</label>
+              <textarea class="form-control" formControlName="requestMessage"></textarea>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col">
+           <div class="form-group">
+             <div formGroupName="guestAddress">
+               <label>Street</label>
+               <input
+                 type="text"
+                 class="form-control"
+                 formControlName="street"
+               />
+               <div
+                 *ngIf="
+                 addressControls.street.invalid && addressControls.street.errors && addressControls.street.touched
+                 "
+               >
+                 <small class="text-danger" *ngIf="addressControls.street.errors.required"
+                   >Street field is required</small
+                 >
+                 <small class="text-danger" *ngIf="addressControls.street.errors.minlength"
+                   >Street should contain at least 2 letters</small
+                 >
+               </div>
+             </div>
+           </div>
+         </div> 
+          <div class="col">
+           <div class="form-group">
+             <div formGroupName="guestAddress">
+               <label>City</label>
+               <input
+                 type="text"
+                 class="form-control"
+                 formControlName="city"
+               />
+               <div
+                 *ngIf="addressControls.city.invalid && addressControls.city.errors && addressControls.city.touched"
+               >
+                 <small class="text-danger" *ngIf="addressControls.city.errors.required"
+                   >City field is required</small
+                 >
+                 <small class="text-danger" *ngIf="addressControls.city.errors.minlength"
+                   >City should contain at least 2 letters</small
+                 >
+               </div>
+             </div>
+           </div>
+         </div> 
+       </div>
+       <div class="row">
+          <div class="col">
+           <div class="form-group">
+             <div formGroupName="guestAddress">
+               <label>State</label>
+               <input
+                 type="text"
+                 class="form-control"
+                 formControlName="state"
+               />
+               <div
+                 *ngIf="
+                 addressControls.state.invalid && addressControls.state.errors && addressControls.state.touched
+                 "
+               >
+                 <small class="text-danger" *ngIf="addressControls.state.errors.required"
+                   >State field is required</small
+                 >
+                 <small class="text-danger" *ngIf="addressControls.state.errors.minlength"
+                   >State should contain at least 2 letters</small
+                 >
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="col">
+           <div class="form-group">
+             <div formGroupName="guestAddress">
+               <label>Country</label>
+               <input
+                 type="text"
+                 class="form-control"
+                 formControlName="country"
+               />
+               <div
+                 *ngIf="
+                 addressControls.country.invalid &&
+                 addressControls.country.errors && addressControls.country.touched
+                 "
+               >
+                 <small class="text-danger" *ngIf="addressControls.country.errors.required"
+                   >Country field is required</small
+                 >
+                 <small class="text-danger" *ngIf="addressControls.country.errors.minlength"
+                   >Country should contain at least 2 letters</small
+                 >
+               </div>
+             </div>
+           </div>
+         </div> 
+       </div>
+       <div class="row">
+         <div class="col">
+           <div class="form-group">
+             <div formGroupName="guestAddress">
+               <label>Zipcode</label>
+               <input
+                 type="text"
+                 class="form-control"
+                 formControlName="zipCode"
+               />
+               <div
+                 *ngIf="
+                   addressControls.zipCode.invalid &&
+                   addressControls.zipCode.errors && addressControls.zipCode.touched
+                 "
+               >
+                 <small class="text-danger" *ngIf="addressControls.zipCode.errors.required"
+                   >Zip code field is required</small
+                 >
+                 <small class="text-danger" *ngIf="addressControls.zipCode.errors.minlength"
+                   >Zip code should contain at least 2 letters</small
+                 >
+               </div>
+             </div>
+           </div> 
+         </div> 
+       </div>
+         <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  <div>
+      

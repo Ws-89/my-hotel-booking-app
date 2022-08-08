@@ -2,23 +2,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { AvailabilityInterface } from '../models/interface/availability.interface';
+import { environment } from 'src/environments/environment';
+import { Hotel } from '../models/hotel';
+
 import { AvailabilityRequestInterface } from '../models/interface/availabilityRequest.interface';
+import { AvailabilityResponse } from '../models/interface/availabilityResponse.interface';
+import { HotelInterface } from '../models/interface/hotelInterface.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AvailabilityService {
   private availabilitySearchData = new BehaviorSubject<AvailabilityRequestInterface>(null);
-  private searchResultData = new BehaviorSubject<AvailabilityInterface[]>(null);
-  public share = this.availabilitySearchData.asObservable();
-  public shareResult = this.searchResultData.asObservable();
 
   requestHeader = new HttpHeaders(
     { "No-Auth": "True" }
   );
 
-  baseUrl = "http://localhost:8085/reservations"
+  baseUrl = environment.baseUrl
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,12 +27,8 @@ export class AvailabilityService {
     this.availabilitySearchData.next(searchParameters);
   }
 
-  passAvailabilityResult(searchResult){
-    this.searchResultData.next(searchResult);
-  }
-
-  getAvailableRooms(availabilityRequest: AvailabilityRequestInterface): Observable<AvailabilityInterface[]>{
-      return this.httpClient.post<AvailabilityInterface[]>(`${this.baseUrl}`, availabilityRequest, { headers: this.requestHeader })
+  getAvailableRooms(availabilityRequest: AvailabilityRequestInterface): Observable<AvailabilityResponse>{
+      return this.httpClient.post<AvailabilityResponse>(`${this.baseUrl}/reservations/available-rooms`, availabilityRequest, { headers: this.requestHeader })
   }
 
   

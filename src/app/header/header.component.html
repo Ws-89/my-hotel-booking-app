@@ -1,24 +1,27 @@
-
-
-  <header>
-    <span class="navbar-title">
-      <a class="navbar-brand" routerLink="home">Hotel booking app</a>
-    </span>
-    
-      <nav>
-        <ul class="nav-links">
-          <li *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])">
-            <a routerLink="hotels" routerLinkActive="active" class="nav-link">Hotels</a>
-          </li>
-          <li *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])">
-            <a routerLink="create-hotel" routerLinkActive="active" class="nav-link">Create hotel</a>
-          </li>
-        </ul>
-      </nav>
-    
-    <div class="buttons">
-      <button *ngIf="isLoggedIn() && userService.authoritiesMatch(['ROLE_GUEST'])" class="nav-button" type="submit" routerLink="reservation-page">Finish your reservations</button>
-      <button *ngIf="!isLoggedIn()" class="nav-button" type="submit" routerLink="login" >Login</button>
-      <button *ngIf="isLoggedIn()" class="nav-logout-button" type="submit" (click)="logout()" style="margin-left: 10px">Logout</button>
+<nav class="navbar">
+    <div class="brand-title"><a routerLink="home">Hotel booking app</a></div>
+    <div class="toggle-button" (click)="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
     </div>
-  </header>
+    <div class="navbar-links" [ngClass]="activeMenu == true ? 'active' : ''">
+      <ul>
+        <li *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])">
+          <a routerLink="hotels" routerLinkActive="active" class="nav-link">Hotels</a>
+        </li>
+        <li *ngIf="userService.authoritiesMatch(['ROLE_GUEST'])">
+          <a routerLink="guest" routerLinkActive="active" class="nav-link">Profile</a>
+        </li>
+        <li *ngIf="userService.authoritiesMatch(['ROLE_ADMIN'])">
+          <a routerLink="create-hotel" routerLinkActive="active" class="nav-link">Create hotel</a>
+        </li>
+        <li>
+          <a *ngIf="!isLoggedIn()" type="submit" routerLink="login" class="nav-link">Login</a>
+        </li>
+        <li>
+          <a *ngIf="isLoggedIn()" type="submit" (click)="logout()" class="nav-link">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
