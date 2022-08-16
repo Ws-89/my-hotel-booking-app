@@ -28,7 +28,7 @@ export class ReservationsService {
   
   proceedReservation(reservationRequest: Reservation) {
     return this.httpClient.post
-    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationRequest, { headers: this.requestHeader }).toPromise();
+    (`${this.baseUrl}/${this.reservationUrl}/place-a-booking`, reservationRequest, { headers: this.requestHeader })
   }
 
   proceedReservationForLoggedInUser(reservationRequest: Reservation) {

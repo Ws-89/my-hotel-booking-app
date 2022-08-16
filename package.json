@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --host 0.0.0.0",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider; ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -23,7 +23,6 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
-    "@ngrx/store": "^13.0.2",
     "@stripe/stripe-js": "^1.27.0",
     "@types/uuid": "^8.3.4",
     "angular-gauge": "^4.0.0",
@@ -32,9 +31,7 @@
     "class-transformer": "^0.5.1",
     "crypto-js": "^4.1.1",
     "mat": "^0.1.11",
-    "ng-starrating": "^1.0.20",
     "ngx": "^2.3.0",
-    "ngx-bar-rating": "^4.0.1",
     "pure-uuid": "^1.6.2",
     "rxjs": "~6.6.0",
     "search": "^1.0.0",

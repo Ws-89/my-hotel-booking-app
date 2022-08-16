@@ -53,7 +53,7 @@ export class CompleteTheTransactionComponent implements OnInit {
         this.router.navigate([''])
       )
     } else {
-      this.reservationService.proceedReservation(this.reservationRequest).then(result => 
+      this.reservationService.proceedReservation(this.reservationRequest).subscribe(result => 
         this.router.navigate([''])
       )
     }
